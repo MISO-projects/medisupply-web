@@ -1,5 +1,5 @@
 .navbar-sidebar {
-  width: 280px;
+  width: 250px;
   height: 100vh;
   background-color: #fff;
   border-right: 1px solid var(--mat-sys-outline-variant);
@@ -8,37 +8,41 @@
 }
 
 .nav-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .section-title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--mat-sys-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin: 0 0 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: #414941;
+  letter-spacing: 0.1px;
+  margin: 0 0 0 1.5rem;
   padding: 0.5rem 0;
 }
 
-.nav-list {
-  --mdc-list-list-item-leading-icon-color: var(--mat-sys-on-surface-variant);
-  --mdc-list-list-item-label-text-color: var(--mat-sys-on-surface-variant);
-}
-
 .nav-item {
-  --mdc-list-list-item-hover-label-text-color: var(--mat-sys-primary);
-  --mdc-list-list-item-hover-leading-icon-color: var(--mat-sys-primary);
+  --mdc-list-list-item-hover-label-text-color: #414941;
+  --mdc-list-list-item-hover-leading-icon-color: #414941;
+  width: 235px;
   border-radius: 8px;
   margin: 0 0.5rem;
 }
 
-.nav-item:hover {
-  background-color: var(--mat-sys-secondary-container);
+.nav-item-label {
+  font-size: 14px;
 }
 
-.nav-item.mdc-list-item--activated {
-  background-color: var(--mat-sys-primary-container);
-  --mdc-list-list-item-label-text-color: var(--mat-sys-on-primary-container);
-  --mdc-list-list-item-leading-icon-color: var(--mat-sys-on-primary-container);
+.nav-item:hover,
+.nav-item:focus {
+  background-color: #d2e8d3;
+}
+
+.nav-item:hover::before,
+.mdc-list-item:focus::before {
+  background-color: #d2e8d3;
+}
+
+.section-divider {
+  margin: 0.5rem 1.5rem;
+  border-color: var(--mat-sys-outline-variant);
 }

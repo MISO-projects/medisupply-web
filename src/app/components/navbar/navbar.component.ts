@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 
 interface NavSection {
@@ -17,7 +18,7 @@ interface NavItem {
 @Component({
   selector: 'app-navbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatListModule, MatIconModule, RouterLink],
+  imports: [MatListModule, MatIconModule, MatDividerModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
