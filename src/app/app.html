@@ -1,12 +1,15 @@
 <app-menu></app-menu>
 
-<main class="main">
-  <div class="content">
-    <div class="content-sample">
-      <h1>Medisupply Web</h1>
-      <button mat-flat-button color="primary">Crear</button>
-    </div>
-  </div>
-</main>
+<div class="app-layout">
+  <app-navbar></app-navbar>
 
-<router-outlet />
+  <main class="main-content">
+    <div class="content">
+      <div class="content-sample">
+        <h1>Medisupply Web</h1>
+        <button mat-flat-button color="primary">Crear</button>
+      </div>
+    </div>
+    <router-outlet />
+  </main>
+</div>
