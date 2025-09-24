@@ -1,59 +1,88 @@
-# MedisupplyWeb
+# MediSupply Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Aplicación web desarrollada en Angular, destinada a los equipos administrativos y operativos de MediSupply. Permite gestionar proveedores, productos, inventarios, pedidos y rutas logísticas, así como generar reportes e indicadores para la toma de decisiones.
 
-## Development server
+## Características principales
 
-To start a local development server, run:
+- Gestión de proveedores y productos
+- Control de inventarios
+- Administración de pedidos
+- Planificación de rutas logísticas
+- Generación de reportes e indicadores
+- Interfaz optimizada para equipos administrativos y operativos
+
+## Tecnologías
+
+- Angular 20.3.2
+- TypeScript
+- Componentes standalone
+- Angular Signals para gestión de estado
+
+## Desarrollo
+
+### Requisitos previos
+
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Angular CLI
+
+### Instalación
+
+1. Clonar el repositorio
+2. Instalar dependencias:
+```bash
+npm install
+```
+
+### Servidor de desarrollo
+
+Para iniciar el servidor de desarrollo:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La aplicación estará disponible en `http://localhost:4200/` y se recargará automáticamente al modificar archivos.
 
-## Code scaffolding
+### Build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Para construir el proyecto para producción:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Los archivos generados se guardarán en el directorio `dist/`.
 
-## Running unit tests
+### Testing
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+Ejecutar pruebas unitarias:
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+Ejecutar pruebas end to end:
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Estructura del proyecto
 
-## Additional Resources
+```
+src/
+├── app/
+│   ├── components/    # Componentes reutilizables
+│   ├── pages/         # Páginas de la aplicación
+│   ├── services/      # Servicios y lógica de negocio
+│   ├── models/        # Interfaces y tipos
+│   └── shared/        # Utilidades compartidas
+├── assets/            # Recursos estáticos
+└── environments/      # Configuración de entornos
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Convenciones de desarrollo
+
+- Usar componentes standalone
+- Implementar Angular Signals para manejo de estado
+- Seguir las guías de estilo de Angular
+- Usar TypeScript con tipado estricto
