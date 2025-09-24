@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --primary-color: #2e86c1;
+  --secondary-color: #1b4f72;
+  --text-color: #252525;
+  --text-helper: #757575;
+}
+
 html,
 body {
   height: 100%;
@@ -15,4 +22,21 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background-color: #f5f5f5;
+  color: var(--text-color);
+}
+
+.title {
+  color: var(--primary-color);
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  color: var(--secondary-color);
+  font-size: 20px;
+  font-weight: medium;
+  margin: 0;
+  padding: 0;
 }
