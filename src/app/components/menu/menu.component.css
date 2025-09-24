@@ -1,0 +1,16 @@
+.menu {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+}
+
+.menu-content {
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: auto;
+}

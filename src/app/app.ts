@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgOptimizedImage, MatButtonModule],
+  imports: [RouterOutlet, MatButtonModule, MenuComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
