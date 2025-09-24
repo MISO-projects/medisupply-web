@@ -1,6 +1,6 @@
 .menu {
+  height: 72px;
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
   padding: 1rem 0;
 }
 
@@ -13,4 +13,16 @@
 
 .logo {
   height: auto;
+}
+
+.menu-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-actions-user {
+  font-size: 14px;
+  font-weight: 500;
+  color: #414941;
 }

@@ -27,29 +27,29 @@ export class NavbarComponent {
     {
       title: 'Catálogo',
       items: [
-        { label: 'Proveedores', route: '/proveedores', icon: 'business' },
-        { label: 'Productos', route: '/productos', icon: 'inventory_2' }
+        { label: 'Proveedores', route: '/suppliers', icon: 'business' },
+        { label: 'Productos', route: '/products', icon: 'inventory_2' }
       ]
     },
     {
       title: 'Ventas',
       items: [
-        { label: 'Vendedores', route: '/vendedores', icon: 'person' },
-        { label: 'Planes de venta', route: '/planes', icon: 'sell' }
+        { label: 'Vendedores', route: '/sellers', icon: 'person' },
+        { label: 'Planes de venta', route: '/sales-plans', icon: 'sell' }
       ]
     },
     {
       title: 'Operaciones',
       items: [
-        { label: 'Logística', route: '/logistica', icon: 'local_shipping' },
-        { label: 'Inventario', route: '/inventario', icon: 'warehouse' }
+        { label: 'Logística', route: '/logistics', icon: 'local_shipping' },
+        { label: 'Inventario', route: '/inventory', icon: 'warehouse' }
       ]
     },
     {
       title: 'Monitoreo y alertas',
       items: [
-        { label: 'Reportes', route: '/reportes', icon: 'analytics' },
-        { label: 'Alertas', route: '/alertas', icon: 'notifications' }
+        { label: 'Reportes', route: '/reports', icon: 'analytics' },
+        { label: 'Alertas', route: '/alerts', icon: 'notifications' }
       ]
     }
   ]);
