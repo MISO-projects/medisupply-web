@@ -11,5 +11,5 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('medisupply-web');
+  readonly title = signal('medisupply-web');
 }
