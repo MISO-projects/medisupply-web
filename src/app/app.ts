@@ -8,7 +8,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   selector: 'app-root',
   imports: [RouterOutlet, MatButtonModule, MenuComponent, NavbarComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('medisupply-web');

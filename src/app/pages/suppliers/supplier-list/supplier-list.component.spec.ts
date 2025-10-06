@@ -11,9 +11,8 @@ describe('SupplierListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SupplierListComponent ]
-    })
-    .compileComponents();
+      declarations: [SupplierListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

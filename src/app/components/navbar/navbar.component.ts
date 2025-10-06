@@ -20,7 +20,7 @@ interface NavItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatListModule, MatIconModule, MatDividerModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   protected readonly navSections = signal<NavSection[]>([
@@ -28,29 +28,29 @@ export class NavbarComponent {
       title: 'Catálogo',
       items: [
         { label: 'Proveedores', route: '/suppliers', icon: 'business' },
-        { label: 'Productos', route: '/products', icon: 'inventory_2' }
-      ]
+        { label: 'Productos', route: '/products', icon: 'inventory_2' },
+      ],
     },
     {
       title: 'Ventas',
       items: [
         { label: 'Vendedores', route: '/sellers', icon: 'person' },
-        { label: 'Planes de venta', route: '/sales-plans', icon: 'sell' }
-      ]
+        { label: 'Planes de venta', route: '/sales-plans', icon: 'sell' },
+      ],
     },
     {
       title: 'Operaciones',
       items: [
         { label: 'Logística', route: '/logistics', icon: 'local_shipping' },
-        { label: 'Inventario', route: '/inventory', icon: 'warehouse' }
-      ]
+        { label: 'Inventario', route: '/inventory', icon: 'warehouse' },
+      ],
     },
     {
       title: 'Monitoreo y alertas',
       items: [
         { label: 'Reportes', route: '/reports', icon: 'analytics' },
-        { label: 'Alertas', route: '/alerts', icon: 'notifications' }
-      ]
-    }
+        { label: 'Alertas', route: '/alerts', icon: 'notifications' },
+      ],
+    },
   ]);
 }

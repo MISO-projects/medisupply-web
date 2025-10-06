@@ -7,6 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgOptimizedImage, MatButtonModule],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css'
+  styleUrl: './menu.component.css',
 })
 export class MenuComponent {}
