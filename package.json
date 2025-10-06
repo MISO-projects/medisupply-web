@@ -5,8 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "format": "prettier --write \"src/**/*.{ts,html,css,scss}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss}\""
   },
   "prettier": {
     "printWidth": 100,
