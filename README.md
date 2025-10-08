@@ -22,11 +22,36 @@ Aplicación web desarrollada en Angular, destinada a los equipos administrativos
 
 ### Requisitos previos
 
-- Node.js (versión 18 o superior)
+- Node.js (versión 20 o superior)
 - npm o yarn
 - Angular CLI
 
 ### Instalación
+
+#### Opción 1: Usando Docker (Recomendado)
+
+1. Clonar el repositorio
+2. Asegurarse de tener Docker y Docker Compose instalados
+3. Levantar el ambiente de desarrollo:
+```bash
+docker-compose up
+```
+
+La aplicación estará disponible en `http://localhost:4200/`
+
+**Comandos útiles:**
+```bash
+# Reconstruir después de cambios en dependencias
+docker-compose up --build
+
+# Detener el contenedor
+docker-compose down
+
+# Ver logs
+docker-compose logs -f
+```
+
+#### Opción 2: Instalación tradicional
 
 1. Clonar el repositorio
 2. Instalar dependencias:
@@ -36,20 +61,34 @@ npm install
 
 ### Servidor de desarrollo
 
+#### Sin Docker
+
 Para iniciar el servidor de desarrollo:
 
 ```bash
 ng serve
 ```
 
+#### Con Docker
+
+```bash
+docker-compose up
+```
+
 La aplicación estará disponible en `http://localhost:4200/` y se recargará automáticamente al modificar archivos.
 
 ### Build
 
-Para construir el proyecto para producción:
+#### Build de desarrollo
 
 ```bash
 ng build
+```
+
+#### Build de producción
+
+```bash
+npm run build:prod
 ```
 
 Los archivos generados se guardarán en el directorio `dist/`.
