@@ -1,8 +1,11 @@
-.data-table {
-  width: 100%;
+.table-wrapper {
   border: 1px solid #ccc;
   border-radius: 12px;
   overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
 }
 
 .mat-mdc-table {
@@ -17,4 +20,9 @@
 .data-table .mat-mdc-row,
 .data-table .mat-mdc-cell {
   border-bottom: none;
+}
+
+mat-paginator {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
 }
