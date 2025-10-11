@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Vendor } from '../../../models/vendor.model';
@@ -7,7 +8,7 @@ import { DataTableComponent, TableColumn } from '../../../components/data-table/
 
 @Component({
   selector: 'app-vendor-list',
-  imports: [MatButtonModule, MatIconModule, DataTableComponent],
+  imports: [RouterLink, MatButtonModule, MatIconModule, DataTableComponent],
   templateUrl: './vendor-list.component.html',
   styleUrl: './vendor-list.component.css',
 })
@@ -24,11 +25,11 @@ export class VendorListComponent implements OnInit {
     { key: 'nombre', label: 'Nombre' },
     { key: 'documento_identidad', label: 'Documento de identidad' },
     { key: 'email', label: 'Correo corporativo' },
-    { key: 'zona_asignada', label: 'Zona Asignada' },
-    { key: 'plan_venta', label: 'Plan de Venta' },
+    { key: 'zona_asignada', label: 'Zona asignada' },
+    { key: 'plan_venta', label: 'Plan de venta' },
     {
       key: 'meta_venta',
-      label: 'Meta de Venta',
+      label: 'Meta de ventas',
       format: (value) => new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'

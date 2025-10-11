@@ -36,4 +36,11 @@ export const routes: Routes = [
         (m) => m.VendorListComponent,
       ),
   },
+  {
+    path: 'vendors/create',
+    loadComponent: () =>
+      import('./pages/vendors/vendor-create/vendor-create.component').then(
+        (m) => m.VendorCreateComponent,
+      ),
+  },
 ];

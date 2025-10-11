@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+.mat-mdc-table {
+  background-color: #fff;
+}
+
 .data-table .mat-mdc-header-row,
 .data-table .mat-mdc-header-cell {
   border-bottom: 1px solid #ccc;
