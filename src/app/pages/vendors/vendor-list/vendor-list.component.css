@@ -17,14 +17,26 @@
 
 .vendors-table {
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vendors-table .mat-mdc-header-row,
+.vendors-table .mat-mdc-header-cell {
+  border-bottom: 1px solid #ccc;
+}
+
+.vendors-table .mat-mdc-row,
+.vendors-table .mat-mdc-cell {
+  border-bottom: none;
 }
 
 .loading,
 .error {
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .error {
