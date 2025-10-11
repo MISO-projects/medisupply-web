@@ -1,0 +1,98 @@
+<div class="vendor-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nuevo vendedor</h1>
+    </div>
+    <button mat-flat-button color="primary" type="submit" form="vendorForm" [disabled]="isLoading">
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="vendorForm" class="vendor-form">
+      <!-- Sección: Datos del vendedor -->
+      <div class="form-section">
+        <h2 class="subtitle">Datos del vendedor</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            @if (
+              vendorForm.get('nombre')?.hasError('required') && vendorForm.get('nombre')?.touched
+            ) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Documento de identidad</mat-label>
+            <input matInput formControlName="documento_identidad" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            @if (
+              vendorForm.get('email')?.hasError('required') && vendorForm.get('email')?.touched
+            ) {
+              <mat-error>El email es requerido</mat-error>
+            }
+            @if (vendorForm.get('email')?.hasError('email') && vendorForm.get('email')?.touched) {
+              <mat-error>Email inválido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Sección: Gestión comercial -->
+      <div class="form-section">
+        <h2 class="subtitle">Gestión comercial</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Zona Asignada</mat-label>
+            <mat-select formControlName="zona_asignada">
+              @for (zona of zonas; track zona) {
+                <mat-option [value]="zona">{{ zona }}</mat-option>
+              }
+            </mat-select>
+            @if (
+              vendorForm.get('zona_asignada')?.hasError('required') &&
+              vendorForm.get('zona_asignada')?.touched
+            ) {
+              <mat-error>La zona es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Plan de Venta</mat-label>
+            <mat-select formControlName="plan_venta">
+              @for (plan of planes; track plan) {
+                <mat-option [value]="plan">{{ plan }}</mat-option>
+              }
+            </mat-select>
+            @if (
+              vendorForm.get('plan_venta')?.hasError('required') &&
+              vendorForm.get('plan_venta')?.touched
+            ) {
+              <mat-error>El plan es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Meta de Venta</mat-label>
+            <input matInput type="number" formControlName="meta_venta" />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
