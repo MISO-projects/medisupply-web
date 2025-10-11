@@ -1,7 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { SupplierService, CreateSupplierSchema, UpdateSupplierSchema, ListSuppliersParams } from './suppliers.service';
-import { Supplier, PaisEnum, TipoProveedorEnum, ListSuppliersResponse } from '../models/supplier.model';
+import {
+  SupplierService,
+  CreateSupplierSchema,
+  UpdateSupplierSchema,
+  ListSuppliersParams,
+} from './suppliers.service';
+import {
+  Supplier,
+  PaisEnum,
+  TipoProveedorEnum,
+  ListSuppliersResponse,
+} from '../models/supplier.model';
 import { environment } from '../../environments/environment';
 
 describe('SupplierService', () => {
@@ -258,7 +268,7 @@ describe('SupplierService', () => {
       });
 
       const req = httpMock.expectOne(
-        `${apiUrl}/proveedores/?pais=Ecuador&tipo_proveedor=Importador&page=1&page_size=20`
+        `${apiUrl}/proveedores/?pais=Ecuador&tipo_proveedor=Importador&page=1&page_size=20`,
       );
       expect(req.request.method).toBe('GET');
       req.flush(mockResponse);
@@ -385,4 +395,3 @@ describe('SupplierService', () => {
     });
   });
 });
-

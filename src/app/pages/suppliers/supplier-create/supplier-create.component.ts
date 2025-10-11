@@ -1,5 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -61,7 +68,9 @@ export class SupplierCreateComponent implements OnInit {
 
       case 'México':
         if (!/^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/.test(idTrib.toUpperCase())) {
-          return { idTributarioInvalid: 'RFC debe tener formato válido (12-13 caracteres alfanuméricos)' };
+          return {
+            idTributarioInvalid: 'RFC debe tener formato válido (12-13 caracteres alfanuméricos)',
+          };
         }
         break;
 

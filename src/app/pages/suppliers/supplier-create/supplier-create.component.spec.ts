@@ -246,9 +246,7 @@ describe('SupplierCreateComponent', () => {
 
   describe('Form Submission', () => {
     it('should create supplier successfully', () => {
-      supplierService.createSupplier.and.returnValue(
-        of({ message: 'Success', data: {} as any })
-      );
+      supplierService.createSupplier.and.returnValue(of({ message: 'Success', data: {} as any }));
 
       component.supplierForm.patchValue({
         nombre: 'Test Supplier',
@@ -280,9 +278,7 @@ describe('SupplierCreateComponent', () => {
     });
 
     it('should normalize RFC to uppercase for México', () => {
-      supplierService.createSupplier.and.returnValue(
-        of({ message: 'Success', data: {} as any })
-      );
+      supplierService.createSupplier.and.returnValue(of({ message: 'Success', data: {} as any }));
 
       component.supplierForm.patchValue({
         nombre: 'Test Supplier',
@@ -297,14 +293,12 @@ describe('SupplierCreateComponent', () => {
       expect(supplierService.createSupplier).toHaveBeenCalledWith(
         jasmine.objectContaining({
           id_tributario: 'ABC123456XYZ',
-        })
+        }),
       );
     });
 
     it('should not normalize id_tributario for other countries', () => {
-      supplierService.createSupplier.and.returnValue(
-        of({ message: 'Success', data: {} as any })
-      );
+      supplierService.createSupplier.and.returnValue(of({ message: 'Success', data: {} as any }));
 
       component.supplierForm.patchValue({
         nombre: 'Test Supplier',
@@ -319,7 +313,7 @@ describe('SupplierCreateComponent', () => {
       expect(supplierService.createSupplier).toHaveBeenCalledWith(
         jasmine.objectContaining({
           id_tributario: '123456789',
-        })
+        }),
       );
     });
 
@@ -341,7 +335,7 @@ describe('SupplierCreateComponent', () => {
         jasmine.any(Function),
         jasmine.objectContaining({
           data: { message: 'Server error' },
-        })
+        }),
       );
       expect(router.navigate).toHaveBeenCalledWith(['/suppliers']);
     });
@@ -363,14 +357,12 @@ describe('SupplierCreateComponent', () => {
         jasmine.any(Function),
         jasmine.objectContaining({
           data: { message: 'Error al crear el proveedor. Por favor, intenta de nuevo.' },
-        })
+        }),
       );
     });
 
     it('should set isLoading to true when submitting', () => {
-      supplierService.createSupplier.and.returnValue(
-        of({ message: 'Success', data: {} as any })
-      );
+      supplierService.createSupplier.and.returnValue(of({ message: 'Success', data: {} as any }));
 
       component.supplierForm.patchValue({
         nombre: 'Test Supplier',
@@ -422,9 +414,7 @@ describe('SupplierCreateComponent', () => {
 
   describe('Optional Fields', () => {
     it('should allow submission without optional fields', () => {
-      supplierService.createSupplier.and.returnValue(
-        of({ message: 'Success', data: {} as any })
-      );
+      supplierService.createSupplier.and.returnValue(of({ message: 'Success', data: {} as any }));
 
       component.supplierForm.patchValue({
         nombre: 'Test Supplier',
@@ -441,4 +431,3 @@ describe('SupplierCreateComponent', () => {
     });
   });
 });
-
