@@ -3,7 +3,7 @@ export enum PaisEnum {
   COLOMBIA = 'Colombia',
   PERU = 'Perú',
   ECUADOR = 'Ecuador',
-  MEXICO = 'México'
+  MEXICO = 'México',
 }
 
 export enum TipoProveedorEnum {
@@ -11,7 +11,7 @@ export enum TipoProveedorEnum {
   DISTRIBUIDOR = 'Distribuidor',
   MAYORISTA = 'Mayorista',
   IMPORTADOR = 'Importador',
-  MINORISTA = 'Minorista'
+  MINORISTA = 'Minorista',
 }
 
 export interface Supplier {
@@ -24,7 +24,6 @@ export interface Supplier {
   contacto?: string;
   condiciones_entrega?: string;
 }
-
 
 export interface ListSuppliersResponse {
   data: Supplier[];

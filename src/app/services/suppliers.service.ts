@@ -87,9 +87,11 @@ export class SupplierService {
       }
     }
 
-    return this.http.get<ListSuppliersResponse>(`${this.baseUrl}/proveedores/`, {
-      params: httpParams,
-    }).pipe(map((response) => response.data));
+    return this.http
+      .get<ListSuppliersResponse>(`${this.baseUrl}/proveedores/`, {
+        params: httpParams,
+      })
+      .pipe(map((response) => response.data));
   }
 
   getSupplier(proveedorId: string): Observable<Supplier> {
@@ -107,9 +109,7 @@ export class SupplierService {
   }
 
   deleteSupplier(supplierId: string): Observable<DeleteSupplierResponse> {
-    return this.http.delete<DeleteSupplierResponse>(
-      `${this.baseUrl}/proveedores/${supplierId}`,
-    );
+    return this.http.delete<DeleteSupplierResponse>(`${this.baseUrl}/proveedores/${supplierId}`);
   }
 
   healthCheck(): Observable<any> {
