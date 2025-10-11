@@ -30,7 +30,7 @@ export class VendorCreateComponent {
   error: string | null = null;
 
   // Opciones para los selects
-  zonas = ['Perú', 'Colombia', 'Chile', 'Argentina', 'México'];
+  zonas = ['Perú', 'Colombia', 'Ecuador', 'México'];
   planes = ['plan-123', 'plan-456', 'plan-789'];
 
   vendorForm: FormGroup = this.fb.group({
@@ -39,7 +39,7 @@ export class VendorCreateComponent {
     email: ['', [Validators.required, Validators.email]],
     zona_asignada: ['', [Validators.required]],
     plan_venta: ['', [Validators.required]],
-    meta_venta: [''],
+    meta_venta: [0, [Validators.min(0)]],
   });
 
   onSubmit(): void {
