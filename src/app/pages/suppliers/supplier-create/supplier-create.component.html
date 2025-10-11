@@ -1,0 +1,116 @@
+<div class="vendor-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nuevo proveedor</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      form="supplierForm"
+      [disabled]="isLoading"
+    >
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form
+      [formGroup]="supplierForm"
+      (ngSubmit)="onSubmit()"
+      id="supplierForm"
+      class="supplier-form"
+    >
+      <!-- Sección: Datos del proveedor -->
+      <div class="form-section">
+        <h2 class="subtitle">Datos del proveedor</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            @if (
+              supplierForm.get('nombre')?.hasError('required') &&
+              supplierForm.get('nombre')?.touched
+            ) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>ID tributario</mat-label>
+            <input matInput formControlName="id_tributario" />
+            @if (supplierForm.get('pais')?.value === 'Perú') {
+              <mat-hint>RUC: 11 dígitos</mat-hint>
+            } @else if (supplierForm.get('pais')?.value === 'Colombia') {
+              <mat-hint>NIT: 9-10 dígitos</mat-hint>
+            } @else if (supplierForm.get('pais')?.value === 'México') {
+              <mat-hint>RFC: 12-13 caracteres</mat-hint>
+            } @else if (supplierForm.get('pais')?.value === 'Ecuador') {
+              <mat-hint>RUC: 13 dígitos</mat-hint>
+            } @else {
+              <mat-hint>RUC, NIT, RFC...</mat-hint>
+            }
+            @if (
+              supplierForm.get('id_tributario')?.hasError('idTributarioInvalid') &&
+              supplierForm.get('id_tributario')?.touched
+            ) {
+              <mat-error>{{
+                supplierForm.get('id_tributario')?.errors?.['idTributarioInvalid']
+              }}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Tipo de proveedor</mat-label>
+            <mat-select formControlName="tipo_proveedor">
+              @for (tipo_proveedor of tipos_proveedores; track tipo_proveedor) {
+                <mat-option [value]="tipo_proveedor">{{ tipo_proveedor }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            @if (
+              supplierForm.get('email')?.hasError('required') && supplierForm.get('email')?.touched
+            ) {
+              <mat-error>El email es requerido</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Contacto</mat-label>
+            <input matInput formControlName="contacto" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Pais</mat-label>
+            <mat-select formControlName="pais">
+              @for (pais of paises; track pais) {
+                <mat-option [value]="pais">{{ pais }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <h2 class="subtitle">Información comercial</h2>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-textarea">
+              <mat-label>Condiciones de entrega</mat-label>
+              <textarea matInput formControlName="condiciones_entrega"></textarea>
+              <mat-hint>Ej: Entrega en 5 días hábiles, cobertura nacional</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
