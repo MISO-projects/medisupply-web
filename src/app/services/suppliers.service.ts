@@ -7,6 +7,7 @@ import {
   TipoProveedorEnum,
   ListSuppliersResponse,
 } from '../models/supplier.model';
+import { environment } from '../../environments/environment';
 
 export interface CreateSupplierSchema {
   nombre: string;
@@ -61,12 +62,12 @@ export interface HTTPValidationError {
   providedIn: 'root',
 })
 export class SupplierService {
-  private readonly baseUrl = 'http://localhost:3013';
+  private readonly apiUrl = environment.bffApiUrl;
 
   constructor(private http: HttpClient) {}
 
   createSupplier(proveedor: CreateSupplierSchema): Observable<CreateSupplierResponse> {
-    return this.http.post<CreateSupplierResponse>(`${this.baseUrl}/proveedores`, proveedor);
+    return this.http.post<CreateSupplierResponse>(`${this.apiUrl}/proveedores`, proveedor);
   }
 
   listSuppliers(params?: ListSuppliersParams): Observable<Supplier[]> {
@@ -88,14 +89,14 @@ export class SupplierService {
     }
 
     return this.http
-      .get<ListSuppliersResponse>(`${this.baseUrl}/proveedores/`, {
+      .get<ListSuppliersResponse>(`${this.apiUrl}/proveedores/`, {
         params: httpParams,
       })
       .pipe(map((response) => response.data));
   }
 
   getSupplier(proveedorId: string): Observable<Supplier> {
-    return this.http.get<Supplier>(`${this.baseUrl}/proveedores/${proveedorId}`);
+    return this.http.get<Supplier>(`${this.apiUrl}/proveedores/${proveedorId}`);
   }
 
   updateSupplier(
@@ -103,16 +104,16 @@ export class SupplierService {
     proveedor: UpdateSupplierSchema,
   ): Observable<UpdateSupplierResponse> {
     return this.http.put<UpdateSupplierResponse>(
-      `${this.baseUrl}/proveedores/${proveedorId}`,
+      `${this.apiUrl}/proveedores/${proveedorId}`,
       proveedor,
     );
   }
 
   deleteSupplier(supplierId: string): Observable<DeleteSupplierResponse> {
-    return this.http.delete<DeleteSupplierResponse>(`${this.baseUrl}/proveedores/${supplierId}`);
+    return this.http.delete<DeleteSupplierResponse>(`${this.apiUrl}/proveedores/${supplierId}`);
   }
 
   healthCheck(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/health`);
+    return this.http.get(`${this.apiUrl}/health`);
   }
 }

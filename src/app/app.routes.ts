@@ -27,6 +27,13 @@ export const routes: Routes = [
         (m) => m.SupplierListComponent,
       ),
   },
+  {
+    path: 'suppliers/create',
+    loadComponent: () =>
+      import('./pages/suppliers/supplier-create/supplier-create.component').then(
+        (m) => m.SupplierCreateComponent,
+      ),
+  },
 
   // Vendors routes
   {
