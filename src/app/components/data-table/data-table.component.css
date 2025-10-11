@@ -1,0 +1,16 @@
+.data-table {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.data-table .mat-mdc-header-row,
+.data-table .mat-mdc-header-cell {
+  border-bottom: 1px solid #ccc;
+}
+
+.data-table .mat-mdc-row,
+.data-table .mat-mdc-cell {
+  border-bottom: none;
+}
