@@ -1,0 +1,24 @@
+<div class="vendor-list-container">
+  <div class="header">
+    <h1 class="title">Vendedores</h1>
+    <button mat-flat-button color="primary" routerLink="/vendors/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  <!-- Estado de carga -->
+  @if (isLoading) {
+    <div class="loading">Cargando vendedores...</div>
+  }
+
+  <!-- Mensaje de error -->
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  <!-- Tabla de vendedores reutilizable -->
+  @if (!isLoading && !error) {
+    <app-data-table [data]="vendedores" [columns]="columns" />
+  }
+</div>
