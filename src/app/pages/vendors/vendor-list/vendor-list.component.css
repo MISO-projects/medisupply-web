@@ -5,23 +5,6 @@
   margin-bottom: 2rem;
 }
 
-.vendors-table {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.vendors-table .mat-mdc-header-row,
-.vendors-table .mat-mdc-header-cell {
-  border-bottom: 1px solid #ccc;
-}
-
-.vendors-table .mat-mdc-row,
-.vendors-table .mat-mdc-cell {
-  border-bottom: none;
-}
-
 .loading,
 .error {
   padding: 1.5rem;

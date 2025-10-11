@@ -1,14 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Vendor } from '../../../models/vendor.model';
 import { VendorService } from '../../../services/vendor.service';
+import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-vendor-list',
-  imports: [MatTableModule, MatButtonModule, MatIconModule, CurrencyPipe],
+  imports: [MatButtonModule, MatIconModule, DataTableComponent],
   templateUrl: './vendor-list.component.html',
   styleUrl: './vendor-list.component.css',
 })
@@ -20,14 +19,21 @@ export class VendorListComponent implements OnInit {
   isLoading = false;
   error: string | null = null;
 
-  // Columnas que se mostrarán en la tabla
-  displayedColumns = [
-    'nombre',
-    'documento_identidad',
-    'email',
-    'zona_asignada',
-    'plan_venta',
-    'meta_venta',
+  // Definición de columnas para la tabla reutilizable
+  columns: TableColumn[] = [
+    { key: 'nombre', label: 'Nombre' },
+    { key: 'documento_identidad', label: 'Documento de identidad' },
+    { key: 'email', label: 'Correo corporativo' },
+    { key: 'zona_asignada', label: 'Zona Asignada' },
+    { key: 'plan_venta', label: 'Plan de Venta' },
+    {
+      key: 'meta_venta',
+      label: 'Meta de Venta',
+      format: (value) => new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(value)
+    },
   ];
 
   ngOnInit(): void {
