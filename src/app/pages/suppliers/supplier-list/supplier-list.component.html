@@ -1,9 +1,22 @@
-<app-list-items
-  [config]="listConfig"
-  [data]="suppliers"
-  [loading]="loading"
-  (createClick)="onCreateSupplier()"
-  (uploadClick)="onUploadSuppliers()"
-  (actionClick)="onSupplierAction($event)"
-  (sortClick)="onSortSuppliers($event)">
-</app-list-items>
+<div class="supplier-list-container">
+  <div class="header">
+    <h1 class="title">Proveedores</h1>
+    <button mat-flat-button color="primary" routerLink="/suppliers/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando proveedores...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="suppliers" [columns]="columns" />
+  }
+</div>
+

@@ -1,25 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import {
+  PaisEnum,
+  Supplier,
+  TipoProveedorEnum,
+  ListSuppliersResponse,
+} from '../models/supplier.model';
 
-// Enums
-export enum PaisEnum {
-  COLOMBIA = 'Colombia',
-  PERU = 'Perú',
-  ECUADOR = 'Ecuador',
-  MEXICO = 'México'
-}
-
-export enum TipoProveedorEnum {
-  FABRICANTE = 'Fabricante',
-  DISTRIBUIDOR = 'Distribuidor',
-  MAYORISTA = 'Mayorista',
-  IMPORTADOR = 'Importador',
-  MINORISTA = 'Minorista'
-}
-
-// Interfaces
-export interface CrearProveedorSchema {
+export interface CreateSupplierSchema {
   nombre: string;
   id_tributario: string;
   tipo_proveedor: TipoProveedorEnum;
@@ -29,7 +18,7 @@ export interface CrearProveedorSchema {
   condiciones_entrega?: string | null;
 }
 
-export interface ActualizarProveedorSchema {
+export interface UpdateSupplierSchema {
   nombre?: string | null;
   tipo_proveedor?: TipoProveedorEnum | null;
   email?: string | null;
@@ -37,42 +26,24 @@ export interface ActualizarProveedorSchema {
   condiciones_entrega?: string | null;
 }
 
-export interface Proveedor {
-  id: string;
-  nombre: string;
-  id_tributario: string;
-  tipo_proveedor: TipoProveedorEnum;
-  email: string;
-  pais: PaisEnum;
-  contacto?: string;
-  condiciones_entrega?: string;
-}
-
-export interface ListarProveedoresParams {
+export interface ListSuppliersParams {
   pais?: PaisEnum | null;
   tipo_proveedor?: TipoProveedorEnum | null;
   page?: number;
   page_size?: number;
 }
 
-export interface ListarProveedoresResponse {
-  data: Proveedor[];
-  total: number;
-  page: number;
-  page_size: number;
-}
-
-export interface CrearProveedorResponse {
+export interface CreateSupplierResponse {
   message: string;
-  data: Proveedor;
+  data: Supplier;
 }
 
-export interface ActualizarProveedorResponse {
+export interface UpdateSupplierResponse {
   message: string;
-  data: Proveedor;
+  data: Supplier;
 }
 
-export interface EliminarProveedorResponse {
+export interface DeleteSupplierResponse {
   message: string;
 }
 
@@ -87,26 +58,20 @@ export interface HTTPValidationError {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class SuppliersService {
+export class SupplierService {
   private readonly baseUrl = 'http://localhost:3013';
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Crear nuevo proveedor
-   */
-  crearProveedor(proveedor: CrearProveedorSchema): Observable<CrearProveedorResponse> {
-    return this.http.post<CrearProveedorResponse>(`${this.baseUrl}/proveedores/`, proveedor);
+  createSupplier(proveedor: CreateSupplierSchema): Observable<CreateSupplierResponse> {
+    return this.http.post<CreateSupplierResponse>(`${this.baseUrl}/proveedores`, proveedor);
   }
 
-  /**
-   * Listar proveedores con filtros opcionales y paginación
-   */
-  listarProveedores(params?: ListarProveedoresParams): Observable<ListarProveedoresResponse> {
+  listSuppliers(params?: ListSuppliersParams): Observable<Supplier[]> {
     let httpParams = new HttpParams();
-    
+
     if (params) {
       if (params.pais !== undefined && params.pais !== null) {
         httpParams = httpParams.set('pais', params.pais);
@@ -122,33 +87,31 @@ export class SuppliersService {
       }
     }
 
-    return this.http.get<ListarProveedoresResponse>(`${this.baseUrl}/proveedores/`, { params: httpParams });
+    return this.http.get<ListSuppliersResponse>(`${this.baseUrl}/proveedores/`, {
+      params: httpParams,
+    }).pipe(map((response) => response.data));
   }
 
-  /**
-   * Obtener proveedor por ID
-   */
-  obtenerProveedor(proveedorId: string): Observable<Proveedor> {
-    return this.http.get<Proveedor>(`${this.baseUrl}/proveedores/${proveedorId}`);
+  getSupplier(proveedorId: string): Observable<Supplier> {
+    return this.http.get<Supplier>(`${this.baseUrl}/proveedores/${proveedorId}`);
   }
 
-  /**
-   * Actualizar proveedor
-   */
-  actualizarProveedor(proveedorId: string, proveedor: ActualizarProveedorSchema): Observable<ActualizarProveedorResponse> {
-    return this.http.put<ActualizarProveedorResponse>(`${this.baseUrl}/proveedores/${proveedorId}`, proveedor);
+  updateSupplier(
+    proveedorId: string,
+    proveedor: UpdateSupplierSchema,
+  ): Observable<UpdateSupplierResponse> {
+    return this.http.put<UpdateSupplierResponse>(
+      `${this.baseUrl}/proveedores/${proveedorId}`,
+      proveedor,
+    );
   }
 
-  /**
-   * Eliminar proveedor
-   */
-  eliminarProveedor(proveedorId: string): Observable<EliminarProveedorResponse> {
-    return this.http.delete<EliminarProveedorResponse>(`${this.baseUrl}/proveedores/${proveedorId}`);
+  deleteSupplier(supplierId: string): Observable<DeleteSupplierResponse> {
+    return this.http.delete<DeleteSupplierResponse>(
+      `${this.baseUrl}/proveedores/${supplierId}`,
+    );
   }
 
-  /**
-   * Health check
-   */
   healthCheck(): Observable<any> {
     return this.http.get(`${this.baseUrl}/health`);
   }
