@@ -13,9 +13,7 @@ export class VendorService {
   private apiUrl = environment.vendorApiUrl;
 
   getVendors(): Observable<Vendor[]> {
-    return this.http.get<VendorResponse>(this.apiUrl).pipe(
-      map(response => response.data)
-    );
+    return this.http.get<VendorResponse>(this.apiUrl).pipe(map((response) => response.data));
   }
 
   getVendor(id: string): Observable<Vendor> {

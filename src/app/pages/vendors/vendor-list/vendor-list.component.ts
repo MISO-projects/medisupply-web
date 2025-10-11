@@ -4,7 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Vendor } from '../../../models/vendor.model';
 import { VendorService } from '../../../services/vendor.service';
-import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
+import {
+  DataTableComponent,
+  TableColumn,
+} from '../../../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-vendor-list',
@@ -30,10 +33,11 @@ export class VendorListComponent implements OnInit {
     {
       key: 'meta_venta',
       label: 'Meta de ventas',
-      format: (value) => new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(value)
+      format: (value) =>
+        new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(value),
     },
   ];
 

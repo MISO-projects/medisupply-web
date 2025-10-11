@@ -17,15 +17,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-        No hay datos disponibles
-      </td>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">No hay datos disponibles</td>
     </tr>
   </table>
 
-  <mat-paginator
-    [pageSizeOptions]="[12, 24, 36]"
-    [pageSize]="12"
-    showFirstLastButtons>
+  <mat-paginator [pageSizeOptions]="[12, 24, 36]" [pageSize]="12" showFirstLastButtons>
   </mat-paginator>
 </div>
