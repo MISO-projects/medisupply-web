@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Vendor, VendorResponse } from '../models/vendor.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VendorService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3009/vendedores';
+  private apiUrl = environment.vendorApiUrl;
 
   getVendors(): Observable<Vendor[]> {
     return this.http.get<VendorResponse>(this.apiUrl).pipe(
