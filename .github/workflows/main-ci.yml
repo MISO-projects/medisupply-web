@@ -46,8 +46,50 @@ jobs:
           git diff --staged --quiet || git commit -m "style: auto-fix formatting [skip ci]"
           git push
 
-      - name: Run tests
-        run: npm run test:ci
+      - name: Run tests with coverage
+        run: npm run test:ci -- --code-coverage
+
+      - name: Validate coverage threshold (30% minimum)
+        run: |
+          echo "Validating test coverage..."
+
+          # Extraer porcentajes del archivo de resumen
+          STATEMENTS=$(node -p "require('./coverage/medisupply-web/coverage-summary.json').total.statements.pct")
+          FUNCTIONS=$(node -p "require('./coverage/medisupply-web/coverage-summary.json').total.functions.pct")
+          LINES=$(node -p "require('./coverage/medisupply-web/coverage-summary.json').total.lines.pct")
+
+          echo "📊 Coverage Results:"
+          echo "   Statements: ${STATEMENTS}%"
+          echo "   Functions: ${FUNCTIONS}%"
+          echo "   Lines: ${LINES}%"
+
+          # Umbral mínimo requerido
+          THRESHOLD=30
+          FAILED=0
+
+          if (( $(echo "$STATEMENTS < $THRESHOLD" | bc -l) )); then
+            echo "❌ Statements coverage is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if (( $(echo "$FUNCTIONS < $THRESHOLD" | bc -l) )); then
+            echo "❌ Functions coverage is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if (( $(echo "$LINES < $THRESHOLD" | bc -l) )); then
+            echo "❌ Lines coverage is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if [ $FAILED -eq 1 ]; then
+            echo ""
+            echo "🚫 Coverage check failed! Minimum required: ${THRESHOLD}%"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Coverage threshold met!"
 
       - name: Build project
         run: npm run build:prod
