@@ -15,10 +15,6 @@
     </button>
   </div>
 
-  @if (error) {
-    <div class="error">{{ error }}</div>
-  }
-
   <div class="form-container">
     <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="vendorForm" class="vendor-form">
       <!-- Sección: Datos del vendedor -->

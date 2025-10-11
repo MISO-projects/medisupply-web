@@ -6,7 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { VendorService } from '../../../services/vendor.service';
+import { CustomSnackbarComponent } from '../../../components/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-vendor-create',
@@ -25,9 +27,9 @@ export class VendorCreateComponent {
   private fb = inject(FormBuilder);
   private vendorService = inject(VendorService);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   isLoading = false;
-  error: string | null = null;
 
   // Opciones para los selects
   zonas = ['Perú', 'Colombia', 'Ecuador', 'México'];
@@ -49,16 +51,27 @@ export class VendorCreateComponent {
     }
 
     this.isLoading = true;
-    this.error = null;
 
     this.vendorService.createVendor(this.vendorForm.value).subscribe({
       next: () => {
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: { message: 'Vendedor creado exitosamente' },
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+        });
         this.router.navigate(['/vendors']);
       },
       error: (err) => {
         console.error('Error al crear vendedor:', err);
-        this.error = 'Error al crear el vendedor. Por favor, intenta de nuevo.';
-        this.isLoading = false;
+        const errorMessage = err.error?.detail || 'Error al crear el vendedor. Por favor, intenta de nuevo.';
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: { message: errorMessage },
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+        });
+        this.router.navigate(['/vendors']);
       },
     });
   }
