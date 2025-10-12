@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 describe('VendorService', () => {
   let service: VendorService;
   let httpMock: HttpTestingController;
-  const apiUrl = environment.vendorApiUrl;
+  const apiUrl = environment.bffApiUrl;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,7 +45,7 @@ describe('VendorService', () => {
       expect(vendor.id).toBe('3');
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(`${apiUrl}/ventas/vendedores`);
     expect(req.request.method).toBe('POST');
     req.flush(createdVendor);
   });
