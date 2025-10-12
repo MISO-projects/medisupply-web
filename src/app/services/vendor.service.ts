@@ -10,21 +10,23 @@ import { environment } from '../../environments/environment';
 })
 export class VendorService {
   private http = inject(HttpClient);
-  private apiUrl = environment.vendorApiUrl;
+  private apiUrl = environment.bffApiUrl;
 
   getVendors(): Observable<Vendor[]> {
-    return this.http.get<VendorResponse>(this.apiUrl).pipe(map((response) => response.data));
+    return this.http
+      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores`)
+      .pipe(map((response) => response.data));
   }
 
   getVendor(id: string): Observable<Vendor> {
-    return this.http.get<Vendor>(`${this.apiUrl}/${id}`);
+    return this.http.get<Vendor>(`${this.apiUrl}/ventas/vendedores/${id}`);
   }
 
   createVendor(vendor: Vendor): Observable<Vendor> {
-    return this.http.post<Vendor>(this.apiUrl, vendor);
+    return this.http.post<Vendor>(`${this.apiUrl}/ventas/vendedores`, vendor);
   }
 
   updateVendor(id: string, vendor: Vendor): Observable<Vendor> {
-    return this.http.put<Vendor>(`${this.apiUrl}/${id}`, vendor);
+    return this.http.put<Vendor>(`${this.apiUrl}/ventas/vendedores/${id}`, vendor);
   }
 }
