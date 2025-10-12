@@ -13,7 +13,9 @@ export class VendorService {
   private apiUrl = environment.bffApiUrl;
 
   getVendors(): Observable<Vendor[]> {
-    return this.http.get<VendorResponse>(`${this.apiUrl}/ventas/vendedores`).pipe(map((response) => response.data));
+    return this.http
+      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores`)
+      .pipe(map((response) => response.data));
   }
 
   getVendor(id: string): Observable<Vendor> {
