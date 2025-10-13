@@ -65,7 +65,7 @@ export class VendorCreateComponent {
       error: (err) => {
         console.error('Error al crear vendedor:', err);
         const errorMessage =
-          err.error?.detail || 'Error al crear el vendedor. Por favor, intenta de nuevo.';
+          err.error?.detail?.detail || 'Error al crear el vendedor. Por favor, intenta de nuevo.';
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           data: { message: errorMessage },
           duration: 5000,
