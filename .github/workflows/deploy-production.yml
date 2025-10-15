@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch: # Allow manual triggering
 
 env:
   # GCP_PROJECT_ID: medisupply-474421
-  # GCS_BUCKET: medisupply-web-frontend
+  GCS_BUCKET: medisupply-web-frontend
   NODE_VERSION: '20'
 
 jobs:
