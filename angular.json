@@ -37,6 +37,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/medisupply-web-frontend/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -103,5 +104,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
