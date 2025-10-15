@@ -1,0 +1,129 @@
+name: Deploy to GCP Cloud Storage
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+env:
+  # GCP_PROJECT_ID: medisupply-474421
+  # GCS_BUCKET: medisupply-web-frontend
+  NODE_VERSION: '20'
+
+jobs:
+  deploy:
+    name: Build and Deploy to Cloud Storage
+    runs-on: ubuntu-latest
+    
+    # Only deploy after CI passes
+    needs: []
+    
+    permissions:
+      contents: read
+      id-token: write # Required for GCP Workload Identity
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app for production
+        run: npm run build:prod
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Storage
+        run: |
+          echo "🚀 Deploying to gs://${{ env.GCS_BUCKET }}/"
+          
+          # Sync files to bucket (delete removed files)
+          gsutil -m rsync -r -c -d \
+            dist/medisupply-web/browser/ \
+            gs://${{ env.GCS_BUCKET }}/
+          
+          echo "✅ Files uploaded successfully"
+
+      - name: Set optimal cache headers
+        run: |
+          echo "⚙️ Setting cache headers for optimal performance..."
+          
+          # Long cache for hashed assets (1 year)
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.js" || true
+          
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.css" || true
+          
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.woff*" || true
+          
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.png" || true
+          
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.jpg" || true
+          
+          gsutil -m setmeta \
+            -h "Cache-Control:public, max-age=31536000, immutable" \
+            -r "gs://${{ env.GCS_BUCKET }}/*.svg" || true
+          
+          # No cache for index.html (always fresh)
+          gsutil setmeta \
+            -h "Cache-Control:no-cache, no-store, must-revalidate" \
+            "gs://${{ env.GCS_BUCKET }}/index.html"
+          
+          echo "✅ Cache headers configured"
+
+      - name: Verify deployment
+        run: |
+          echo "🔍 Verifying deployment..."
+          
+          # Check if index.html exists
+          if gsutil ls "gs://${{ env.GCS_BUCKET }}/index.html" > /dev/null 2>&1; then
+            echo "✅ index.html found"
+          else
+            echo "❌ index.html not found!"
+            exit 1
+          fi
+          
+          # List all files
+          echo ""
+          echo "📦 Deployed files:"
+          gsutil ls -lh "gs://${{ env.GCS_BUCKET }}/" | head -20
+          
+          echo ""
+          echo "🎉 Deployment completed successfully!"
+          echo "🌐 Access your app at: https://storage.googleapis.com/${{ env.GCS_BUCKET }}/index.html"
+
+      - name: Deployment summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Status**: Deployed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Bucket**: \`gs://${{ env.GCS_BUCKET }}/\`" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **URL**: https://storage.googleapis.com/${{ env.GCS_BUCKET }}/index.html" >> $GITHUB_STEP_SUMMARY
+          echo "🕐 **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "📝 **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
