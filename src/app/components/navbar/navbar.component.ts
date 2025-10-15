@@ -34,7 +34,7 @@ export class NavbarComponent {
     {
       title: 'Ventas',
       items: [
-        { label: 'Vendedores', route: '/sellers', icon: 'person' },
+        { label: 'Vendedores', route: '/vendors', icon: 'person' },
         { label: 'Planes de venta', route: '/sales-plans', icon: 'sell' },
       ],
     },

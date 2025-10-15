@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,11 +43,62 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --staged --quiet || git commit -m "style: auto-fix formatting [skip ci]"
+          git diff --staged --quiet || git commit -m "style: auto-fix formatting"
           git push
 
-      - name: Run tests
-        run: npm run test:ci
+      - name: Run tests with coverage
+        id: tests
+        run: |
+          npm run test:ci -- --code-coverage > test-output.txt 2>&1 || true
+          cat test-output.txt
+
+      - name: Validate coverage threshold (30% minimum)
+        run: |
+          echo "📊 Validating test coverage threshold..."
+
+          # Extraer porcentajes del output de los tests
+          STATEMENTS=$(grep "Statements" test-output.txt | awk '{print $3}' | tr -d '%')
+          FUNCTIONS=$(grep "Functions" test-output.txt | awk '{print $3}' | tr -d '%')
+          LINES=$(grep "Lines" test-output.txt | awk '{print $3}' | tr -d '%')
+
+          echo ""
+          echo "Coverage Results:"
+          echo "  Statements: ${STATEMENTS}%"
+          echo "  Functions: ${FUNCTIONS}%"
+          echo "  Lines: ${LINES}%"
+          echo ""
+
+          # Umbral mínimo requerido
+          THRESHOLD=30
+          FAILED=0
+
+          # Validar usando comparación de enteros (cortando decimales)
+          STATEMENTS_INT=${STATEMENTS%.*}
+          FUNCTIONS_INT=${FUNCTIONS%.*}
+          LINES_INT=${LINES%.*}
+
+          if [ "$STATEMENTS_INT" -lt "$THRESHOLD" ]; then
+            echo "❌ Statements coverage (${STATEMENTS}%) is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if [ "$FUNCTIONS_INT" -lt "$THRESHOLD" ]; then
+            echo "❌ Functions coverage (${FUNCTIONS}%) is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if [ "$LINES_INT" -lt "$THRESHOLD" ]; then
+            echo "❌ Lines coverage (${LINES}%) is below ${THRESHOLD}%"
+            FAILED=1
+          fi
+
+          if [ $FAILED -eq 1 ]; then
+            echo ""
+            echo "🚫 Coverage check FAILED! Minimum required: ${THRESHOLD}%"
+            exit 1
+          fi
+
+          echo "✅ Coverage threshold met! All metrics above ${THRESHOLD}%"
 
       - name: Build project
         run: npm run build:prod
