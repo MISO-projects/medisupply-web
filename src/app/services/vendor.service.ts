@@ -14,7 +14,7 @@ export class VendorService {
 
   getVendors(): Observable<Vendor[]> {
     return this.http
-      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores`)
+      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores/`)
       .pipe(map((response) => response.data));
   }
 
