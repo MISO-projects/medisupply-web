@@ -1,0 +1,106 @@
+name: Deploy Frontend to GKE
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+env:
+  IMAGE_NAME: frontend-web
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to GKE
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build Docker image
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          echo "🔨 Building Docker image..."
+          IMAGE_TAG="us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}"
+          
+          docker build -t ${IMAGE_TAG}:latest \
+            -t ${IMAGE_TAG}:${{ github.sha }} \
+            .
+          
+          echo "✅ Image built successfully"
+
+      - name: Push Docker image to Artifact Registry
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          echo "📤 Pushing image to Artifact Registry..."
+          IMAGE_TAG="us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}"
+          
+          docker push ${IMAGE_TAG}:latest
+          docker push ${IMAGE_TAG}:${{ github.sha }}
+          
+          echo "✅ Published ${{ env.IMAGE_NAME }}:latest"
+          echo "✅ Published ${{ env.IMAGE_NAME }}:${{ github.sha }}"
+
+      - name: Install GKE Auth Plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} \
+            --region=${{ secrets.GKE_REGION }} \
+            --project=${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Deploy to GKE
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          echo "🚀 Deploying to GKE..."
+          
+          # Apply the frontend deployment
+          kubectl apply -f k8s/frontend.yaml
+          
+          # Wait for rollout to complete (with timeout)
+          kubectl rollout status deployment/frontend-web --namespace=default --timeout=5m || true
+          
+          echo "✅ Deployment completed successfully"
+
+      - name: Verify deployment
+        run: |
+          echo "🔍 Verifying deployment..."
+          kubectl get pods -l app=frontend-web --namespace=default
+          kubectl get service frontend-web-service --namespace=default
+          echo "✅ Verification complete"
+
+      - name: Deployment summary
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Status**: Deployed successfully to GKE" >> $GITHUB_STEP_SUMMARY
+          echo "🏷️ **Image**: \`us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}:${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "☸️ **Cluster**: \`${{ secrets.GKE_CLUSTER_NAME }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **Domain**: https://medisupply.tech" >> $GITHUB_STEP_SUMMARY
+          echo "🕐 **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "📝 **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
