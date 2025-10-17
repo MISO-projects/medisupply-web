@@ -100,20 +100,5 @@ jobs:
 
           echo "✅ Coverage threshold met! All metrics above ${THRESHOLD}%"
 
-      - name: Replace environment variables
-        run: |
-          echo "🔧 Replacing environment variables for build validation..."
-          # Use a development/test URL for develop branch
-          sed -i "s|__BFF_WEB_API_URL__|http://localhost:8080|g" src/environments/environment.prod.ts
-
-
       - name: Build project
         run: npm run build:prod
-
-      - name: Upload build artifacts
-        ## if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v4
-        with:
-          name: production-build
-          path: dist/
-          retention-days: 1
