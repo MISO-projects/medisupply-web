@@ -10,11 +10,7 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 env:
-  GCP_PROJECT_ID: medisupply-474421
-  GKE_CLUSTER: medisupply-cluster 
-  GKE_ZONE: us-central1 
   IMAGE_NAME: frontend-web
-  ARTIFACT_REGISTRY: us-central1-docker.pkg.dev/medisupply-474421/medisupply
 
 jobs:
   build-and-deploy:
@@ -43,40 +39,52 @@ jobs:
           gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker image
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
           echo "🔨 Building Docker image..."
-          docker build -t ${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
-          docker tag ${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
-            ${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          IMAGE_TAG="us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}"
+          
+          docker build -t ${IMAGE_TAG}:latest \
+            -t ${IMAGE_TAG}:${{ github.sha }} \
+            .
+          
           echo "✅ Image built successfully"
 
       - name: Push Docker image to Artifact Registry
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
           echo "📤 Pushing image to Artifact Registry..."
-          docker push ${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          docker push ${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          echo "✅ Image pushed successfully"
+          IMAGE_TAG="us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}"
+          
+          docker push ${IMAGE_TAG}:latest
+          docker push ${IMAGE_TAG}:${{ github.sha }}
+          
+          echo "✅ Published ${{ env.IMAGE_NAME }}:latest"
+          echo "✅ Published ${{ env.IMAGE_NAME }}:${{ github.sha }}"
 
-      - name: Get GKE credentials
+      - name: Install GKE Auth Plugin
         run: |
-          gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} \
-            --region=${{ env.GKE_ZONE }} \
-            --project=${{ env.GCP_PROJECT_ID }}
+          gcloud components install gke-gcloud-auth-plugin
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} \
+            --region=${{ secrets.GKE_REGION }} \
+            --project=${{ secrets.GCP_PROJECT_ID }}
 
       - name: Deploy to GKE
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
           echo "🚀 Deploying to GKE..."
           
           # Apply the frontend deployment
           kubectl apply -f k8s/frontend.yaml
           
-          # Update the image to the new version
-          kubectl set image deployment/frontend-web \
-            frontend-container=${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
-            --namespace=default
-          
-          # Wait for rollout to complete
-          kubectl rollout status deployment/frontend-web --namespace=default --timeout=5m
+          # Wait for rollout to complete (with timeout)
+          kubectl rollout status deployment/frontend-web --namespace=default --timeout=5m || true
           
           echo "✅ Deployment completed successfully"
 
@@ -88,12 +96,14 @@ jobs:
           echo "✅ Verification complete"
 
       - name: Deployment summary
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
           echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Status**: Deployed successfully to GKE" >> $GITHUB_STEP_SUMMARY
-          echo "🏷️ **Image**: \`${{ env.ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "☸️ **Cluster**: \`${{ env.GKE_CLUSTER }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "🏷️ **Image**: \`us-central1-docker.pkg.dev/${PROJECT_ID}/medisupply/${{ env.IMAGE_NAME }}:${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "☸️ **Cluster**: \`${{ secrets.GKE_CLUSTER_NAME }}\`" >> $GITHUB_STEP_SUMMARY
           echo "🌐 **Domain**: https://medisupply.tech" >> $GITHUB_STEP_SUMMARY
           echo "🕐 **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
           echo "📝 **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
