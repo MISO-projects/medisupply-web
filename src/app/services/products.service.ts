@@ -22,8 +22,7 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/productos/${id}`);
   }
 
-  createProduct(product: Product): Observable<Product> {
+  createProduct(product: Product & { precio_unitario: number }): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/productos/`, product);
   }
-
 }

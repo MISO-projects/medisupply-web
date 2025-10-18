@@ -1,1 +1,111 @@
-<h1 class="title">Nuevo producto</h1>
+<div class="product-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nuevo producto</h1>
+    </div>
+    <button mat-flat-button color="primary" type="submit" form="productForm" [disabled]="isLoading">
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" id="productForm" class="product-form">
+      <div class="form-section">
+        <h2 class="subtitle">Datos del producto</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            @if (
+              productForm.get('nombre')?.hasError('required') && productForm.get('nombre')?.touched
+            ) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>SKU</mat-label>
+            <input matInput formControlName="sku" />
+            <mat-hint>Se autogenera si no ingresas</mat-hint>
+            @if (productForm.get('sku')?.hasError('required') && productForm.get('sku')?.touched) {
+              <mat-error>El SKU es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="categoria">
+              @for (categoria of categories; track categoria) {
+                <mat-option [value]="categoria">{{ categoria }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="subtitle">Identificación comercial</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Proveedor</mat-label>
+            <mat-select formControlName="proveedor_id">
+              @for (proveedor of suppliers; track proveedor.id) {
+                <mat-option [value]="proveedor.id">{{ proveedor.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Precio unitario</mat-label>
+            <input matInput formControlName="precio_unitario" />
+            @if (
+              productForm.get('precio_unitario')?.hasError('required') &&
+              productForm.get('precio_unitario')?.touched
+            ) {
+              <mat-error>El precio unitario es requerido</mat-error>
+            }
+            @if (
+              productForm.get('precio_unitario')?.hasError('pattern') &&
+              productForm.get('precio_unitario')?.touched
+            ) {
+              <mat-error>El precio debe ser un número con máximo 2 decimales</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Unidad de medida</mat-label>
+            <input matInput formControlName="unidad_medida" />
+            @if (
+              productForm.get('unidad_medida')?.hasError('required') &&
+              productForm.get('unidad_medida')?.touched
+            ) {
+              <mat-error>La unidad de medida es requerida</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="subtitle">Condiciones de almacenamiento</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Tipo</mat-label>
+            <input matInput formControlName="tipo_almacenamiento" />
+            <mat-hint>Ej. ambiente, refrigerado</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Observaciones</mat-label>
+            <input matInput formControlName="observaciones" />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
