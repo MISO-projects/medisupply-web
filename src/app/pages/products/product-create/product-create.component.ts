@@ -50,10 +50,7 @@ export class ProductCreateComponent implements OnInit {
     sku: [''],
     categoria: ['', [Validators.required]],
     proveedor_id: ['', [Validators.required]],
-    precio_unitario: ['', [
-      Validators.required,
-      Validators.pattern(/^\d+(\.\d{1,2})?$/)
-    ]],
+    precio_unitario: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
     unidad_medida: ['', [Validators.required]],
     tipo_almacenamiento: ['', [Validators.required]],
     observaciones: [''],

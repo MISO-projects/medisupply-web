@@ -292,11 +292,11 @@ describe('ProductCreateComponent', () => {
           sku: 'TEST-001',
           categoria: 'Medicamento',
           proveedor_id: '1',
-          precio_unitario: 100.50,
+          precio_unitario: 100.5,
           unidad_medida: 'unidad',
           tipo_almacenamiento: 'ambiente',
           observaciones: 'Test observations',
-        })
+        }),
       );
     });
 
@@ -324,7 +324,7 @@ describe('ProductCreateComponent', () => {
 
       const callArgs = productService.createProduct.calls.mostRecent().args[0];
       expect(typeof callArgs.precio_unitario).toBe('number');
-      expect(callArgs.precio_unitario).toBe(100.50);
+      expect(callArgs.precio_unitario).toBe(100.5);
     });
 
     it('should set isLoading to true during submission', () => {
@@ -353,7 +353,7 @@ describe('ProductCreateComponent', () => {
         jasmine.objectContaining({
           data: { message: 'Producto creado exitosamente' },
           duration: 5000,
-        })
+        }),
       );
     });
 
@@ -368,7 +368,7 @@ describe('ProductCreateComponent', () => {
         jasmine.objectContaining({
           data: { message: 'Error del servidor' },
           duration: 5000,
-        })
+        }),
       );
     });
 
@@ -381,7 +381,7 @@ describe('ProductCreateComponent', () => {
         jasmine.any(Function),
         jasmine.objectContaining({
           data: { message: 'Error al crear el producto. Por favor, intenta de nuevo.' },
-        })
+        }),
       );
     });
 

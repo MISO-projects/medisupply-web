@@ -264,7 +264,7 @@ describe('ProductService', () => {
         sku: 'NEW001',
         categoria: 'Medicamento',
         proveedor_id: 'prov1',
-        precio_unitario: 150.50,
+        precio_unitario: 150.5,
         unidad_medida: 'unidad',
         tipo_almacenamiento: 'ambiente',
         observaciones: 'Producto nuevo',
@@ -511,4 +511,3 @@ describe('ProductService', () => {
     });
   });
 });
-
