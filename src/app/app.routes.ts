@@ -3,51 +3,68 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', redirectTo: '/suppliers', pathMatch: 'full' },
 
-  // Products routes
+  // Auth routes (without layout)
   {
-    path: 'products',
+    path: 'register',
     loadComponent: () =>
-      import('./pages/products/product-list/product-list.component').then(
-        (m) => m.ProductListComponent,
-      ),
-  },
-  {
-    path: 'products/create',
-    loadComponent: () =>
-      import('./pages/products/product-create/product-create.component').then(
-        (m) => m.ProductCreateComponent,
+      import('./pages/auth/register/register.component').then(
+        (m) => m.RegisterComponent,
       ),
   },
 
-  // Suppliers routes
+  // Main app routes (with layout)
   {
-    path: 'suppliers',
+    path: '',
     loadComponent: () =>
-      import('./pages/suppliers/supplier-list/supplier-list.component').then(
-        (m) => m.SupplierListComponent,
-      ),
-  },
-  {
-    path: 'suppliers/create',
-    loadComponent: () =>
-      import('./pages/suppliers/supplier-create/supplier-create.component').then(
-        (m) => m.SupplierCreateComponent,
-      ),
-  },
+      import('./layouts/main-layout.component').then((m) => m.MainLayoutComponent),
+    children: [
+      // Products routes
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./pages/products/product-list/product-list.component').then(
+            (m) => m.ProductListComponent,
+          ),
+      },
+      {
+        path: 'products/create',
+        loadComponent: () =>
+          import('./pages/products/product-create/product-create.component').then(
+            (m) => m.ProductCreateComponent,
+          ),
+      },
 
-  // Vendors routes
-  {
-    path: 'vendors',
-    loadComponent: () =>
-      import('./pages/vendors/vendor-list/vendor-list.component').then(
-        (m) => m.VendorListComponent,
-      ),
-  },
-  {
-    path: 'vendors/create',
-    loadComponent: () =>
-      import('./pages/vendors/vendor-create/vendor-create.component').then(
-        (m) => m.VendorCreateComponent,
-      ),
+      // Suppliers routes
+      {
+        path: 'suppliers',
+        loadComponent: () =>
+          import('./pages/suppliers/supplier-list/supplier-list.component').then(
+            (m) => m.SupplierListComponent,
+          ),
+      },
+      {
+        path: 'suppliers/create',
+        loadComponent: () =>
+          import('./pages/suppliers/supplier-create/supplier-create.component').then(
+            (m) => m.SupplierCreateComponent,
+          ),
+      },
+
+      // Vendors routes
+      {
+        path: 'vendors',
+        loadComponent: () =>
+          import('./pages/vendors/vendor-list/vendor-list.component').then(
+            (m) => m.VendorListComponent,
+          ),
+      },
+      {
+        path: 'vendors/create',
+        loadComponent: () =>
+          import('./pages/vendors/vendor-create/vendor-create.component').then(
+            (m) => m.VendorCreateComponent,
+          ),
+      },
+    ],
   },
 ];
