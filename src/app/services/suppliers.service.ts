@@ -67,7 +67,7 @@ export class SupplierService {
   constructor(private http: HttpClient) {}
 
   createSupplier(proveedor: CreateSupplierSchema): Observable<CreateSupplierResponse> {
-    return this.http.post<CreateSupplierResponse>(`${this.apiUrl}/proveedores`, proveedor);
+    return this.http.post<CreateSupplierResponse>(`${this.apiUrl}/proveedores/`, proveedor);
   }
 
   listSuppliers(params?: ListSuppliersParams): Observable<Supplier[]> {

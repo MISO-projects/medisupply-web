@@ -89,7 +89,7 @@ export class SupplierCreateComponent implements OnInit {
     id_tributario: ['', [this.idTributarioValidator]],
     tipo_proveedor: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    contacto: [''],
+    contacto: ['', [Validators.required]],
     pais: ['', [Validators.required]],
     condiciones_entrega: [''],
   });
