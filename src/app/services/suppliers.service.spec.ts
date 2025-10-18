@@ -71,7 +71,7 @@ describe('SupplierService', () => {
         expect(res.data.pais).toBe(PaisEnum.COLOMBIA);
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/proveedores`);
+      const req = httpMock.expectOne(`${apiUrl}/proveedores/`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(newSupplier);
       req.flush(response);
@@ -106,7 +106,7 @@ describe('SupplierService', () => {
         expect(res.data.condiciones_entrega).toBeUndefined();
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/proveedores`);
+      const req = httpMock.expectOne(`${apiUrl}/proveedores/`);
       expect(req.request.method).toBe('POST');
       req.flush(response);
     });
