@@ -10,8 +10,8 @@
     />
 
     <div class="menu-actions">
-      <span class="menu-actions-user">Usuario</span>
-      <button mat-button class="logout-btn">Cerrar sesión</button>
+      <span class="menu-actions-user">{{ username() }}</span>
+      <button mat-button class="logout-btn" (click)="logout()">Cerrar sesión</button>
     </div>
   </div>
 </nav>
