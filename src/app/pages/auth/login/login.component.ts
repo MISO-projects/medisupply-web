@@ -71,7 +71,7 @@ export class LoginComponent {
   }
 
   togglePasswordVisibility(): void {
-    this.hidePassword.update(value => !value);
+    this.hidePassword.update((value) => !value);
   }
 
   goToRegister(): void {

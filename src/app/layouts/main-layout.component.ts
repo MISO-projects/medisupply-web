@@ -16,8 +16,10 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
       </main>
     </div>
   `,
-  styles: [`
-    @import '../app.css';
-  `],
+  styles: [
+    `
+      @import '../app.css';
+    `,
+  ],
 })
 export class MainLayoutComponent {}

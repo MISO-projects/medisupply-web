@@ -1,5 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -43,7 +50,7 @@ export class RegisterComponent {
     const confirmPasswordControl = this.registerForm.get('confirmPassword');
     confirmPasswordControl?.setValidators([
       Validators.required,
-      this.confirmPasswordValidator.bind(this)
+      this.confirmPasswordValidator.bind(this),
     ]);
 
     // Actualizar validación cuando cambie el password
@@ -100,10 +107,10 @@ export class RegisterComponent {
   }
 
   togglePasswordVisibility(): void {
-    this.hidePassword.update(value => !value);
+    this.hidePassword.update((value) => !value);
   }
 
   toggleConfirmPasswordVisibility(): void {
-    this.hideConfirmPassword.update(value => !value);
+    this.hideConfirmPassword.update((value) => !value);
   }
 }

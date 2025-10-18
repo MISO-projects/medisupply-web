@@ -46,11 +46,11 @@ export class AuthService {
 
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data).pipe(
-      tap(response => {
+      tap((response) => {
         if (response.access_token) {
           this.setToken(response.access_token);
         }
-      })
+      }),
     );
   }
 
@@ -73,7 +73,7 @@ export class AuthService {
   getCurrentUser(): Observable<UserInfo> {
     const token = this.getToken();
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
 
     return this.http.get<UserInfo>(`${this.apiUrl}/me`, { headers });

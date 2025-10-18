@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al obtener información del usuario:', err);
-      }
+      },
     });
   }
 

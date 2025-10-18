@@ -7,17 +7,12 @@ export const routes: Routes = [
   // Auth routes (without layout)
   {
     path: 'login',
-    loadComponent: () =>
-      import('./pages/auth/login/login.component').then(
-        (m) => m.LoginComponent,
-      ),
+    loadComponent: () => import('./pages/auth/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'register',
     loadComponent: () =>
-      import('./pages/auth/register/register.component').then(
-        (m) => m.RegisterComponent,
-      ),
+      import('./pages/auth/register/register.component').then((m) => m.RegisterComponent),
   },
 
   // Main app routes (with layout and auth guard)

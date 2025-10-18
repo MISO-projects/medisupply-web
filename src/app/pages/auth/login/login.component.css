@@ -60,13 +60,13 @@
 }
 
 .register-link .link {
-  color: #1B4F72;
+  color: #1b4f72;
   cursor: pointer;
   text-decoration: none;
   font-weight: 500;
 }
 
 .register-link .link:hover {
-  color: #2E86C1;
+  color: #2e86c1;
   text-decoration: underline;
 }
