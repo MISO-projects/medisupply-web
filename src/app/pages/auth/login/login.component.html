@@ -1,0 +1,68 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-container">
+      <img src="assets/logo.svg" alt="MediSupply Logo" class="logo" />
+    </div>
+
+    <h1 class="title">Iniciar sesión</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        @if (
+          loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched
+        ) {
+          <mat-error>El email es requerido</mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+          <mat-error>Email inválido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword()"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (
+          loginForm.get('password')?.hasError('required') &&
+          loginForm.get('password')?.touched
+        ) {
+          <mat-error>La contraseña es requerida</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="submit-button"
+        [disabled]="isLoading()"
+      >
+        @if (isLoading()) {
+          Iniciando sesión...
+        } @else {
+          Iniciar sesión
+        }
+      </button>
+
+      <div class="register-link">
+        <span>¿Aún no tienes cuenta?</span>
+        <a (click)="goToRegister()" class="link">Crea una</a>
+      </div>
+    </form>
+  </div>
+</div>

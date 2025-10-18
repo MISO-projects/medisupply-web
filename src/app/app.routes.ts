@@ -1,9 +1,16 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/suppliers', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   // Auth routes (without layout)
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/auth/login/login.component').then(
+        (m) => m.LoginComponent,
+      ),
+  },
   {
     path: 'register',
     loadComponent: () =>
