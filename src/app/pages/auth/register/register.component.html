@@ -1,0 +1,118 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="logo-container">
+      <img src="assets/logo.svg" alt="MediSupply Logo" class="logo" />
+    </div>
+
+    <h1 class="title">Crear cuenta</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        @if (
+          registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched
+        ) {
+          <mat-error>El email es requerido</mat-error>
+        }
+        @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+          <mat-error>Email inválido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" />
+        <mat-hint>Ingresa tu nombre y apellido (opcional)</mat-hint>
+        @if (
+          registerForm.get('username')?.hasError('minlength') &&
+          registerForm.get('username')?.touched
+        ) {
+          <mat-error>El usuario debe tener al menos 2 caracteres</mat-error>
+        }
+        @if (
+          registerForm.get('username')?.hasError('maxlength') &&
+          registerForm.get('username')?.touched
+        ) {
+          <mat-error>El usuario no puede exceder 100 caracteres</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword()"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (
+          registerForm.get('password')?.hasError('required') &&
+          registerForm.get('password')?.touched
+        ) {
+          <mat-error>La contraseña es requerida</mat-error>
+        }
+        @if (
+          registerForm.get('password')?.hasError('minlength') &&
+          registerForm.get('password')?.touched
+        ) {
+          <mat-error>La contraseña debe tener al menos 8 caracteres</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input
+          matInput
+          [type]="hideConfirmPassword() ? 'password' : 'text'"
+          formControlName="confirmPassword"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="toggleConfirmPasswordVisibility()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hideConfirmPassword()"
+        >
+          <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (
+          registerForm.get('confirmPassword')?.hasError('required') &&
+          registerForm.get('confirmPassword')?.touched
+        ) {
+          <mat-error>Confirma tu contraseña</mat-error>
+        }
+        @if (
+          registerForm.get('confirmPassword')?.hasError('passwordMismatch') &&
+          registerForm.get('confirmPassword')?.touched
+        ) {
+          <mat-error>Las contraseñas no coinciden</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="submit-button"
+        [disabled]="isLoading()"
+      >
+        @if (isLoading()) {
+          Creando cuenta...
+        } @else {
+          Crear cuenta
+        }
+      </button>
+    </form>
+  </div>
+</div>
