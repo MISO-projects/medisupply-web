@@ -1,1 +1,21 @@
-<h1 class="title">Productos</h1>
+<div class="product-list-container">
+  <div class="header">
+    <h1 class="title">Productos</h1>
+    <button mat-flat-button color="primary" routerLink="/products/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando productos...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="products" [columns]="columns" />
+  }
+</div>

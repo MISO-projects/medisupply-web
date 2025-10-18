@@ -14,7 +14,7 @@ export class VendorService {
 
   getVendors(): Observable<Vendor[]> {
     return this.http
-      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores`)
+      .get<VendorResponse>(`${this.apiUrl}/ventas/vendedores/`)
       .pipe(map((response) => response.data));
   }
 
@@ -23,7 +23,7 @@ export class VendorService {
   }
 
   createVendor(vendor: Vendor): Observable<Vendor> {
-    return this.http.post<Vendor>(`${this.apiUrl}/ventas/vendedores`, vendor);
+    return this.http.post<Vendor>(`${this.apiUrl}/ventas/vendedores/`, vendor);
   }
 
   updateVendor(id: string, vendor: Vendor): Observable<Vendor> {

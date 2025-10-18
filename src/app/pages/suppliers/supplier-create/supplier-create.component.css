@@ -1,4 +1,4 @@
-.vendor-create-container {
+.supplier-create-container {
   height: 100%;
 }
 
@@ -27,7 +27,7 @@
   padding: 30px 60px;
 }
 
-.vendor-form {
+.supplier-form {
   display: flex;
   flex-direction: column;
   gap: 48px;

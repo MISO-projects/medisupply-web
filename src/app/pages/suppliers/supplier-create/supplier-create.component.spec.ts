@@ -53,6 +53,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
+        contacto: 'Juan Pérez',
       });
 
       expect(form.valid).toBeTruthy();
@@ -286,6 +287,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'México',
+        contacto: 'Juan Pérez',
       });
 
       component.onSubmit();
@@ -306,6 +308,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
+        contacto: 'Juan Pérez',
       });
 
       component.onSubmit();
@@ -326,6 +329,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
+        contacto: 'Juan Pérez',
       });
 
       component.onSubmit();
@@ -349,6 +353,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
+        contacto: 'Juan Pérez',
       });
 
       component.onSubmit();
@@ -369,6 +374,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
+        contacto: 'Juan Pérez',
       });
 
       expect(component.isLoading).toBe(false);
@@ -421,7 +427,7 @@ describe('SupplierCreateComponent', () => {
         tipo_proveedor: 'Fabricante',
         email: 'test@test.com',
         pais: 'Colombia',
-        // contacto and condiciones_entrega are optional
+        contacto: 'Juan Pérez',
       });
 
       component.onSubmit();
