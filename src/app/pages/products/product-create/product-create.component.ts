@@ -89,7 +89,7 @@ export class ProductCreateComponent implements OnInit {
         error: (err) => {
           console.error('Error al crear producto:', err);
           const errorMessage =
-          err.error?.detail?.detail || 'Error al crear el producto. Por favor, intenta de nuevo.';
+            err.error?.detail?.detail || 'Error al crear el producto. Por favor, intenta de nuevo.';
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: { message: errorMessage },
             duration: 5000,
