@@ -321,7 +321,7 @@ describe('SupplierCreateComponent', () => {
     });
 
     it('should handle error when creating supplier', () => {
-      const errorResponse = { error: { detail: 'Server error' } };
+      const errorResponse = { error: { detail: { detail: 'Server error' } } };
       supplierService.createSupplier.and.returnValue(throwError(() => errorResponse));
 
       component.supplierForm.patchValue({
