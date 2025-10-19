@@ -45,7 +45,7 @@ describe('VendorService', () => {
       expect(vendor.id).toBe('3');
     });
 
-    const req = httpMock.expectOne(`${apiUrl}/ventas/vendedores`);
+    const req = httpMock.expectOne(`${apiUrl}/ventas/vendedores/`);
     expect(req.request.method).toBe('POST');
     req.flush(createdVendor);
   });

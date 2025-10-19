@@ -358,7 +358,7 @@ describe('ProductCreateComponent', () => {
     });
 
     it('should handle error on submission failure', () => {
-      const errorResponse = { error: { detail: 'Error del servidor' } };
+      const errorResponse = { error: { detail: { detail: 'Error del servidor' } } };
       productService.createProduct.and.returnValue(throwError(() => errorResponse));
 
       component.onSubmit();
