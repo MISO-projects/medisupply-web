@@ -128,7 +128,7 @@ export class SupplierCreateComponent implements OnInit {
       error: (err) => {
         console.error('Error al crear proveedor:', err);
         const errorMessage =
-          err.error?.detail || 'Error al crear el proveedor. Por favor, intenta de nuevo.';
+          err.error?.detail?.detail || 'Error al crear el proveedor. Por favor, intenta de nuevo.';
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           data: { message: errorMessage },
           duration: 5000,
