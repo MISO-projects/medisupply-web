@@ -1,10 +1,13 @@
+import { SalesPlan } from './sales-plan.model';
+
 export interface Vendor {
   id?: string;
   nombre: string;
   documento_identidad?: string;
   email: string;
   zona_asignada: string;
-  plan_venta: string;
+  plan_venta_id: string;
+  plan_venta?: SalesPlan;
 }
 
 export interface VendorResponse {
