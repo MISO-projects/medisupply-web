@@ -2,7 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
+import {
+  DataTableComponent,
+  TableColumn,
+} from '../../../components/data-table/data-table.component';
 import { SalesPlanService } from '../../../services/sales-plan.service';
 import { SalesPlan } from '../../../models/sales-plan.model';
 

@@ -32,7 +32,7 @@ describe('VendorCreateComponent', () => {
           meta_venta: 10000,
           zona_asignada: 'Perú',
         },
-      ])
+      ]),
     );
 
     await TestBed.configureTestingModule({

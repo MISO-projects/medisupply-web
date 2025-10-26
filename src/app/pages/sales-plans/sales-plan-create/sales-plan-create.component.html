@@ -6,7 +6,13 @@
       </button>
       <h1 class="title">Nuevo plan de venta</h1>
     </div>
-    <button mat-flat-button color="primary" type="submit" form="salesPlanForm" [disabled]="isLoading">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      form="salesPlanForm"
+      [disabled]="isLoading"
+    >
       @if (isLoading) {
         Guardando...
       } @else {
@@ -16,7 +22,12 @@
   </div>
 
   <div class="form-container">
-    <form [formGroup]="salesPlanForm" (ngSubmit)="onSubmit()" id="salesPlanForm" class="sales-plan-form">
+    <form
+      [formGroup]="salesPlanForm"
+      (ngSubmit)="onSubmit()"
+      id="salesPlanForm"
+      class="sales-plan-form"
+    >
       <!-- Sección: Datos del plan -->
       <div class="form-section">
         <h2 class="subtitle">Datos del plan</h2>
@@ -26,7 +37,8 @@
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="nombre" />
             @if (
-              salesPlanForm.get('nombre')?.hasError('required') && salesPlanForm.get('nombre')?.touched
+              salesPlanForm.get('nombre')?.hasError('required') &&
+              salesPlanForm.get('nombre')?.touched
             ) {
               <mat-error>El nombre es requerido</mat-error>
             }

@@ -1,5 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -110,7 +117,8 @@ export class SalesPlanCreateComponent implements OnInit {
       error: (err) => {
         console.error('Error al crear plan de venta:', err);
         const errorMessage =
-          err.error?.detail?.detail || 'Error al crear el plan de venta. Por favor, intenta de nuevo.';
+          err.error?.detail?.detail ||
+          'Error al crear el plan de venta. Por favor, intenta de nuevo.';
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           data: { message: errorMessage },
           duration: 5000,

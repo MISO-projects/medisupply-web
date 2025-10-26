@@ -15,10 +15,7 @@ describe('SalesPlanListComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [SalesPlanListComponent],
-      providers: [
-        { provide: SalesPlanService, useValue: salesPlanServiceSpy },
-        provideRouter([]),
-      ],
+      providers: [{ provide: SalesPlanService, useValue: salesPlanServiceSpy }, provideRouter([])],
     }).compileComponents();
 
     salesPlanService = TestBed.inject(SalesPlanService) as jasmine.SpyObj<SalesPlanService>;
