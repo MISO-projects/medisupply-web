@@ -41,7 +41,6 @@ export class VendorCreateComponent {
     email: ['', [Validators.required, Validators.email]],
     zona_asignada: ['', [Validators.required]],
     plan_venta: ['', [Validators.required]],
-    meta_venta: [0, [Validators.min(0)]],
   });
 
   onSubmit(): void {

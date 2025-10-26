@@ -5,7 +5,6 @@ export interface Vendor {
   email: string;
   zona_asignada: string;
   plan_venta: string;
-  meta_venta: number;
 }
 
 export interface VendorResponse {
