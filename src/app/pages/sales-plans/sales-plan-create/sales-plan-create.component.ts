@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,33 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SalesPlanService } from '../../../services/sales-plan.service';
 import { CustomSnackbarComponent } from '../../../components/custom-snackbar/custom-snackbar.component';
+
+// Validador personalizado para verificar que fecha_fin > fecha_inicio
+function dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+  const fechaInicio = control.value;
+  const fechaFinControl = control.parent?.get('fecha_fin');
+
+  if (!fechaInicio || !fechaFinControl?.value) {
+    return null;
+  }
+
+  const inicio = new Date(fechaInicio);
+  const fin = new Date(fechaFinControl.value);
+
+  if (fin <= inicio) {
+    fechaFinControl.setErrors({ ...fechaFinControl.errors, dateRange: true });
+    return { dateRange: true };
+  } else {
+    // Limpiar el error dateRange si las fechas son válidas
+    if (fechaFinControl.hasError('dateRange')) {
+      const errors = { ...fechaFinControl.errors };
+      delete errors['dateRange'];
+      fechaFinControl.setErrors(Object.keys(errors).length > 0 ? errors : null);
+    }
+  }
+
+  return null;
+}
 
 @Component({
   selector: 'app-sales-plan-create',
@@ -27,7 +54,7 @@ import { CustomSnackbarComponent } from '../../../components/custom-snackbar/cus
   templateUrl: './sales-plan-create.component.html',
   styleUrl: './sales-plan-create.component.css',
 })
-export class SalesPlanCreateComponent {
+export class SalesPlanCreateComponent implements OnInit {
   private fb = inject(FormBuilder);
   private salesPlanService = inject(SalesPlanService);
   private router = inject(Router);
@@ -40,12 +67,19 @@ export class SalesPlanCreateComponent {
 
   salesPlanForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
-    fecha_inicio: ['', [Validators.required]],
+    fecha_inicio: ['', [Validators.required, dateRangeValidator]],
     fecha_fin: ['', [Validators.required]],
     descripcion: [''],
     meta_venta: [0, [Validators.required, Validators.min(0)]],
     zona_asignada: [''],
   });
+
+  ngOnInit(): void {
+    // Revalidar fecha_inicio cuando cambia fecha_fin
+    this.salesPlanForm.get('fecha_fin')?.valueChanges.subscribe(() => {
+      this.salesPlanForm.get('fecha_inicio')?.updateValueAndValidity({ emitEvent: false });
+    });
+  }
 
   onSubmit(): void {
     if (this.salesPlanForm.invalid) {

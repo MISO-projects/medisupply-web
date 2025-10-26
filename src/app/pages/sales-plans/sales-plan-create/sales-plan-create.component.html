@@ -56,6 +56,12 @@
             ) {
               <mat-error>La fecha de fin es requerida</mat-error>
             }
+            @if (
+              salesPlanForm.get('fecha_fin')?.hasError('dateRange') &&
+              salesPlanForm.get('fecha_fin')?.touched
+            ) {
+              <mat-error>La fecha de fin debe ser posterior a la fecha de inicio</mat-error>
+            }
           </mat-form-field>
         </div>
 
