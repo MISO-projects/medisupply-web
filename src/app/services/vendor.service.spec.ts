@@ -32,8 +32,7 @@ describe('VendorService', () => {
       documento_identidad: '123456',
       email: 'new@test.com',
       zona_asignada: 'Perú',
-      plan_venta: 'plan-123',
-      meta_venta: 1500,
+      plan_venta_id: 'plan-uuid-123',
     };
 
     const createdVendor: Vendor = {

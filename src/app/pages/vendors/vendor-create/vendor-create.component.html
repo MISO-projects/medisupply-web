@@ -74,22 +74,20 @@
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Plan de Venta</mat-label>
-            <mat-select formControlName="plan_venta">
-              @for (plan of planes; track plan) {
-                <mat-option [value]="plan">{{ plan }}</mat-option>
+            <mat-select formControlName="plan_venta_id" [disabled]="isLoadingPlans">
+              @if (isLoadingPlans) {
+                <mat-option disabled>Cargando planes...</mat-option>
+              }
+              @for (plan of planes; track plan.id) {
+                <mat-option [value]="plan.id">{{ plan.nombre }}</mat-option>
               }
             </mat-select>
             @if (
-              vendorForm.get('plan_venta')?.hasError('required') &&
-              vendorForm.get('plan_venta')?.touched
+              vendorForm.get('plan_venta_id')?.hasError('required') &&
+              vendorForm.get('plan_venta_id')?.touched
             ) {
               <mat-error>El plan es requerido</mat-error>
             }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Meta de Venta</mat-label>
-            <input matInput type="number" formControlName="meta_venta" />
           </mat-form-field>
         </div>
       </div>

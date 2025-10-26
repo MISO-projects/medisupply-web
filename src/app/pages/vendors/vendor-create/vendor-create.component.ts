@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VendorService } from '../../../services/vendor.service';
+import { SalesPlanService } from '../../../services/sales-plan.service';
+import { SalesPlan } from '../../../models/sales-plan.model';
 import { CustomSnackbarComponent } from '../../../components/custom-snackbar/custom-snackbar.component';
 
 @Component({
@@ -23,26 +25,51 @@ import { CustomSnackbarComponent } from '../../../components/custom-snackbar/cus
   templateUrl: './vendor-create.component.html',
   styleUrl: './vendor-create.component.css',
 })
-export class VendorCreateComponent {
+export class VendorCreateComponent implements OnInit {
   private fb = inject(FormBuilder);
   private vendorService = inject(VendorService);
+  private salesPlanService = inject(SalesPlanService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
 
   isLoading = false;
+  isLoadingPlans = false;
 
   // Opciones para los selects
   zonas = ['Perú', 'Colombia', 'Ecuador', 'México'];
-  planes = ['plan-123', 'plan-456', 'plan-789'];
+  planes: SalesPlan[] = [];
 
   vendorForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
     documento_identidad: [''],
     email: ['', [Validators.required, Validators.email]],
     zona_asignada: ['', [Validators.required]],
-    plan_venta: ['', [Validators.required]],
-    meta_venta: [0, [Validators.min(0)]],
+    plan_venta_id: ['', [Validators.required]],
   });
+
+  ngOnInit(): void {
+    this.loadSalesPlans();
+  }
+
+  private loadSalesPlans(): void {
+    this.isLoadingPlans = true;
+    this.salesPlanService.listSalesPlans().subscribe({
+      next: (plans) => {
+        this.planes = plans;
+        this.isLoadingPlans = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar planes de venta:', err);
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: { message: 'Error al cargar los planes de venta. Por favor, intenta de nuevo.' },
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+        });
+        this.isLoadingPlans = false;
+      },
+    });
+  }
 
   onSubmit(): void {
     if (this.vendorForm.invalid) {

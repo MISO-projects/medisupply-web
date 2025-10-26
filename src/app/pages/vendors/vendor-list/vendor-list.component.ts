@@ -29,15 +29,10 @@ export class VendorListComponent implements OnInit {
     { key: 'documento_identidad', label: 'Documento de identidad' },
     { key: 'email', label: 'Correo corporativo' },
     { key: 'zona_asignada', label: 'Zona asignada' },
-    { key: 'plan_venta', label: 'Plan de venta' },
     {
-      key: 'meta_venta',
-      label: 'Meta de ventas',
-      format: (value) =>
-        new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(value),
+      key: 'plan_venta_id',
+      label: 'Plan de venta',
+      format: (value, row) => (row as Vendor).plan_venta?.nombre || value,
     },
   ];
 
