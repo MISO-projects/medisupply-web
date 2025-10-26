@@ -1,0 +1,21 @@
+<div class="sales-plan-list-container">
+  <div class="header">
+    <h1 class="title">Planes de venta</h1>
+    <button mat-flat-button color="primary" routerLink="/sales-plans/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando planes de venta...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="salesPlans" [columns]="columns" />
+  }
+</div>

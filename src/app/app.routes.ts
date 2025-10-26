@@ -69,6 +69,15 @@ export const routes: Routes = [
             (m) => m.VendorCreateComponent,
           ),
       },
+
+      // Sales Plans routes
+      {
+        path: 'sales-plans',
+        loadComponent: () =>
+          import('./pages/sales-plans/sales-plan-list/sales-plan-list.component').then(
+            (m) => m.SalesPlanListComponent,
+          ),
+      },
     ],
   },
 ];
