@@ -78,6 +78,13 @@ export const routes: Routes = [
             (m) => m.SalesPlanListComponent,
           ),
       },
+      {
+        path: 'sales-plans/create',
+        loadComponent: () =>
+          import('./pages/sales-plans/sales-plan-create/sales-plan-create.component').then(
+            (m) => m.SalesPlanCreateComponent,
+          ),
+      },
     ],
   },
 ];
