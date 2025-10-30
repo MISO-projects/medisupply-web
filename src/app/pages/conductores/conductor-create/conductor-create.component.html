@@ -1,0 +1,88 @@
+<div class="page-header">
+  <h1>Nuevo Conductor</h1>
+</div>
+
+<div class="page-content">
+  <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ingrese el nombre" />
+        <mat-error *ngIf="conductorForm.get('nombre')?.hasError('required')">
+          El nombre es obligatorio
+        </mat-error>
+        <mat-error *ngIf="conductorForm.get('nombre')?.hasError('maxlength')">
+          Máximo 100 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" placeholder="Ingrese el apellido" />
+        <mat-error *ngIf="conductorForm.get('apellido')?.hasError('required')">
+          El apellido es obligatorio
+        </mat-error>
+        <mat-error *ngIf="conductorForm.get('apellido')?.hasError('maxlength')">
+          Máximo 100 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Documento</mat-label>
+        <input matInput formControlName="documento" placeholder="Ingrese el documento" />
+        <mat-error *ngIf="conductorForm.get('documento')?.hasError('required')">
+          El documento es obligatorio
+        </mat-error>
+        <mat-error *ngIf="conductorForm.get('documento')?.hasError('maxlength')">
+          Máximo 20 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Licencia de Conducir</mat-label>
+        <input
+          matInput
+          formControlName="licencia_conducir"
+          placeholder="Ingrese la licencia de conducir"
+        />
+        <mat-error *ngIf="conductorForm.get('licencia_conducir')?.hasError('required')">
+          La licencia de conducir es obligatoria
+        </mat-error>
+        <mat-error *ngIf="conductorForm.get('licencia_conducir')?.hasError('maxlength')">
+          Máximo 50 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono" placeholder="Ingrese el teléfono" />
+        <mat-error *ngIf="conductorForm.get('telefono')?.hasError('maxlength')">
+          Máximo 20 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Ingrese el email" type="email" />
+        <mat-error *ngIf="conductorForm.get('email')?.hasError('email')">
+          Email inválido
+        </mat-error>
+        <mat-error *ngIf="conductorForm.get('email')?.hasError('maxlength')">
+          Máximo 255 caracteres
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="checkbox-container">
+      <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+    </div>
+
+    <div class="form-actions">
+      <button mat-button type="button" (click)="onCancel()" [disabled]="isLoading">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Guardando...' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>
+

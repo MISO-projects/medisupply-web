@@ -1,0 +1,40 @@
+.page-header {
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.page-content {
+  padding: 0 24px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0;
+}
+
+form {
+  max-width: 800px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.checkbox-container {
+  margin-bottom: 24px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+

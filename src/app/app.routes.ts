@@ -69,6 +69,54 @@ export const routes: Routes = [
             (m) => m.VendorCreateComponent,
           ),
       },
+
+      // Routes (Logística) routes
+      {
+        path: 'routes',
+        loadComponent: () =>
+          import('./pages/routes/route-list/route-list.component').then(
+            (m) => m.RouteListComponent,
+          ),
+      },
+      {
+        path: 'routes/create',
+        loadComponent: () =>
+          import('./pages/routes/route-create/route-create.component').then(
+            (m) => m.RouteCreateComponent,
+          ),
+      },
+
+      // Conductores routes
+      {
+        path: 'conductores',
+        loadComponent: () =>
+          import('./pages/conductores/conductor-list/conductor-list.component').then(
+            (m) => m.ConductorListComponent,
+          ),
+      },
+      {
+        path: 'conductores/create',
+        loadComponent: () =>
+          import('./pages/conductores/conductor-create/conductor-create.component').then(
+            (m) => m.ConductorCreateComponent,
+          ),
+      },
+
+      // Vehículos routes
+      {
+        path: 'vehiculos',
+        loadComponent: () =>
+          import('./pages/vehiculos/vehiculo-list/vehiculo-list.component').then(
+            (m) => m.VehiculoListComponent,
+          ),
+      },
+      {
+        path: 'vehiculos/create',
+        loadComponent: () =>
+          import('./pages/vehiculos/vehiculo-create/vehiculo-create.component').then(
+            (m) => m.VehiculoCreateComponent,
+          ),
+      },
     ],
   },
 ];

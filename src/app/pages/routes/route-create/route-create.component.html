@@ -1,0 +1,183 @@
+<div class="route-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nueva ruta de entrega</h1>
+    </div>
+    <button mat-flat-button color="primary" type="submit" form="routeForm" [disabled]="isLoading">
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="routeForm" (ngSubmit)="onSubmit()" id="routeForm" class="route-form">
+
+      <!-- Datos del ingreso -->
+      <div class="form-section">
+        <h2 class="subtitle">Datos del ingreso</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Fecha de salida</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fecha" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (routeForm.get('fecha')?.hasError('required') && routeForm.get('fecha')?.touched) {
+              <mat-error>La fecha es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Bodega de origen</mat-label>
+            <mat-select formControlName="bodega_origen">
+              @for (bodega of bodegas; track bodega) {
+                <mat-option [value]="bodega">{{ bodega }}</mat-option>
+              }
+            </mat-select>
+            @if (
+              routeForm.get('bodega_origen')?.hasError('required') && routeForm.get('bodega_origen')?.touched
+            ) {
+              <mat-error>La bodega de origen es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+              @for (estado of estados; track estado) {
+                <mat-option [value]="estado">{{ estado }}</mat-option>
+              }
+            </mat-select>
+            @if (
+              routeForm.get('estado')?.hasError('required') && routeForm.get('estado')?.touched
+            ) {
+              <mat-error>El estado es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Recursos logísticos -->
+      <div class="form-section">
+        <h2 class="subtitle">Recursos logísticos</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Vehículo</mat-label>
+            <mat-select formControlName="vehiculo_id">
+              @for (vehiculo of vehiculos; track vehiculo.id) {
+                <mat-option [value]="vehiculo.id">
+                  {{ vehiculo.placa }} - {{ vehiculo.marca }} {{ vehiculo.modelo }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (
+              routeForm.get('vehiculo_id')?.hasError('required') && routeForm.get('vehiculo_id')?.touched
+            ) {
+              <mat-error>El vehículo es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Conductor</mat-label>
+            <mat-select formControlName="conductor_id">
+              @for (conductor of conductores; track conductor.id) {
+                <mat-option [value]="conductor.id">
+                  {{ conductor.nombre_completo }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (
+              routeForm.get('conductor_id')?.hasError('required') && routeForm.get('conductor_id')?.touched
+            ) {
+              <mat-error>El conductor es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Condiciones de almacenamiento</mat-label>
+            <mat-select formControlName="condiciones_almacenamiento">
+              @for (condicion of condicionesAlmacenamiento; track condicion) {
+                <mat-option [value]="condicion">{{ condicion }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Paradas de entrega -->
+      <div class="form-section">
+        <div class="section-header">
+          <h2 class="subtitle">Paradas de entrega</h2>
+          <button mat-mini-fab type="button" (click)="addParada()" class="add-button" aria-label="Agregar parada">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        @if (paradas.length === 0) {
+          <p class="no-paradas">No hay paradas agregadas.</p>
+        }
+
+        <div formArrayName="paradas" class="paradas-list">
+          @for (parada of paradas.controls; track $index; let i = $index) {
+            <div class="parada-row" [formGroupName]="i">
+              <div class="parada-number">{{ i + 1 }}</div>
+
+              <mat-form-field appearance="outline" class="form-field parada-field">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="cliente_id">
+                  <mat-option [value]="1">Cliente 1</mat-option>
+                  <mat-option [value]="2">Cliente 2</mat-option>
+                  <mat-option [value]="3">Cliente 3</mat-option>
+                  <mat-option [value]="15">Cliente 15</mat-option>
+                  <mat-option [value]="32">Cliente 32</mat-option>
+                  <mat-option [value]="45">Cliente 45</mat-option>
+                  <mat-option [value]="67">Cliente 67</mat-option>
+                  <mat-option [value]="89">Cliente 89</mat-option>
+                </mat-select>
+                @if (
+                  parada.get('cliente_id')?.hasError('required') && parada.get('cliente_id')?.touched
+                ) {
+                  <mat-error>El cliente es requerido</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field parada-field">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="direccion" placeholder="Dirección completa" />
+                @if (
+                  parada.get('direccion')?.hasError('required') && parada.get('direccion')?.touched
+                ) {
+                  <mat-error>La dirección es requerida</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field parada-field">
+                <mat-label>Contacto</mat-label>
+                <input matInput formControlName="contacto" placeholder="Nombre del contacto" />
+              </mat-form-field>
+
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                (click)="removeParada(i)"
+                [disabled]="paradas.length === 1"
+                class="delete-button"
+                aria-label="Eliminar parada"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

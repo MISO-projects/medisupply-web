@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>Conductores</h1>
+  <button mat-raised-button color="primary" routerLink="/conductores/create">
+    <mat-icon>add</mat-icon>
+    Nuevo Conductor
+  </button>
+</div>
+
+<div class="page-content">
+  <div *ngIf="isLoading" class="loading-container">
+    <p>Cargando conductores...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !error">
+    <app-data-table [columns]="columns" [data]="conductores"></app-data-table>
+  </div>
+</div>
+
