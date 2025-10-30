@@ -5,7 +5,7 @@ import { MatPaginatorModule, MatPaginator, MatPaginatorIntl } from '@angular/mat
 export interface TableColumn {
   key: string;
   label: string;
-  format?: (value: any) => string;
+  format?: (value: any, row?: any) => string;
 }
 
 @Injectable()

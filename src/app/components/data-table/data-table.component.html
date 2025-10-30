@@ -5,7 +5,7 @@
         <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
         <td mat-cell *matCellDef="let row">
           @if (column.format) {
-            {{ column.format(row[column.key]) }}
+            {{ column.format(row[column.key], row) }}
           } @else {
             {{ row[column.key] }}
           }

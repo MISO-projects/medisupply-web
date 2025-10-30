@@ -37,8 +37,16 @@ describe('VendorListComponent', () => {
         nombre: 'Vendor 1',
         email: 'vendor1@test.com',
         zona_asignada: 'Perú',
-        plan_venta: 'plan-123',
-        meta_venta: 1000,
+        plan_venta_id: 'plan-uuid-123',
+        plan_venta: {
+          id: 'plan-uuid-123',
+          nombre: 'Plan Test 1',
+          fecha_inicio: '2024-01-01',
+          fecha_fin: '2024-12-31',
+          descripcion: 'Plan de prueba',
+          meta_venta: 10000,
+          zona_asignada: 'Perú',
+        },
       },
     ];
 

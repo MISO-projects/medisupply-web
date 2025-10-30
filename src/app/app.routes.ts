@@ -70,6 +70,22 @@ export const routes: Routes = [
           ),
       },
 
+      // Sales Plans routes
+      {
+        path: 'sales-plans',
+        loadComponent: () =>
+          import('./pages/sales-plans/sales-plan-list/sales-plan-list.component').then(
+            (m) => m.SalesPlanListComponent,
+          ),
+      },
+      {
+        path: 'sales-plans/create',
+        loadComponent: () =>
+          import('./pages/sales-plans/sales-plan-create/sales-plan-create.component').then(
+            (m) => m.SalesPlanCreateComponent,
+          ),
+      },
+
       // Routes (Logística) routes
       {
         path: 'routes',
