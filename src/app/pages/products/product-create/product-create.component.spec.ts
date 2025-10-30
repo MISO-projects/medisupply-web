@@ -277,7 +277,6 @@ describe('ProductCreateComponent', () => {
         tipo_almacenamiento: 'ambiente',
         observaciones: 'Test observations',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };
@@ -313,7 +312,6 @@ describe('ProductCreateComponent', () => {
         sku: 'SKU-001',
         observaciones: '',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };

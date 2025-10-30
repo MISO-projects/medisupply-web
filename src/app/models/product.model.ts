@@ -3,7 +3,6 @@ export interface Product {
   nombre: string;
   categoria: string;
   imagen_url: string;
-  stock_disponible: number;
   disponible: boolean;
   precio_unitario: string;
   unidad_medida: string;
