@@ -85,6 +85,13 @@ export const routes: Routes = [
             (m) => m.SalesPlanCreateComponent,
           ),
       },
+      {
+        path: 'inventory',
+        loadComponent: () =>
+          import('./pages/inventory/inventory-list/inventory-list.component').then(
+            (m) => m.InventoryListComponent,
+          ),
+      }
     ],
   },
 ];

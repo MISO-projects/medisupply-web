@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Un poco más de espacio */
+}
+
+.title {
+  font-size: 1.75rem; /* Un título más grande */
+  font-weight: 500;
+  margin: 0;
+}
+
+.loading,
+.error {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.error {
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 4px;
+}

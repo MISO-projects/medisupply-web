@@ -1,0 +1,21 @@
+<div class="inventory-list-container">
+  <div class="header">
+    <h1 class="title">Inventario</h1>
+    <button mat-flat-button color="primary" routerLink="/inventory/create">
+      <mat-icon>add</mat-icon>
+      Registrar ingreso
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando inventario...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="inventoryItems" [columns]="columns" />
+  }
+</div>
