@@ -1,0 +1,140 @@
+<div class="inventory-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nuevo ingreso</h1>
+    </div>
+    <button mat-flat-button color="primary" type="submit" form="inventoryForm" [disabled]="isLoading">
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()" id="inventoryForm" class="inventory-form">
+
+      <div class="form-section">
+        <h2 class="subtitle">Datos del ingreso</h2>
+        <div class="form-row">
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="producto_id">
+              @if (products$ | async; as products) {
+                @for (product of products; track product.id) {
+                  <mat-option [value]="product.id">
+                    {{ product.nombre }} ({{ product.sku }})
+                  </mat-option>
+                }
+              }
+            </mat-select>
+            @if (inventoryForm.get('producto_id')?.hasError('required') && inventoryForm.get('producto_id')?.touched) {
+              <mat-error>El producto es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="cantidad" />
+            @if (inventoryForm.get('cantidad')?.hasError('required') && inventoryForm.get('cantidad')?.touched) {
+              <mat-error>La cantidad es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Lote</mat-label>
+            <input matInput formControlName="lote" />
+
+            <mat-hint>Ej: LOTE-12345</mat-hint>
+            @if (inventoryForm.get('lote')?.hasError('required') && inventoryForm.get('lote')?.touched) {
+              <mat-error>El lote es requerido</mat-error>
+            }
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="subtitle">Ubicación y almacenamiento</h2>
+        <div class="form-row">
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Bodega</mat-label>
+            <mat-select formControlName="bodega">
+              @for (bodega of bodegas; track bodega) {
+                <mat-option [value]="bodega">{{ bodega }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ubicación interna (Estante)</mat-label>
+            <input matInput formControlName="ubicacion_interna" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Condiciones de almacenamiento</mat-label>
+            <mat-select formControlName="condiciones_almacenamiento">
+              @for (condicion of condiciones; track condicion) {
+                <mat-option [value]="condicion">{{ condicion }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="subtitle">Vencimiento y estado</h2>
+        <div class="form-row">
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Fecha de vencimiento</mat-label>
+            <input matInput [matDatepicker]="pickerVencimiento" formControlName="fecha_vencimiento" [min]="minDate" />
+            <mat-datepicker-toggle matIconSuffix [for]="pickerVencimiento"></mat-datepicker-toggle>
+            <mat-datepicker #pickerVencimiento></mat-datepicker>
+            @if (inventoryForm.get('fecha_vencimiento')?.hasError('required') && inventoryForm.get('fecha_vencimiento')?.touched) {
+              <mat-error>La fecha es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+              @for (estado of estados; track estado) {
+                <mat-option [value]="estado">{{ estado }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="subtitle">Notas</h2>
+        <div class="form-row">
+
+          <mat-form-field appearance="outline" class="form-field-wide">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput formControlName="observaciones" rows="3"></textarea>
+          </mat-form-field>
+
+        </div>
+        <div class="form-row">
+
+          <mat-form-field appearance="outline" class="form-field-wide">
+            <mat-label>Condiciones especiales</mat-label>
+            <textarea matInput formControlName="condiciones_especiales" rows="3"></textarea>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

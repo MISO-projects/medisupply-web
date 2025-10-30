@@ -91,7 +91,14 @@ export const routes: Routes = [
           import('./pages/inventory/inventory-list/inventory-list.component').then(
             (m) => m.InventoryListComponent,
           ),
-      }
+      },
+      {
+        path: 'inventory/create',
+        loadComponent: () =>
+          import('./pages/inventory/inventory-create/inventory-create.component').then(
+            (m) => m.InventoryCreateComponent,
+          ),
+      },
     ],
   },
 ];

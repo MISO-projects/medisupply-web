@@ -21,3 +21,15 @@ export interface InventoryListResponse {
   total_pages: number;
   items: InventoryItem[];
 }
+
+export interface InventoryCreatePayload {
+  producto_id: string;
+  lote: string;
+  fecha_vencimiento: string;
+  cantidad: number;
+  ubicacion: string;
+  temperatura_requerida: string;
+  estado: string;
+  observaciones?: string | null;
+  condiciones_especiales?: string | null;
+}

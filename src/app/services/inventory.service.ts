@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, tap } from 'rxjs';
 import { InventoryItem, InventoryListResponse } from '../models/inventory.model';
 import { environment } from '../../environments/environment';
+import { InventoryCreatePayload } from '../models/inventory.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,9 @@ export class InventoryService {
       .pipe(
         map((response) => response.items)
       );
+  }
+
+  createInventoryRecord(data: InventoryCreatePayload): Observable<InventoryItem> {
+    return this.http.post<InventoryItem>(`${this.apiUrl}/inventario/`, data);
   }
 }
