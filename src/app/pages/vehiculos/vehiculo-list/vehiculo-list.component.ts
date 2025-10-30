@@ -29,7 +29,7 @@ export class VehiculoListComponent implements OnInit {
     { key: 'modelo', label: 'Modelo' },
     { key: 'tipo', label: 'Tipo' },
     { key: 'capacidad_kg', label: 'Capacidad (kg)' },
-    { key: 'activo', label: 'Estado', format: (value: boolean) => value ? 'Activo' : 'Inactivo' },
+    { key: 'activo', label: 'Estado', format: (value: boolean) => (value ? 'Activo' : 'Inactivo') },
   ];
 
   ngOnInit() {
@@ -53,7 +53,3 @@ export class VehiculoListComponent implements OnInit {
     });
   }
 }
-
-
-
-

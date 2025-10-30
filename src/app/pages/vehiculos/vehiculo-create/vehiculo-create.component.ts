@@ -53,7 +53,9 @@ export class VehiculoCreateComponent {
     const formData = {
       ...this.vehiculoForm.value,
       año: this.vehiculoForm.value.año ? parseInt(this.vehiculoForm.value.año) : undefined,
-      capacidad_kg: this.vehiculoForm.value.capacidad_kg ? parseFloat(this.vehiculoForm.value.capacidad_kg) : undefined,
+      capacidad_kg: this.vehiculoForm.value.capacidad_kg
+        ? parseFloat(this.vehiculoForm.value.capacidad_kg)
+        : undefined,
     };
 
     this.vehiculoService.createVehiculo(formData).subscribe({
@@ -85,7 +87,3 @@ export class VehiculoCreateComponent {
     this.router.navigate(['/vehiculos']);
   }
 }
-
-
-
-

@@ -30,7 +30,9 @@ export class VehiculoService {
     return this.http.get<Vehiculo>(`${this.apiUrl}/logistica/vehiculos/${id}`);
   }
 
-  createVehiculo(vehiculo: Omit<Vehiculo, 'id' | 'fecha_creacion' | 'fecha_actualizacion'>): Observable<Vehiculo> {
+  createVehiculo(
+    vehiculo: Omit<Vehiculo, 'id' | 'fecha_creacion' | 'fecha_actualizacion'>,
+  ): Observable<Vehiculo> {
     return this.http.post<Vehiculo>(`${this.apiUrl}/logistica/vehiculos`, vehiculo);
   }
 
@@ -42,4 +44,3 @@ export class VehiculoService {
     return this.http.delete<{ mensaje: string }>(`${this.apiUrl}/logistica/vehiculos/${id}`);
   }
 }
-

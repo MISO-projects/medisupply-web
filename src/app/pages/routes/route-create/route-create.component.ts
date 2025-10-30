@@ -140,8 +140,12 @@ export class RouteCreateComponent implements OnInit {
     this.isLoading = true;
 
     // Obtener información del vehículo y conductor seleccionados
-    const vehiculoSeleccionado = this.vehiculos.find(v => v.id === this.routeForm.value.vehiculo_id);
-    const conductorSeleccionado = this.conductores.find(c => c.id === this.routeForm.value.conductor_id);
+    const vehiculoSeleccionado = this.vehiculos.find(
+      (v) => v.id === this.routeForm.value.vehiculo_id,
+    );
+    const conductorSeleccionado = this.conductores.find(
+      (c) => c.id === this.routeForm.value.conductor_id,
+    );
 
     // Formatear los datos para enviar al backend
     const formData = {
@@ -211,4 +215,3 @@ export class RouteCreateComponent implements OnInit {
     });
   }
 }
-

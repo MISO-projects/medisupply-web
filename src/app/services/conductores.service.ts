@@ -12,7 +12,11 @@ export class ConductorService {
   private http = inject(HttpClient);
   private apiUrl = environment.bffApiUrl;
 
-  getConductores(page: number = 1, pageSize: number = 20, activo?: boolean): Observable<Conductor[]> {
+  getConductores(
+    page: number = 1,
+    pageSize: number = 20,
+    activo?: boolean,
+  ): Observable<Conductor[]> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('page_size', pageSize.toString());
@@ -30,7 +34,9 @@ export class ConductorService {
     return this.http.get<Conductor>(`${this.apiUrl}/logistica/conductores/${id}`);
   }
 
-  createConductor(conductor: Omit<Conductor, 'id' | 'nombre_completo' | 'fecha_creacion' | 'fecha_actualizacion'>): Observable<Conductor> {
+  createConductor(
+    conductor: Omit<Conductor, 'id' | 'nombre_completo' | 'fecha_creacion' | 'fecha_actualizacion'>,
+  ): Observable<Conductor> {
     return this.http.post<Conductor>(`${this.apiUrl}/logistica/conductores`, conductor);
   }
 
@@ -42,4 +48,3 @@ export class ConductorService {
     return this.http.delete<{ mensaje: string }>(`${this.apiUrl}/logistica/conductores/${id}`);
   }
 }
-

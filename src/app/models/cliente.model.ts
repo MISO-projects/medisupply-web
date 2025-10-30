@@ -15,4 +15,3 @@ export interface ClienteResponse {
   page_size: number;
   total_pages: number;
 }
-
