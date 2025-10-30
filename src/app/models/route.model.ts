@@ -1,7 +1,7 @@
 export interface Parada {
   id?: number;
   ruta_id?: number;
-  cliente_id?: number;
+  cliente_id?: string; // UUID del cliente
   direccion: string;
   contacto?: string;
   latitud: number;

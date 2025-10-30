@@ -10,12 +10,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouteService } from '../../../services/routes.service';
 import { VehiculoService } from '../../../services/vehiculos.service';
 import { ConductorService } from '../../../services/conductores.service';
+import { ClienteService } from '../../../services/clientes.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from '../../../components/custom-snackbar/custom-snackbar.component';
 import { CommonModule } from '@angular/common';
 import { Vehiculo } from '../../../models/vehiculo.model';
 import { Conductor } from '../../../models/conductor.model';
+import { Cliente } from '../../../models/cliente.model';
 
 @Component({
   selector: 'app-route-create',
@@ -38,12 +40,14 @@ export class RouteCreateComponent implements OnInit {
   private routeService = inject(RouteService);
   private vehiculoService = inject(VehiculoService);
   private conductorService = inject(ConductorService);
+  private clienteService = inject(ClienteService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
 
   isLoading = false;
   vehiculos: Vehiculo[] = [];
   conductores: Conductor[] = [];
+  clientes: Cliente[] = [];
   bodegas = ['Bodega Central', 'Bodega Norte', 'Bodega Sur', 'Bodega Occidente'];
   estados = ['Pendiente', 'En Curso', 'Completada', 'Cancelada'];
   condicionesAlmacenamiento = ['Ambiente', 'Refrigerado', 'Congelado', 'Controlado'];
@@ -70,6 +74,7 @@ export class RouteCreateComponent implements OnInit {
   ngOnInit(): void {
     this.loadVehiculos();
     this.loadConductores();
+    this.loadClientes();
   }
 
   private loadVehiculos(): void {
@@ -90,6 +95,17 @@ export class RouteCreateComponent implements OnInit {
       },
       error: (err: Error) => {
         console.error('Error al cargar conductores:', err);
+      },
+    });
+  }
+
+  private loadClientes(): void {
+    this.clienteService.getClientes(1, 100, true).subscribe({
+      next: (clientes: Cliente[]) => {
+        this.clientes = clientes;
+      },
+      error: (err: Error) => {
+        console.error('Error al cargar clientes:', err);
       },
     });
   }
@@ -139,7 +155,7 @@ export class RouteCreateComponent implements OnInit {
       conductor_nombre: conductorSeleccionado?.nombre_completo || '',
       condiciones_almacenamiento: this.routeForm.value.condiciones_almacenamiento,
       paradas: this.routeForm.value.paradas.map((parada: any, index: number) => ({
-        cliente_id: parseInt(parada.cliente_id),
+        cliente_id: parada.cliente_id, // Ya viene como string (UUID)
         direccion: parada.direccion,
         contacto: parada.contacto,
         latitud: parseFloat(parada.latitud) || 0,

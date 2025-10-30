@@ -1,22 +1,26 @@
-<div class="page-header">
-  <h1>Conductores</h1>
-  <button mat-raised-button color="primary" routerLink="/conductores/create">
-    <mat-icon>add</mat-icon>
-    Nuevo Conductor
-  </button>
+<div class="conductor-list-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button routerLink="/routes">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Conductores</h1>
+    </div>
+    <button mat-flat-button color="primary" routerLink="/conductores/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando conductores...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="conductores" [columns]="columns" />
+  }
 </div>
-
-<div class="page-content">
-  <div *ngIf="isLoading" class="loading-container">
-    <p>Cargando conductores...</p>
-  </div>
-
-  <div *ngIf="error" class="error-container">
-    <p>{{ error }}</p>
-  </div>
-
-  <div *ngIf="!isLoading && !error">
-    <app-data-table [columns]="columns" [data]="conductores"></app-data-table>
-  </div>
-</div>
-

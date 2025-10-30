@@ -18,24 +18,24 @@ export class RouteService {
       .set('page_size', pageSize.toString());
 
     return this.http
-      .get<RouteResponse>(`${this.apiUrl}/web/logistica/rutas`, { params })
+      .get<RouteResponse>(`${this.apiUrl}/logistica/rutas`, { params })
       .pipe(map((response) => response.rutas));
   }
 
   getRoute(id: string): Observable<Route> {
-    return this.http.get<Route>(`${this.apiUrl}/web/logistica/rutas/${id}`);
+    return this.http.get<Route>(`${this.apiUrl}/logistica/rutas/${id}`);
   }
 
   createRoute(route: Omit<Route, 'id' | 'created_at' | 'updated_at'>): Observable<Route> {
-    return this.http.post<Route>(`${this.apiUrl}/web/logistica/rutas/`, route);
+    return this.http.post<Route>(`${this.apiUrl}/logistica/rutas`, route);
   }
 
   updateRoute(id: string, route: Partial<Route>): Observable<Route> {
-    return this.http.put<Route>(`${this.apiUrl}/web/logistica/rutas/${id}`, route);
+    return this.http.put<Route>(`${this.apiUrl}/logistica/rutas/${id}`, route);
   }
 
   deleteRoute(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/web/logistica/rutas/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/logistica/rutas/${id}`);
   }
 }
 

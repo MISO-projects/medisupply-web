@@ -1,13 +1,14 @@
 export interface Vehiculo {
-  id: string;
+  id: number;
   placa: string;
   marca: string;
   modelo: string;
+  año?: number;
   tipo: string;
-  capacidad_kg: number;
+  capacidad_kg?: number;
   activo: boolean;
-  conductor_id?: string;
-  conductor_nombre?: string;
+  fecha_creacion?: string;
+  fecha_actualizacion?: string;
 }
 
 export interface VehiculoResponse {

@@ -1,28 +1,37 @@
-.page-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  padding: 0 24px;
+  margin-bottom: 10px;
 }
 
-.page-content {
-  padding: 0 24px;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.loading-container,
-.error-container {
-  padding: 48px;
-  text-align: center;
-}
-
-.error-container {
-  color: #d32f2f;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 500;
+.title {
   margin: 0;
 }
 
+.loading,
+.error {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.error {
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 4px;
+}
+
+.mat-row.mat-mdc-row {
+  cursor: pointer;
+}
+
+.mat-row.mat-mdc-row:hover {
+  background-color: #f5f5f5;
+}

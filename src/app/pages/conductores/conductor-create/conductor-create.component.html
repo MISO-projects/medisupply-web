@@ -1,88 +1,90 @@
-<div class="page-header">
-  <h1>Nuevo Conductor</h1>
-</div>
-
-<div class="page-content">
-  <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()">
-    <div class="form-grid">
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" placeholder="Ingrese el nombre" />
-        <mat-error *ngIf="conductorForm.get('nombre')?.hasError('required')">
-          El nombre es obligatorio
-        </mat-error>
-        <mat-error *ngIf="conductorForm.get('nombre')?.hasError('maxlength')">
-          Máximo 100 caracteres
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Apellido</mat-label>
-        <input matInput formControlName="apellido" placeholder="Ingrese el apellido" />
-        <mat-error *ngIf="conductorForm.get('apellido')?.hasError('required')">
-          El apellido es obligatorio
-        </mat-error>
-        <mat-error *ngIf="conductorForm.get('apellido')?.hasError('maxlength')">
-          Máximo 100 caracteres
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Documento</mat-label>
-        <input matInput formControlName="documento" placeholder="Ingrese el documento" />
-        <mat-error *ngIf="conductorForm.get('documento')?.hasError('required')">
-          El documento es obligatorio
-        </mat-error>
-        <mat-error *ngIf="conductorForm.get('documento')?.hasError('maxlength')">
-          Máximo 20 caracteres
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Licencia de Conducir</mat-label>
-        <input
-          matInput
-          formControlName="licencia_conducir"
-          placeholder="Ingrese la licencia de conducir"
-        />
-        <mat-error *ngIf="conductorForm.get('licencia_conducir')?.hasError('required')">
-          La licencia de conducir es obligatoria
-        </mat-error>
-        <mat-error *ngIf="conductorForm.get('licencia_conducir')?.hasError('maxlength')">
-          Máximo 50 caracteres
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Teléfono</mat-label>
-        <input matInput formControlName="telefono" placeholder="Ingrese el teléfono" />
-        <mat-error *ngIf="conductorForm.get('telefono')?.hasError('maxlength')">
-          Máximo 20 caracteres
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Ingrese el email" type="email" />
-        <mat-error *ngIf="conductorForm.get('email')?.hasError('email')">
-          Email inválido
-        </mat-error>
-        <mat-error *ngIf="conductorForm.get('email')?.hasError('maxlength')">
-          Máximo 255 caracteres
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="checkbox-container">
-      <mat-checkbox formControlName="activo">Activo</mat-checkbox>
-    </div>
-
-    <div class="form-actions">
-      <button mat-button type="button" (click)="onCancel()" [disabled]="isLoading">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
-        {{ isLoading ? 'Guardando...' : 'Guardar' }}
+<div class="conductor-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
       </button>
+      <h1 class="title">Nuevo conductor</h1>
     </div>
-  </form>
-</div>
+    <button mat-flat-button color="primary" type="submit" form="conductorForm" [disabled]="isLoading">
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
 
+  <div class="form-container">
+    <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" id="conductorForm" class="conductor-form">
+      <div class="form-section">
+        <h2 class="subtitle">Información del conductor</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            @if (
+              conductorForm.get('nombre')?.hasError('required') && conductorForm.get('nombre')?.touched
+            ) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" />
+            @if (
+              conductorForm.get('apellido')?.hasError('required') && conductorForm.get('apellido')?.touched
+            ) {
+              <mat-error>El apellido es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Documento</mat-label>
+            <input matInput formControlName="documento" />
+            @if (
+              conductorForm.get('documento')?.hasError('required') && conductorForm.get('documento')?.touched
+            ) {
+              <mat-error>El documento es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+            @if (
+              conductorForm.get('email')?.hasError('email') && conductorForm.get('email')?.touched
+            ) {
+              <mat-error>El email no es válido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Licencia de conducir</mat-label>
+            <input matInput formControlName="licencia_conducir" />
+            @if (
+              conductorForm.get('licencia_conducir')?.hasError('required') && conductorForm.get('licencia_conducir')?.touched
+            ) {
+              <mat-error>La licencia de conducir es requerida</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <div class="checkbox-field">
+            <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

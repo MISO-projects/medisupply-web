@@ -1,9 +1,14 @@
 <div class="vehiculo-list-container">
   <div class="header">
-    <h1 class="title">Vehículos</h1>
+    <div class="header-left">
+      <button mat-icon-button routerLink="/routes">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Vehículos</h1>
+    </div>
     <button mat-flat-button color="primary" routerLink="/vehiculos/create">
       <mat-icon>add</mat-icon>
-      Crear vehículo
+      Crear
     </button>
   </div>
 
@@ -19,7 +24,3 @@
     <app-data-table [data]="vehiculos" [columns]="columns" />
   }
 </div>
-
-
-
-
