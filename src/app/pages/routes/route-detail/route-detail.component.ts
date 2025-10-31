@@ -12,13 +12,7 @@ import { CustomSnackbarComponent } from '../../../components/custom-snackbar/cus
 
 @Component({
   selector: 'app-route-detail',
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatChipsModule,
-  ],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule],
   templateUrl: './route-detail.component.html',
   styleUrls: ['./route-detail.component.css'],
 })
@@ -107,4 +101,3 @@ export class RouteDetailComponent implements OnInit {
     return this.routeData?.paradas?.length ?? 0;
   }
 }
-
