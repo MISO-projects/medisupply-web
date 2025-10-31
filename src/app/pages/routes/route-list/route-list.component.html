@@ -26,7 +26,7 @@
   }
 
   @if (!isLoading && !error) {
-    <app-data-table [data]="routes" [columns]="columns" />
+    <app-data-table [data]="routes" [columns]="columns" (rowClick)="onRouteClick($event)" />
   }
 </div>
 

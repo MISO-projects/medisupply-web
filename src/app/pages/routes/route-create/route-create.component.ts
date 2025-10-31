@@ -154,13 +154,12 @@ export class RouteCreateComponent implements OnInit {
       vehiculo_info: `${vehiculoSeleccionado?.marca} ${vehiculoSeleccionado?.modelo}` || '',
       conductor_nombre: conductorSeleccionado?.nombre_completo || '',
       condiciones_almacenamiento: this.routeForm.value.condiciones_almacenamiento,
-      paradas: this.routeForm.value.paradas.map((parada: any, index: number) => ({
-        cliente_id: parada.cliente_id, // Ya viene como string (UUID)
+      paradas: this.routeForm.value.paradas.map((parada: any) => ({
+        cliente_id: parada.cliente_id,
         direccion: parada.direccion,
         contacto: parada.contacto,
         latitud: parseFloat(parada.latitud) || 0,
         longitud: parseFloat(parada.longitud) || 0,
-        orden: index + 1,
       })),
     };
 

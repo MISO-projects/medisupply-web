@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import {
   DataTableComponent,
   TableColumn,
@@ -17,6 +17,7 @@ import { Route } from '../../../models/route.model';
 })
 export class RouteListComponent implements OnInit {
   private routeService = inject(RouteService);
+  private router = inject(Router);
 
   routes: Route[] = [];
   isLoading = false;
@@ -49,6 +50,10 @@ export class RouteListComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onRouteClick(route: Route): void {
+    this.router.navigate(['/routes', route.id]);
   }
 }
 

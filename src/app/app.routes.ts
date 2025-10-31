@@ -101,6 +101,13 @@ export const routes: Routes = [
             (m) => m.RouteCreateComponent,
           ),
       },
+      {
+        path: 'routes/:id',
+        loadComponent: () =>
+          import('./pages/routes/route-detail/route-detail.component').then(
+            (m) => m.RouteDetailComponent,
+          ),
+      },
 
       // Conductores routes
       {

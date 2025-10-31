@@ -1,0 +1,160 @@
+<div class="route-detail-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onBack()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Detalle de Ruta</h1>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando información de la ruta...</div>
+  }
+
+  @if (error && !isLoading) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (routeData && !isLoading) {
+    <div class="content">
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Información General</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">ID de Ruta:</span>
+              <span class="value">{{ routeData.id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Fecha:</span>
+              <span class="value">{{ formatDate(routeData.fecha) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Estado:</span>
+              <mat-chip [color]="getEstadoColor(routeData.estado)">
+                {{ routeData.estado || 'Sin estado' }}
+              </mat-chip>
+            </div>
+            <div class="info-item">
+              <span class="label">Bodega de Origen:</span>
+              <span class="value">{{ routeData.bodega_origen || '-' }}</span>
+            </div>
+            @if (routeData.condiciones_almacenamiento) {
+              <div class="info-item">
+                <span class="label">Condiciones de Almacenamiento:</span>
+                <span class="value">{{ routeData.condiciones_almacenamiento }}</span>
+              </div>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Recursos Logísticos -->
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Recursos Logísticos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Vehículo:</span>
+              <span class="value">{{ routeData.vehiculo_info }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Placa:</span>
+              <span class="value">{{ routeData.vehiculo_placa }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Conductor:</span>
+              <span class="value">{{ routeData.conductor_nombre }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Paradas de Entrega -->
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Paradas de Entrega ({{ paradasCount }})</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (routeData.paradas && routeData.paradas.length > 0) {
+            <div class="paradas-list">
+              @for (parada of routeData.paradas; track parada.id || $index) {
+                <div class="parada-card">
+                  <div class="parada-header">
+                    <div class="parada-number">{{ parada.orden || $index + 1 }}</div>
+                    <div class="parada-info">
+                      <h3 class="parada-title">Parada {{ parada.orden || $index + 1 }}</h3>
+                      @if (parada.estado) {
+                        <mat-chip [color]="getEstadoColor(parada.estado)" class="parada-estado">
+                          {{ parada.estado }}
+                        </mat-chip>
+                      }
+                    </div>
+                  </div>
+                  <div class="parada-details">
+                    <div class="parada-grid">
+                      <div class="parada-item">
+                        <span class="label">Dirección:</span>
+                        <span class="value">{{ parada.direccion }}</span>
+                      </div>
+                      @if (parada.contacto) {
+                        <div class="parada-item">
+                          <span class="label">Contacto:</span>
+                          <span class="value">{{ parada.contacto }}</span>
+                        </div>
+                      }
+                      @if (parada.latitud && parada.longitud) {
+                        <div class="parada-item">
+                          <span class="label">Coordenadas:</span>
+                          <span class="value">{{ parada.latitud }}, {{ parada.longitud }}</span>
+                        </div>
+                      }
+                      @if (parada.notas) {
+                        <div class="parada-item full-width">
+                          <span class="label">Notas:</span>
+                          <span class="value">{{ parada.notas }}</span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="no-paradas">No hay paradas registradas para esta ruta.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      @if (routeData.fecha_creacion || routeData.fecha_actualizacion) {
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>Información de Auditoría</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-grid">
+              @if (routeData.fecha_creacion) {
+                <div class="info-item">
+                  <span class="label">Fecha de Creación:</span>
+                  <span class="value">{{ formatDateTime(routeData.fecha_creacion) }}</span>
+                </div>
+              }
+              @if (routeData.fecha_actualizacion) {
+                <div class="info-item">
+                  <span class="label">Última Actualización:</span>
+                  <span class="value">{{ formatDateTime(routeData.fecha_actualizacion) }}</span>
+                </div>
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>
+
