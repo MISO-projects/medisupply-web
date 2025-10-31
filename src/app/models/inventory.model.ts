@@ -1,5 +1,3 @@
-// src/app/models/inventory.model.ts
-
 export interface InventoryItem {
   id: string;
   producto_id: string;
@@ -12,6 +10,8 @@ export interface InventoryItem {
   fecha_recepcion: string;
   producto_nombre: string;
   producto_sku: string;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export interface InventoryListResponse {
