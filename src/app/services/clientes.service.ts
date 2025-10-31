@@ -12,7 +12,11 @@ export class ClienteService {
   private http = inject(HttpClient);
   private apiUrl = environment.bffApiUrl;
 
-  getClientes(page: number = 1, pageSize: number = 100, simple: boolean = false): Observable<Cliente[]> {
+  getClientes(
+    page: number = 1,
+    pageSize: number = 100,
+    simple: boolean = false,
+  ): Observable<Cliente[]> {
     if (simple) {
       // Llamada simple sin paginación para listados
       return this.http.get<Cliente[]>(`${this.apiUrl}/clientes/`);
@@ -31,7 +35,9 @@ export class ClienteService {
     return this.http.get<Cliente>(`${this.apiUrl}/clientes/${id}`);
   }
 
-  createCliente(cliente: Omit<Cliente, 'id' | 'fecha_creacion' | 'fecha_actualizacion'>): Observable<Cliente> {
+  createCliente(
+    cliente: Omit<Cliente, 'id' | 'fecha_creacion' | 'fecha_actualizacion'>,
+  ): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.apiUrl}/clientes/`, cliente);
   }
 
@@ -43,4 +49,3 @@ export class ClienteService {
     return this.http.delete<void>(`${this.apiUrl}/clientes/${id}`);
   }
 }
-

@@ -38,4 +38,3 @@ export class RouteService {
     return this.http.delete<void>(`${this.apiUrl}/logistica/rutas/${id}`);
   }
 }
-

@@ -31,7 +31,7 @@ export class ConductorListComponent implements OnInit {
     { key: 'licencia_conducir', label: 'Licencia' },
     { key: 'telefono', label: 'Teléfono' },
     { key: 'email', label: 'Email' },
-    { key: 'activo', label: 'Estado', format: (value: boolean) => value ? 'Activo' : 'Inactivo' },
+    { key: 'activo', label: 'Estado', format: (value: boolean) => (value ? 'Activo' : 'Inactivo') },
   ];
 
   ngOnInit() {
@@ -55,4 +55,3 @@ export class ConductorListComponent implements OnInit {
     });
   }
 }
-

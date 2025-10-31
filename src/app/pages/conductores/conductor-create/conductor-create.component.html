@@ -6,7 +6,13 @@
       </button>
       <h1 class="title">Nuevo conductor</h1>
     </div>
-    <button mat-flat-button color="primary" type="submit" form="conductorForm" [disabled]="isLoading">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      form="conductorForm"
+      [disabled]="isLoading"
+    >
       @if (isLoading) {
         Guardando...
       } @else {
@@ -16,7 +22,12 @@
   </div>
 
   <div class="form-container">
-    <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" id="conductorForm" class="conductor-form">
+    <form
+      [formGroup]="conductorForm"
+      (ngSubmit)="onSubmit()"
+      id="conductorForm"
+      class="conductor-form"
+    >
       <div class="form-section">
         <h2 class="subtitle">Información del conductor</h2>
 
@@ -25,7 +36,8 @@
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="nombre" />
             @if (
-              conductorForm.get('nombre')?.hasError('required') && conductorForm.get('nombre')?.touched
+              conductorForm.get('nombre')?.hasError('required') &&
+              conductorForm.get('nombre')?.touched
             ) {
               <mat-error>El nombre es requerido</mat-error>
             }
@@ -35,7 +47,8 @@
             <mat-label>Apellido</mat-label>
             <input matInput formControlName="apellido" />
             @if (
-              conductorForm.get('apellido')?.hasError('required') && conductorForm.get('apellido')?.touched
+              conductorForm.get('apellido')?.hasError('required') &&
+              conductorForm.get('apellido')?.touched
             ) {
               <mat-error>El apellido es requerido</mat-error>
             }
@@ -45,7 +58,8 @@
             <mat-label>Documento</mat-label>
             <input matInput formControlName="documento" />
             @if (
-              conductorForm.get('documento')?.hasError('required') && conductorForm.get('documento')?.touched
+              conductorForm.get('documento')?.hasError('required') &&
+              conductorForm.get('documento')?.touched
             ) {
               <mat-error>El documento es requerido</mat-error>
             }
@@ -72,7 +86,8 @@
             <mat-label>Licencia de conducir</mat-label>
             <input matInput formControlName="licencia_conducir" />
             @if (
-              conductorForm.get('licencia_conducir')?.hasError('required') && conductorForm.get('licencia_conducir')?.touched
+              conductorForm.get('licencia_conducir')?.hasError('required') &&
+              conductorForm.get('licencia_conducir')?.touched
             ) {
               <mat-error>La licencia de conducir es requerida</mat-error>
             }

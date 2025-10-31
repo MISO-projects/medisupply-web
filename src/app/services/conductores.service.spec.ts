@@ -96,7 +96,9 @@ describe('ConductorService', () => {
         expect(conductores[0].activo).toBe(true);
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/logistica/conductores?page=1&page_size=20&activo=true`);
+      const req = httpMock.expectOne(
+        `${apiUrl}/logistica/conductores?page=1&page_size=20&activo=true`,
+      );
       expect(req.request.method).toBe('GET');
       req.flush(mockResponse);
     });

@@ -17,7 +17,6 @@
 
   <div class="form-container">
     <form [formGroup]="routeForm" (ngSubmit)="onSubmit()" id="routeForm" class="route-form">
-
       <!-- Datos del ingreso -->
       <div class="form-section">
         <h2 class="subtitle">Datos del ingreso</h2>
@@ -41,7 +40,8 @@
               }
             </mat-select>
             @if (
-              routeForm.get('bodega_origen')?.hasError('required') && routeForm.get('bodega_origen')?.touched
+              routeForm.get('bodega_origen')?.hasError('required') &&
+              routeForm.get('bodega_origen')?.touched
             ) {
               <mat-error>La bodega de origen es requerida</mat-error>
             }
@@ -78,7 +78,8 @@
               }
             </mat-select>
             @if (
-              routeForm.get('vehiculo_id')?.hasError('required') && routeForm.get('vehiculo_id')?.touched
+              routeForm.get('vehiculo_id')?.hasError('required') &&
+              routeForm.get('vehiculo_id')?.touched
             ) {
               <mat-error>El vehículo es requerido</mat-error>
             }
@@ -94,7 +95,8 @@
               }
             </mat-select>
             @if (
-              routeForm.get('conductor_id')?.hasError('required') && routeForm.get('conductor_id')?.touched
+              routeForm.get('conductor_id')?.hasError('required') &&
+              routeForm.get('conductor_id')?.touched
             ) {
               <mat-error>El conductor es requerido</mat-error>
             }
@@ -115,7 +117,13 @@
       <div class="form-section">
         <div class="section-header">
           <h2 class="subtitle">Paradas de entrega</h2>
-          <button mat-mini-fab type="button" (click)="addParada()" class="add-button" aria-label="Agregar parada">
+          <button
+            mat-mini-fab
+            type="button"
+            (click)="addParada()"
+            class="add-button"
+            aria-label="Agregar parada"
+          >
             <mat-icon>add</mat-icon>
           </button>
         </div>
@@ -139,7 +147,8 @@
                   }
                 </mat-select>
                 @if (
-                  parada.get('cliente_id')?.hasError('required') && parada.get('cliente_id')?.touched
+                  parada.get('cliente_id')?.hasError('required') &&
+                  parada.get('cliente_id')?.touched
                 ) {
                   <mat-error>El cliente es requerido</mat-error>
                 }
@@ -162,12 +171,24 @@
 
               <mat-form-field appearance="outline" class="form-field parada-field">
                 <mat-label>Latitud</mat-label>
-                <input matInput type="number" formControlName="latitud" placeholder="0.000000" step="any" />
+                <input
+                  matInput
+                  type="number"
+                  formControlName="latitud"
+                  placeholder="0.000000"
+                  step="any"
+                />
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-field parada-field">
                 <mat-label>Longitud</mat-label>
-                <input matInput type="number" formControlName="longitud" placeholder="0.000000" step="any" />
+                <input
+                  matInput
+                  type="number"
+                  formControlName="longitud"
+                  placeholder="0.000000"
+                  step="any"
+                />
               </mat-form-field>
 
               <button

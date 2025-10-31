@@ -56,4 +56,3 @@ export class RouteListComponent implements OnInit {
     this.router.navigate(['/routes', route.id]);
   }
 }
-
