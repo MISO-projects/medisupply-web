@@ -41,7 +41,7 @@ export class NavbarComponent {
     {
       title: 'Operaciones',
       items: [
-        { label: 'Logística', route: '/logistics', icon: 'local_shipping' },
+        { label: 'Logística', route: '/routes', icon: 'local_shipping' },
         { label: 'Inventario', route: '/inventory', icon: 'warehouse' },
       ],
     },

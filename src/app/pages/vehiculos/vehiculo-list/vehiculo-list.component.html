@@ -1,0 +1,26 @@
+<div class="vehiculo-list-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button routerLink="/routes">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Vehículos</h1>
+    </div>
+    <button mat-flat-button color="primary" routerLink="/vehiculos/create">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando vehículos...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="vehiculos" [columns]="columns" />
+  }
+</div>

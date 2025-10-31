@@ -1,4 +1,4 @@
-import { Component, input, viewChild, effect, Injectable } from '@angular/core';
+import { Component, input, viewChild, effect, Injectable, output } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
@@ -37,6 +37,7 @@ class CustomPaginatorIntl extends MatPaginatorIntl {
 export class DataTableComponent {
   data = input.required<any[]>();
   columns = input.required<TableColumn[]>();
+  rowClick = output<any>();
 
   dataSource = new MatTableDataSource<any>([]);
   paginator = viewChild.required(MatPaginator);
@@ -58,5 +59,9 @@ export class DataTableComponent {
 
   get displayedColumns(): string[] {
     return this.columns().map((col) => col.key);
+  }
+
+  onRowClick(row: any): void {
+    this.rowClick.emit(row);
   }
 }
