@@ -1,0 +1,79 @@
+.vehiculo-create-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #1976d2;
+}
+
+.form-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vehiculo-form {
+  padding: 2rem;
+}
+
+.form-section {
+  margin-bottom: 2.5rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 1.5rem 0;
+  color: #424242;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .vehiculo-create-container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,109 @@
+<div class="vehiculo-create-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Nuevo vehículo</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      form="vehiculoForm"
+      [disabled]="isLoading"
+    >
+      @if (isLoading) {
+        Guardando...
+      } @else {
+        Guardar
+      }
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form
+      [formGroup]="vehiculoForm"
+      (ngSubmit)="onSubmit()"
+      id="vehiculoForm"
+      class="vehiculo-form"
+    >
+      <div class="form-section">
+        <h2 class="subtitle">Información del vehículo</h2>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Placa</mat-label>
+            <input matInput formControlName="placa" />
+            @if (
+              vehiculoForm.get('placa')?.hasError('required') && vehiculoForm.get('placa')?.touched
+            ) {
+              <mat-error>La placa es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="marca" />
+            @if (
+              vehiculoForm.get('marca')?.hasError('required') && vehiculoForm.get('marca')?.touched
+            ) {
+              <mat-error>La marca es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo" />
+            @if (
+              vehiculoForm.get('modelo')?.hasError('required') &&
+              vehiculoForm.get('modelo')?.touched
+            ) {
+              <mat-error>El modelo es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Año</mat-label>
+            <input matInput formControlName="año" type="number" />
+            @if (vehiculoForm.get('año')?.hasError('min') && vehiculoForm.get('año')?.touched) {
+              <mat-error>El año debe ser mayor a 1900</mat-error>
+            }
+            @if (vehiculoForm.get('año')?.hasError('max') && vehiculoForm.get('año')?.touched) {
+              <mat-error>El año debe ser menor a 2100</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Tipo</mat-label>
+            <input matInput formControlName="tipo" placeholder="Ej. Camión, Furgón" />
+            @if (
+              vehiculoForm.get('tipo')?.hasError('required') && vehiculoForm.get('tipo')?.touched
+            ) {
+              <mat-error>El tipo es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Capacidad (kg)</mat-label>
+            <input matInput formControlName="capacidad_kg" type="number" />
+            @if (
+              vehiculoForm.get('capacidad_kg')?.hasError('min') &&
+              vehiculoForm.get('capacidad_kg')?.touched
+            ) {
+              <mat-error>La capacidad debe ser mayor o igual a 0</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <div class="checkbox-field">
+            <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

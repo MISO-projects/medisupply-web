@@ -1,0 +1,31 @@
+<div class="route-list-container">
+  <div class="header">
+    <h1 class="title">Logística</h1>
+    <div class="header-actions">
+      <button mat-stroked-button routerLink="/conductores">
+        <mat-icon>person</mat-icon>
+        Conductores
+      </button>
+      <button mat-stroked-button routerLink="/vehiculos">
+        <mat-icon>local_shipping</mat-icon>
+        Vehículos
+      </button>
+      <button mat-flat-button color="primary" routerLink="/routes/create">
+        <mat-icon>add</mat-icon>
+        Crear ruta
+      </button>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading">Cargando rutas...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <app-data-table [data]="routes" [columns]="columns" (rowClick)="onRouteClick($event)" />
+  }
+</div>
