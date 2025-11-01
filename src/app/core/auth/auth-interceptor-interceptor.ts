@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service'; // <-- 1. Importa tu 
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
   const authService = inject(AuthService);
   const authToken = authService.getToken();

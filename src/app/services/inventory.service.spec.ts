@@ -1,7 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { InventoryService } from './inventory.service';
-import { InventoryItem, InventoryListResponse, InventoryCreatePayload } from '../models/inventory.model';
+import {
+  InventoryItem,
+  InventoryListResponse,
+  InventoryCreatePayload,
+} from '../models/inventory.model';
 import { environment } from '../../environments/environment';
 import { HttpParams } from '@angular/common/http';
 
@@ -25,7 +29,7 @@ describe('InventoryService', () => {
       producto_nombre: 'Producto 1',
       producto_sku: 'SKU-001',
       created_at: '2025-10-30T10:00:00Z',
-      updated_at: null
+      updated_at: null,
     },
     {
       id: 'uuid-2',
@@ -40,8 +44,8 @@ describe('InventoryService', () => {
       producto_nombre: 'Producto 2',
       producto_sku: 'SKU-002',
       created_at: '2025-10-30T11:00:00Z',
-      updated_at: null
-    }
+      updated_at: null,
+    },
   ];
 
   const mockListResponse: InventoryListResponse = {
@@ -51,7 +55,6 @@ describe('InventoryService', () => {
     page_size: 20,
     total_pages: 1,
   };
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -84,7 +87,7 @@ describe('InventoryService', () => {
       const req = httpMock.expectOne(
         (request) =>
           request.url === `${apiUrl}/inventario/` &&
-          request.params.toString() === expectedParams.toString()
+          request.params.toString() === expectedParams.toString(),
       );
 
       expect(req.request.method).toBe('GET');
@@ -147,7 +150,7 @@ describe('InventoryService', () => {
         temperatura_requerida: 'AMBIENTE',
         estado: 'DISPONIBLE',
         observaciones: 'Nuevo ingreso',
-        condiciones_especiales: null
+        condiciones_especiales: null,
       };
 
       const createdRecord: InventoryItem = {
@@ -157,7 +160,7 @@ describe('InventoryService', () => {
         updated_at: null,
         producto_nombre: 'Producto 1',
         producto_sku: 'SKU-001',
-        ...newRecordPayload
+        ...newRecordPayload,
       };
 
       service.createInventoryRecord(newRecordPayload).subscribe((record) => {

@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {
   DataTableComponent,
-  TableColumn
+  TableColumn,
 } from '../../../components/data-table/data-table.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -26,37 +26,37 @@ class MockDataTableComponent {
 
 // --- (Mock Data) ---
 const mockInventoryItems: InventoryItem[] = [
-    {
-      id: 'uuid-1',
-      producto_id: 'prod-1',
-      lote: 'LOTE-A',
-      fecha_vencimiento: '2025-12-01',
-      cantidad: 100,
-      ubicacion: 'Bodega A',
-      temperatura_requerida: 'AMBIENTE',
-      estado: 'DISPONIBLE',
-      fecha_recepcion: '2025-10-30T10:00:00Z',
-      producto_nombre: 'Producto 1',
-      producto_sku: 'SKU-001',
-      created_at: '2025-10-30T10:00:00Z',
-      updated_at: null
-    },
-    {
-      id: 'uuid-2',
-      producto_id: 'prod-2',
-      lote: 'LOTE-B',
-      fecha_vencimiento: '2026-01-01',
-      cantidad: 50,
-      ubicacion: 'Bodega B',
-      temperatura_requerida: 'REFRIGERADO',
-      estado: 'DISPONIBLE',
-      fecha_recepcion: '2025-10-30T11:00:00Z',
-      producto_nombre: 'Producto 2',
-      producto_sku: 'SKU-002',
-      created_at: '2025-10-30T11:00:00Z',
-      updated_at: null
-    }
-  ];
+  {
+    id: 'uuid-1',
+    producto_id: 'prod-1',
+    lote: 'LOTE-A',
+    fecha_vencimiento: '2025-12-01',
+    cantidad: 100,
+    ubicacion: 'Bodega A',
+    temperatura_requerida: 'AMBIENTE',
+    estado: 'DISPONIBLE',
+    fecha_recepcion: '2025-10-30T10:00:00Z',
+    producto_nombre: 'Producto 1',
+    producto_sku: 'SKU-001',
+    created_at: '2025-10-30T10:00:00Z',
+    updated_at: null,
+  },
+  {
+    id: 'uuid-2',
+    producto_id: 'prod-2',
+    lote: 'LOTE-B',
+    fecha_vencimiento: '2026-01-01',
+    cantidad: 50,
+    ubicacion: 'Bodega B',
+    temperatura_requerida: 'REFRIGERADO',
+    estado: 'DISPONIBLE',
+    fecha_recepcion: '2025-10-30T11:00:00Z',
+    producto_nombre: 'Producto 2',
+    producto_sku: 'SKU-002',
+    created_at: '2025-10-30T11:00:00Z',
+    updated_at: null,
+  },
+];
 
 describe('InventoryListComponent', () => {
   let component: InventoryListComponent;
@@ -77,14 +77,14 @@ describe('InventoryListComponent', () => {
       ],
       providers: [
         { provide: InventoryService, useValue: inventoryServiceSpy },
-        { provide: ActivatedRoute, useValue: {} }
-      ]
+        { provide: ActivatedRoute, useValue: {} },
+      ],
     })
-    .overrideComponent(InventoryListComponent, {
-      remove: { imports: [DataTableComponent] },
-      add: { imports: [MockDataTableComponent] }
-    })
-    .compileComponents();
+      .overrideComponent(InventoryListComponent, {
+        remove: { imports: [DataTableComponent] },
+        add: { imports: [MockDataTableComponent] },
+      })
+      .compileComponents();
 
     inventoryService = TestBed.inject(InventoryService) as jasmine.SpyObj<InventoryService>;
 
@@ -99,7 +99,6 @@ describe('InventoryListComponent', () => {
   });
 
   it('should load, map, and display inventory on init (Happy Path)', () => {
-
     inventoryService.getInventory.and.returnValue(of(mockInventoryItems));
 
     fixture.detectChanges();

@@ -17,9 +17,7 @@ export class InventoryService {
 
     return this.http
       .get<InventoryListResponse>(`${this.apiUrl}/inventario/`, { params })
-      .pipe(
-        map((response) => response.items)
-      );
+      .pipe(map((response) => response.items));
   }
 
   createInventoryRecord(data: InventoryCreatePayload): Observable<InventoryItem> {

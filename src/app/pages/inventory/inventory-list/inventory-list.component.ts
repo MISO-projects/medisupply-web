@@ -13,13 +13,7 @@ import { InventoryItem } from '../../../models/inventory.model';
 @Component({
   selector: 'app-inventory-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    DataTableComponent,
-  ],
+  imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule, DataTableComponent],
   templateUrl: './inventory-list.component.html',
   styleUrl: './inventory-list.component.css',
 })
@@ -52,10 +46,10 @@ export class InventoryListComponent implements OnInit {
 
     this.inventoryService.getInventory().subscribe({
       next: (items) => {
-        this.inventoryItems = items.map(item => {
+        this.inventoryItems = items.map((item) => {
           return {
             ...item,
-            producto_completo: `${item.producto_nombre} (${item.producto_sku})`
+            producto_completo: `${item.producto_nombre} (${item.producto_sku})`,
           };
         });
 

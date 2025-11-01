@@ -25,7 +25,7 @@ const mockProducts: Product[] = [
     tipo_almacenamiento: 'AMBIENTE',
     descripcion: '',
     imagen_url: '',
-    observaciones: ''
+    observaciones: '',
   },
   {
     id: 'prod-2',
@@ -40,8 +40,8 @@ const mockProducts: Product[] = [
     tipo_almacenamiento: 'AMBIENTE',
     descripcion: '',
     imagen_url: '',
-    observaciones: ''
-  }
+    observaciones: '',
+  },
 ];
 
 describe('InventoryCreateComponent', () => {
@@ -93,7 +93,7 @@ describe('InventoryCreateComponent', () => {
   describe('Initialization', () => {
     it('should load products on init', () => {
       expect(productService.getProducts).toHaveBeenCalled();
-      component.products$?.subscribe(products => {
+      component.products$?.subscribe((products) => {
         expect(products.length).toBe(2);
         expect(products).toEqual(mockProducts);
       });
@@ -201,7 +201,7 @@ describe('InventoryCreateComponent', () => {
         jasmine.any(Function),
         jasmine.objectContaining({
           data: { message: 'Ingreso registrado exitosamente' },
-        })
+        }),
       );
     });
 
@@ -214,7 +214,7 @@ describe('InventoryCreateComponent', () => {
         jasmine.any(Function),
         jasmine.objectContaining({
           data: { message: 'Error de prueba' },
-        })
+        }),
       );
       expect(component.isLoading).toBe(false);
     });
