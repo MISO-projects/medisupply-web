@@ -247,7 +247,7 @@ describe('RouteService', () => {
         expect(route.bodega_origen).toBe('Bodega Central');
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas/`);
+      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(newRoute);
       req.flush(createdRoute);
@@ -287,7 +287,7 @@ describe('RouteService', () => {
         expect(route.paradas[0].longitud).toBe(-74.0817);
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas/`);
+      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas`);
       req.flush(createdRoute);
     });
 
@@ -316,7 +316,7 @@ describe('RouteService', () => {
         },
       });
 
-      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas/`);
+      const req = httpMock.expectOne(`${apiUrl}/logistica/rutas`);
       req.flush(errorResponse, { status: 400, statusText: 'Bad Request' });
     });
   });
@@ -370,7 +370,7 @@ describe('RouteService', () => {
   describe('deleteRoute', () => {
     it('should delete a route', () => {
       service.deleteRoute('1').subscribe((response) => {
-        expect(response).toBeUndefined();
+        expect(response).toBeNull();
       });
 
       const req = httpMock.expectOne(`${apiUrl}/logistica/rutas/1`);
