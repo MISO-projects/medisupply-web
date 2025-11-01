@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteListComponent } from './route-list.component';
 import { RouteService } from '../../../services/routes.service';
 import { Route } from '../../../models/route.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RouteListComponent', () => {
   let component: RouteListComponent;
@@ -35,7 +36,7 @@ describe('RouteListComponent', () => {
     const routeServiceSpy = jasmine.createSpyObj('RouteService', ['getRoutes']);
 
     await TestBed.configureTestingModule({
-      imports: [RouteListComponent, NoopAnimationsModule],
+      imports: [RouteListComponent, NoopAnimationsModule, RouterTestingModule],
       providers: [{ provide: RouteService, useValue: routeServiceSpy }],
     }).compileComponents();
 

@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ConductorListComponent } from './conductor-list.component';
 import { ConductorService } from '../../../services/conductores.service';
 import { Conductor } from '../../../models/conductor.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ConductorListComponent', () => {
   let component: ConductorListComponent;
@@ -33,7 +34,7 @@ describe('ConductorListComponent', () => {
     const conductorServiceSpy = jasmine.createSpyObj('ConductorService', ['getConductores']);
 
     await TestBed.configureTestingModule({
-      imports: [ConductorListComponent, NoopAnimationsModule],
+      imports: [ConductorListComponent, NoopAnimationsModule, RouterTestingModule],
       providers: [{ provide: ConductorService, useValue: conductorServiceSpy }],
     }).compileComponents();
 

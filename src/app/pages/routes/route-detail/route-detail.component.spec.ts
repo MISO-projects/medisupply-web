@@ -89,21 +89,18 @@ describe('RouteDetailComponent', () => {
     });
 
     it('should set error if route id is not provided', () => {
-      const newComponent = new RouteDetailComponent(
-        routeService,
-        { snapshot: { paramMap: { get: () => null } } } as any,
-        router,
-        snackBar,
-      );
-      newComponent.ngOnInit();
-      expect(newComponent.error).toBe('ID de ruta no válido');
+      (activatedRoute.snapshot.paramMap.get as jasmine.Spy).and.returnValue(null);
+      fixture = TestBed.createComponent(RouteDetailComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      expect(component.error).toBe('ID de ruta no válido');
     });
   });
 
   describe('Loading States', () => {
     it('should set isLoading to true when loading', () => {
       routeService.getRoute.and.returnValue(of(mockRoute));
-      component.loadRoute('1');
+      component.ngOnInit();
       expect(component.isLoading).toBe(false);
     });
 
@@ -111,7 +108,7 @@ describe('RouteDetailComponent', () => {
       const errorResponse = { error: { message: 'Error del servidor' } };
       routeService.getRoute.and.returnValue(throwError(() => errorResponse));
 
-      component.loadRoute('1');
+      component.ngOnInit();
 
       expect(component.error).toBe('Error al cargar la ruta. Por favor, intenta de nuevo.');
       expect(component.isLoading).toBe(false);
