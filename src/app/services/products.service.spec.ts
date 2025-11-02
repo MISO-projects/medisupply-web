@@ -41,7 +41,6 @@ describe('ProductService', () => {
           tipo_almacenamiento: 'ambiente',
           observaciones: 'Ninguna',
           imagen_url: 'https://example.com/image1.jpg',
-          stock_disponible: 50,
           disponible: true,
           descripcion: 'Descripción del producto 1',
         },
@@ -57,7 +56,6 @@ describe('ProductService', () => {
           tipo_almacenamiento: 'refrigerado',
           observaciones: 'Mantener refrigerado',
           imagen_url: 'https://example.com/image2.jpg',
-          stock_disponible: 100,
           disponible: true,
           descripcion: 'Descripción del producto 2',
         },
@@ -116,7 +114,6 @@ describe('ProductService', () => {
           tipo_almacenamiento: 'ambiente',
           observaciones: '',
           imagen_url: '',
-          stock_disponible: 10,
           disponible: true,
           descripcion: '',
         },
@@ -171,7 +168,6 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'refrigerado',
         observaciones: 'Mantener entre 2-8°C',
         imagen_url: 'https://example.com/specific.jpg',
-        stock_disponible: 25,
         disponible: true,
         descripcion: 'Descripción detallada del producto',
       };
@@ -201,7 +197,6 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'ambiente',
         observaciones: 'Mantenimiento anual requerido',
         imagen_url: 'https://example.com/equipo.jpg',
-        stock_disponible: 5,
         disponible: true,
         descripcion: 'Equipo de última generación',
       };
@@ -242,14 +237,12 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'ambiente',
         observaciones: 'Fuera de stock',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: false,
         descripcion: '',
       };
 
       service.getProduct('789').subscribe((product) => {
         expect(product.disponible).toBe(false);
-        expect(product.stock_disponible).toBe(0);
       });
 
       const req = httpMock.expectOne(`${apiUrl}/productos/789`);
@@ -282,7 +275,6 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'ambiente',
         observaciones: 'Producto nuevo',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };
@@ -322,7 +314,6 @@ describe('ProductService', () => {
         sku: 'AUTO-GEN-001',
         observaciones: '',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };
@@ -360,7 +351,6 @@ describe('ProductService', () => {
         sku: 'AUTO-SKU-001',
         observaciones: '',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };
@@ -399,7 +389,6 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'refrigerado',
         observaciones: 'Requiere refrigeración constante entre 2-8°C',
         imagen_url: 'https://example.com/complete.jpg',
-        stock_disponible: 15,
         disponible: true,
         descripcion: 'Material quirúrgico de alta calidad',
       };
@@ -498,7 +487,6 @@ describe('ProductService', () => {
         tipo_almacenamiento: 'test',
         observaciones: '',
         imagen_url: '',
-        stock_disponible: 0,
         disponible: true,
         descripcion: '',
       };

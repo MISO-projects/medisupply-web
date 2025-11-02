@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { VehiculoListComponent } from './vehiculo-list.component';
 import { VehiculoService } from '../../../services/vehiculos.service';
 import { Vehiculo } from '../../../models/vehiculo.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('VehiculoListComponent', () => {
   let component: VehiculoListComponent;
@@ -33,7 +34,7 @@ describe('VehiculoListComponent', () => {
     const vehiculoServiceSpy = jasmine.createSpyObj('VehiculoService', ['getVehiculos']);
 
     await TestBed.configureTestingModule({
-      imports: [VehiculoListComponent, NoopAnimationsModule],
+      imports: [VehiculoListComponent, NoopAnimationsModule, RouterTestingModule],
       providers: [{ provide: VehiculoService, useValue: vehiculoServiceSpy }],
     }).compileComponents();
 
