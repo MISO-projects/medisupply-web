@@ -8,7 +8,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
   imports: [MatButtonModule, MatIconModule],
   template: `
     <div class="snackbar-content">
-      <span>{{ data.message }}</span>
+      <span class="message-text">{{ data.message }}</span>
       <button mat-icon-button (click)="dismiss()">
         <mat-icon>close</mat-icon>
       </button>
@@ -17,14 +17,22 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
   styles: `
     .snackbar-content {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
+      max-width: 500px;
+    }
+
+    .message-text {
+      white-space: pre-line;
+      word-break: break-word;
+      flex: 1;
     }
 
     button {
       margin-left: auto;
       color: white;
+      flex-shrink: 0;
     }
 
     mat-icon {
