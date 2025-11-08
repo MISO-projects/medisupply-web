@@ -463,7 +463,10 @@ describe('ProductService', () => {
     };
 
     it('should upload a file successfully', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 9,
         successful: 7,
@@ -503,13 +506,7 @@ describe('ProductService', () => {
         created: 5,
         updated: 0,
         skipped_duplicates: 0,
-        created_products: [
-          'id1',
-          'id2',
-          'id3',
-          'id4',
-          'id5',
-        ],
+        created_products: ['id1', 'id2', 'id3', 'id4', 'id5'],
       };
 
       service.bulkUpload(mockFile).subscribe((response) => {
@@ -525,7 +522,10 @@ describe('ProductService', () => {
     });
 
     it('should handle bulk upload with some products updated', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 10,
         successful: 10,
@@ -548,7 +548,10 @@ describe('ProductService', () => {
     });
 
     it('should handle bulk upload with duplicates', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 10,
         successful: 8,
@@ -569,7 +572,10 @@ describe('ProductService', () => {
     });
 
     it('should handle bulk upload with failed rows', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 10,
         successful: 7,
@@ -591,7 +597,10 @@ describe('ProductService', () => {
     });
 
     it('should create FormData with correct file', () => {
-      const mockFile = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 1,
         successful: 1,
@@ -611,7 +620,10 @@ describe('ProductService', () => {
     });
 
     it('should handle HTTP 400 error with missing data', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const errorResponse = {
         detail: {
           message: 'Campos requeridos faltantes en algunas filas',
@@ -636,7 +648,10 @@ describe('ProductService', () => {
     });
 
     it('should handle HTTP 500 error', () => {
-      const mockFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const errorMessage = 'Error del servidor';
 
       service.bulkUpload(mockFile).subscribe({
@@ -652,7 +667,10 @@ describe('ProductService', () => {
     });
 
     it('should use correct endpoint URL', () => {
-      const mockFile = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const mockFile = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const mockResponse: BulkUploadResponse = {
         total_rows: 1,
         successful: 1,
@@ -671,7 +689,10 @@ describe('ProductService', () => {
     });
 
     it('should handle different file types', () => {
-      const xlsxFile = createMockFile('productos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const xlsxFile = createMockFile(
+        'productos.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const xlsFile = createMockFile('productos.xls', 'application/vnd.ms-excel');
       const mockResponse: BulkUploadResponse = {
         total_rows: 1,

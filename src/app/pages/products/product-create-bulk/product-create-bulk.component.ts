@@ -147,32 +147,32 @@ export class ProductCreateBulkComponent implements OnInit {
 
   private formatSuccessMessage(response: BulkUploadResponse): string {
     const parts: string[] = [];
-    
+
     parts.push(`Total: ${response.total_rows} filas`);
     parts.push(`Exitosas: ${response.successful}`);
-    
+
     if (response.created > 0) {
       parts.push(`Creados: ${response.created}`);
     }
-    
+
     if (response.updated > 0) {
       parts.push(`Actualizados: ${response.updated}`);
     }
-    
+
     if (response.skipped_duplicates > 0) {
       parts.push(`Duplicados omitidos: ${response.skipped_duplicates}`);
     }
-    
+
     if (response.failed > 0) {
       parts.push(`Fallidas: ${response.failed}`);
     }
-    
+
     return `Carga completada.\n\n${parts.join('\n')}`;
   }
 
   private formatErrorMessage(err: unknown): string {
     const error = err as { error?: BulkUploadError };
-    
+
     if (!error.error?.detail) {
       return 'Error al cargar los productos. Por favor, intenta de nuevo.';
     }

@@ -64,7 +64,10 @@ describe('ProductCreateBulkComponent', () => {
 
   describe('File Selection', () => {
     it('should accept valid Excel file (.xlsx)', () => {
-      const file = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const file = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const event = {
         target: {
           files: [file],
@@ -167,7 +170,10 @@ describe('ProductCreateBulkComponent', () => {
     });
 
     it('should accept valid Excel file on drop', () => {
-      const file = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const file = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const dataTransfer = {
         files: [file],
       } as unknown as DataTransfer;
@@ -237,7 +243,10 @@ describe('ProductCreateBulkComponent', () => {
     let mockFile: File;
 
     beforeEach(() => {
-      mockFile = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      mockFile = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       component.selectedFile = mockFile;
     });
 
@@ -437,7 +446,10 @@ describe('ProductCreateBulkComponent', () => {
 
   describe('File Removal', () => {
     it('should remove selected file', () => {
-      const file = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const file = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       component.selectedFile = file;
 
       component.removeFile();
@@ -482,7 +494,10 @@ describe('ProductCreateBulkComponent', () => {
 
   describe('Excel File Validation', () => {
     it('should validate .xlsx extension', () => {
-      const file = createMockFile('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const file = createMockFile(
+        'test.xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const isValid = (component as any).isExcelFile(file);
       expect(isValid).toBe(true);
     });
@@ -506,11 +521,13 @@ describe('ProductCreateBulkComponent', () => {
     });
 
     it('should be case insensitive for file extensions', () => {
-      const file1 = createMockFile('test.XLSX', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      const file1 = createMockFile(
+        'test.XLSX',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
       const file2 = createMockFile('test.XLS', 'application/vnd.ms-excel');
       expect((component as any).isExcelFile(file1)).toBe(true);
       expect((component as any).isExcelFile(file2)).toBe(true);
     });
   });
 });
-
