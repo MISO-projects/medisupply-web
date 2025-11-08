@@ -1,1 +1,59 @@
-<h1 class="title">Carga masiva de productos</h1>
+<div class="product-create-bulk-container">
+  <div class="header">
+    <div class="header-left">
+      <button mat-icon-button (click)="onCancel()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h1 class="title">Carga masiva de productos</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onUpload()"
+      [disabled]="!selectedFile || isLoading"
+    >
+      @if (isLoading) {
+        Cargando...
+      } @else {
+        Cargar
+      }
+    </button>
+  </div>
+
+  <div class="content-container">
+    <h2 class="subtitle">Importa tu catálogo</h2>
+
+    @if (!selectedFile) {
+      <div
+        class="upload-zone"
+        [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        (click)="triggerFileInput()"
+      >
+        <mat-icon fontSet="material-symbols-outlined" class="upload-icon">upload</mat-icon>
+        <p class="upload-text">
+          Arrastra el archivo Excel o haz click para seleccionarlo
+        </p>
+        <input
+          id="file-input"
+          type="file"
+          accept=".xlsx,.xls"
+          (change)="onFileSelected($event)"
+          style="display: none"
+        />
+      </div>
+    } @else {
+      <div class="file-selected">
+        <div class="file-info">
+          <mat-icon>description</mat-icon>
+          <span class="file-name">{{ selectedFile.name }}</span>
+        </div>
+        <button mat-icon-button (click)="removeFile()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+</div>

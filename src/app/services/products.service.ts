@@ -25,4 +25,10 @@ export class ProductService {
   createProduct(product: Product & { precio_unitario: number }): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/productos/`, product);
   }
+
+  bulkUpload(file: File): Observable<unknown> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.apiUrl}/productos/bulk-upload`, formData);
+  }
 }
