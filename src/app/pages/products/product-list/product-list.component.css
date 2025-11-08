@@ -5,6 +5,16 @@
   margin-bottom: 10px;
 }
 
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-upload {
+  background-color: #d2e8d3;
+}
+
 .loading,
 .error {
   padding: 1.5rem;
