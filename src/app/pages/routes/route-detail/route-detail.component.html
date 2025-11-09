@@ -88,13 +88,21 @@
                   <div class="parada-header">
                     <div class="parada-number">{{ parada.orden || $index + 1 }}</div>
                     <div class="parada-info">
-                      <h3 class="parada-title">Parada {{ parada.orden || $index + 1 }}</h3>
-                      @if (parada.estado) {
-                        <mat-chip [color]="getEstadoColor(parada.estado)" class="parada-estado">
-                          {{ parada.estado }}
-                        </mat-chip>
+                      <h3 class="parada-title">
+                        Parada {{ parada.orden || $index + 1 }}
+                        @if (parada.pedido?.numero_orden) {
+                          <span> - {{ parada.pedido?.numero_orden }}</span>
+                        }
+                      </h3>
+                      @if (parada.pedido?.nombre_cliente) {
+                        <p class="parada-cliente">{{ parada.pedido?.nombre_cliente }}</p>
                       }
                     </div>
+                    @if (parada.estado) {
+                      <mat-chip [color]="getEstadoColor(parada.estado)" class="parada-estado">
+                        {{ parada.estado }}
+                      </mat-chip>
+                    }
                   </div>
                   <div class="parada-details">
                     <div class="parada-grid">

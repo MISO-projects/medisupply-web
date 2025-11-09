@@ -132,25 +132,51 @@
           <p class="no-paradas">No hay paradas agregadas.</p>
         }
 
+        @if (pedidos.length === 0 && !isLoadingPedidos) {
+          <div class="no-pedidos-message">
+            <mat-icon>info</mat-icon>
+            <div>
+              <p>No hay pedidos pendientes disponibles para crear rutas.</p>
+              <a routerLink="/orders/create" class="create-order-link">
+                <mat-icon>add</mat-icon>
+                Crear una orden
+              </a>
+            </div>
+          </div>
+        }
+
         <div formArrayName="paradas" class="paradas-list">
           @for (parada of paradas.controls; track $index; let i = $index) {
             <div class="parada-row" [formGroupName]="i">
               <div class="parada-number">{{ i + 1 }}</div>
 
               <mat-form-field appearance="outline" class="form-field parada-field">
-                <mat-label>Cliente</mat-label>
-                <mat-select formControlName="cliente_id">
-                  @for (cliente of clientes; track cliente.id) {
-                    <mat-option [value]="cliente.id">
-                      {{ cliente.nombre }}
-                    </mat-option>
+                <mat-label>Pedido</mat-label>
+                <mat-select
+                  formControlName="pedido_id"
+                  (selectionChange)="onPedidoSelected($event, i)"
+                  [disabled]="isLoadingPedidos"
+                >
+                  @if (isLoadingPedidos) {
+                    <mat-option disabled>Cargando pedidos...</mat-option>
+                  } @else if (pedidos.length === 0) {
+                    <mat-option disabled>No hay pedidos disponibles</mat-option>
+                  } @else {
+                    @for (pedido of pedidos; track pedido.id) {
+                      <mat-option [value]="pedido.id">
+                        {{ pedido.numero_orden || pedido.numero_pedido || pedido.id }} -
+                        {{ pedido.nombre_cliente || pedido.cliente_nombre || 'Sin cliente' }}
+                      </mat-option>
+                    }
                   }
                 </mat-select>
                 @if (
-                  parada.get('cliente_id')?.hasError('required') &&
-                  parada.get('cliente_id')?.touched
+                  parada.get('pedido_id')?.hasError('required') && parada.get('pedido_id')?.touched
                 ) {
-                  <mat-error>El cliente es requerido</mat-error>
+                  <mat-error>El pedido es requerido</mat-error>
+                }
+                @if (pedidos.length === 0 && !isLoadingPedidos) {
+                  <mat-hint> No hay pedidos pendientes disponibles. </mat-hint>
                 }
               </mat-form-field>
 

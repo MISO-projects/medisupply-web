@@ -106,7 +106,7 @@
 
 .parada-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -127,8 +127,8 @@
 
 .parada-info {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
   flex: 1;
 }
 
@@ -137,10 +137,18 @@
   font-weight: 500;
   margin: 0;
   color: #212121;
+  line-height: 1.4;
+}
+
+.parada-cliente {
+  font-size: 1rem;
+  color: #546e7a;
+  margin: 0;
+  font-weight: 400;
 }
 
 .parada-estado {
-  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .parada-details {

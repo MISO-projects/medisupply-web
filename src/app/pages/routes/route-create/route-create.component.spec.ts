@@ -8,10 +8,10 @@ import { RouteCreateComponent } from './route-create.component';
 import { RouteService } from '../../../services/routes.service';
 import { VehiculoService } from '../../../services/vehiculos.service';
 import { ConductorService } from '../../../services/conductores.service';
-import { ClienteService } from '../../../services/clientes.service';
+import { PedidoService } from '../../../services/pedidos.service';
 import { Vehiculo } from '../../../models/vehiculo.model';
 import { Conductor } from '../../../models/conductor.model';
-import { Cliente } from '../../../models/cliente.model';
+import { Pedido } from '../../../models/pedido.model';
 
 describe('RouteCreateComponent', () => {
   let component: RouteCreateComponent;
@@ -19,7 +19,7 @@ describe('RouteCreateComponent', () => {
   let routeService: jasmine.SpyObj<RouteService>;
   let vehiculoService: jasmine.SpyObj<VehiculoService>;
   let conductorService: jasmine.SpyObj<ConductorService>;
-  let clienteService: jasmine.SpyObj<ClienteService>;
+  let pedidoService: jasmine.SpyObj<PedidoService>;
   let router: jasmine.SpyObj<Router>;
   let snackBar: jasmine.SpyObj<MatSnackBar>;
 
@@ -46,10 +46,13 @@ describe('RouteCreateComponent', () => {
     },
   ];
 
-  const mockClientes: Cliente[] = [
+  const mockPedidos: Pedido[] = [
     {
-      id: 'cliente-1',
-      nombre: 'Cliente Test',
+      id: 'pedido-1',
+      numero_pedido: 'PED-001',
+      cliente_nombre: 'Cliente Test',
+      direccion_entrega: 'Calle 123',
+      contacto: 'Juan',
     },
   ];
 
@@ -57,7 +60,7 @@ describe('RouteCreateComponent', () => {
     const routeServiceSpy = jasmine.createSpyObj('RouteService', ['createRoute']);
     const vehiculoServiceSpy = jasmine.createSpyObj('VehiculoService', ['getVehiculos']);
     const conductorServiceSpy = jasmine.createSpyObj('ConductorService', ['getConductores']);
-    const clienteServiceSpy = jasmine.createSpyObj('ClienteService', ['getClientes']);
+    const pedidoServiceSpy = jasmine.createSpyObj('PedidoService', ['getPedidosPendientes']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['openFromComponent']);
 
@@ -67,7 +70,7 @@ describe('RouteCreateComponent', () => {
         { provide: RouteService, useValue: routeServiceSpy },
         { provide: VehiculoService, useValue: vehiculoServiceSpy },
         { provide: ConductorService, useValue: conductorServiceSpy },
-        { provide: ClienteService, useValue: clienteServiceSpy },
+        { provide: PedidoService, useValue: pedidoServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: MatSnackBar, useValue: snackBarSpy },
       ],
@@ -76,7 +79,7 @@ describe('RouteCreateComponent', () => {
     routeService = TestBed.inject(RouteService) as jasmine.SpyObj<RouteService>;
     vehiculoService = TestBed.inject(VehiculoService) as jasmine.SpyObj<VehiculoService>;
     conductorService = TestBed.inject(ConductorService) as jasmine.SpyObj<ConductorService>;
-    clienteService = TestBed.inject(ClienteService) as jasmine.SpyObj<ClienteService>;
+    pedidoService = TestBed.inject(PedidoService) as jasmine.SpyObj<PedidoService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     snackBar = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
   });
@@ -84,7 +87,7 @@ describe('RouteCreateComponent', () => {
   beforeEach(() => {
     vehiculoService.getVehiculos.and.returnValue(of(mockVehiculos));
     conductorService.getConductores.and.returnValue(of(mockConductores));
-    clienteService.getClientes.and.returnValue(of(mockClientes));
+    pedidoService.getPedidosPendientes.and.returnValue(of(mockPedidos));
 
     fixture = TestBed.createComponent(RouteCreateComponent);
     component = fixture.componentInstance;
@@ -96,13 +99,13 @@ describe('RouteCreateComponent', () => {
   });
 
   describe('Initialization', () => {
-    it('should load vehiculos, conductores and clientes on init', () => {
+    it('should load vehiculos, conductores and pedidos on init', () => {
       expect(vehiculoService.getVehiculos).toHaveBeenCalledWith(1, 100, true);
       expect(conductorService.getConductores).toHaveBeenCalledWith(1, 100, true);
-      expect(clienteService.getClientes).toHaveBeenCalledWith(1, 100, true);
+      expect(pedidoService.getPedidosPendientes).toHaveBeenCalled();
       expect(component.vehiculos.length).toBe(1);
       expect(component.conductores.length).toBe(1);
-      expect(component.clientes.length).toBe(1);
+      expect(component.pedidos.length).toBe(1);
     });
 
     it('should initialize with a default parada', () => {
@@ -138,7 +141,7 @@ describe('RouteCreateComponent', () => {
 
     it('should create parada form with correct structure', () => {
       const paradaForm = component.createParadaForm();
-      expect(paradaForm.get('cliente_id')).toBeTruthy();
+      expect(paradaForm.get('pedido_id')).toBeTruthy();
       expect(paradaForm.get('direccion')).toBeTruthy();
       expect(paradaForm.get('contacto')).toBeTruthy();
       expect(paradaForm.get('latitud')).toBeTruthy();
@@ -167,7 +170,7 @@ describe('RouteCreateComponent', () => {
 
       const paradaForm = component.paradas.at(0);
       paradaForm.patchValue({
-        cliente_id: 'cliente-1',
+        pedido_id: 'pedido-1',
         direccion: 'Calle 123',
       });
 
@@ -197,7 +200,7 @@ describe('RouteCreateComponent', () => {
 
       const paradaForm = component.paradas.at(0);
       paradaForm.patchValue({
-        cliente_id: 'cliente-1',
+        pedido_id: 'pedido-1',
         direccion: 'Calle 123',
         contacto: 'Juan',
         latitud: 4.6097,
