@@ -36,23 +36,20 @@ export class PedidoService {
       .set('page', '1')
       .set('page_size', '20');
 
-    return this.http
-      .get<any>(`${this.apiUrl}/ordenes/`, { params })
-      .pipe(
-        map((response) => {
-          // Manejar diferentes estructuras de respuesta
-          if (response.pedidos) {
-            return response.pedidos;
-          }
-          if (response.data) {
-            return response.data;
-          }
-          if (Array.isArray(response)) {
-            return response;
-          }
-          return [];
-        })
-      );
+    return this.http.get<any>(`${this.apiUrl}/ordenes/`, { params }).pipe(
+      map((response) => {
+        // Manejar diferentes estructuras de respuesta
+        if (response.pedidos) {
+          return response.pedidos;
+        }
+        if (response.data) {
+          return response.data;
+        }
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return [];
+      }),
+    );
   }
 }
-

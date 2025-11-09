@@ -22,6 +22,3 @@ export interface PedidoResponse {
   page_size: number;
   total_pages: number;
 }
-
-
-

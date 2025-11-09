@@ -152,7 +152,11 @@
 
               <mat-form-field appearance="outline" class="form-field parada-field">
                 <mat-label>Pedido</mat-label>
-                <mat-select formControlName="pedido_id" (selectionChange)="onPedidoSelected($event, i)" [disabled]="isLoadingPedidos">
+                <mat-select
+                  formControlName="pedido_id"
+                  (selectionChange)="onPedidoSelected($event, i)"
+                  [disabled]="isLoadingPedidos"
+                >
                   @if (isLoadingPedidos) {
                     <mat-option disabled>Cargando pedidos...</mat-option>
                   } @else if (pedidos.length === 0) {
@@ -160,21 +164,19 @@
                   } @else {
                     @for (pedido of pedidos; track pedido.id) {
                       <mat-option [value]="pedido.id">
-                        {{ pedido.numero_orden || pedido.numero_pedido || pedido.id }} - {{ pedido.nombre_cliente || pedido.cliente_nombre || 'Sin cliente' }}
+                        {{ pedido.numero_orden || pedido.numero_pedido || pedido.id }} -
+                        {{ pedido.nombre_cliente || pedido.cliente_nombre || 'Sin cliente' }}
                       </mat-option>
                     }
                   }
                 </mat-select>
                 @if (
-                  parada.get('pedido_id')?.hasError('required') &&
-                  parada.get('pedido_id')?.touched
+                  parada.get('pedido_id')?.hasError('required') && parada.get('pedido_id')?.touched
                 ) {
                   <mat-error>El pedido es requerido</mat-error>
                 }
                 @if (pedidos.length === 0 && !isLoadingPedidos) {
-                  <mat-hint>
-                    No hay pedidos pendientes disponibles.
-                  </mat-hint>
+                  <mat-hint> No hay pedidos pendientes disponibles. </mat-hint>
                 }
               </mat-form-field>
 
