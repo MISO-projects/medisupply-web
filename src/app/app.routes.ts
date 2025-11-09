@@ -37,6 +37,13 @@ export const routes: Routes = [
             (m) => m.ProductCreateComponent,
           ),
       },
+      {
+        path: 'products/create-bulk',
+        loadComponent: () =>
+          import('./pages/products/product-create-bulk/product-create-bulk.component').then(
+            (m) => m.ProductCreateBulkComponent,
+          ),
+      },
 
       // Suppliers routes
       {

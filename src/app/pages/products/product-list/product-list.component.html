@@ -1,10 +1,20 @@
 <div class="product-list-container">
   <div class="header">
     <h1 class="title">Productos</h1>
-    <button mat-flat-button color="primary" routerLink="/products/create">
-      <mat-icon>add</mat-icon>
-      Crear
-    </button>
+    <div class="button-group">
+      <button
+        class="button-upload"
+        mat-icon-button
+        color="primary"
+        routerLink="/products/create-bulk"
+      >
+        <mat-icon fontSet="material-symbols-outlined">upload</mat-icon>
+      </button>
+      <button mat-flat-button color="primary" routerLink="/products/create">
+        <mat-icon>add</mat-icon>
+        Crear
+      </button>
+    </div>
   </div>
 
   @if (isLoading) {

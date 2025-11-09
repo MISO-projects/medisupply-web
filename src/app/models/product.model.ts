@@ -21,3 +21,16 @@ export interface ProductResponse {
   page_size: number;
   total_pages: number;
 }
+
+export interface BulkUploadResponse {
+  total_rows: number;
+  successful: number;
+  failed: number;
+  created: number;
+  updated: number;
+  skipped_duplicates: number;
+  duplicate_rows?: number[];
+  errors?: string[];
+  created_products?: string[];
+  updated_products?: string[];
+}
