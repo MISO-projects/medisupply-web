@@ -93,8 +93,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Error al registrar:', err);
-        const errorMessage =
-          err.error?.detail || 'Error al registrarse. Por favor, intenta de nuevo.';
+        const errorMessage = this.extractErrorMessage(err);
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           data: { message: errorMessage },
           duration: 5000,
@@ -104,6 +103,46 @@ export class RegisterComponent {
         this.isLoading.set(false);
       },
     });
+  }
+
+  private extractErrorMessage(err: any): string {
+    // Intentar extraer el mensaje de error de diferentes formatos posibles
+    let errorMessage = err.error?.detail || err.error?.message || err.message;
+
+    // Si el error viene como string JSON anidado, intentar parsearlo
+    if (typeof errorMessage === 'string') {
+      // Buscar si contiene un JSON stringificado dentro del mensaje
+      const jsonMatch = errorMessage.match(/\{.*\}/);
+      if (jsonMatch) {
+        try {
+          const parsedError = JSON.parse(jsonMatch[0]);
+          if (parsedError.detail) {
+            errorMessage = parsedError.detail;
+          }
+        } catch (e) {
+          // Si falla el parseo, usar el mensaje original
+        }
+      }
+
+      // Limpiar mensajes que contengan "Error from" para hacerlos más legibles
+      if (errorMessage.includes('Error from')) {
+        errorMessage = errorMessage.replace(/Error from [^:]+:\s*/, '');
+        // Intentar parsear nuevamente si queda un JSON
+        const jsonMatch = errorMessage.match(/\{.*\}/);
+        if (jsonMatch) {
+          try {
+            const parsedError = JSON.parse(jsonMatch[0]);
+            if (parsedError.detail) {
+              errorMessage = parsedError.detail;
+            }
+          } catch (e) {
+            // Si falla el parseo, usar el mensaje original
+          }
+        }
+      }
+    }
+
+    return errorMessage || 'Error al registrarse. Por favor, intenta de nuevo.';
   }
 
   togglePasswordVisibility(): void {

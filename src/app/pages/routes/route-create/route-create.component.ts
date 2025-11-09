@@ -10,14 +10,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouteService } from '../../../services/routes.service';
 import { VehiculoService } from '../../../services/vehiculos.service';
 import { ConductorService } from '../../../services/conductores.service';
-import { ClienteService } from '../../../services/clientes.service';
-import { Router } from '@angular/router';
+import { PedidoService } from '../../../services/pedidos.service';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from '../../../components/custom-snackbar/custom-snackbar.component';
 import { CommonModule } from '@angular/common';
 import { Vehiculo } from '../../../models/vehiculo.model';
 import { Conductor } from '../../../models/conductor.model';
-import { Cliente } from '../../../models/cliente.model';
+import { Pedido } from '../../../models/pedido.model';
 
 @Component({
   selector: 'app-route-create',
@@ -31,6 +31,7 @@ import { Cliente } from '../../../models/cliente.model';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    RouterLink,
   ],
   templateUrl: './route-create.component.html',
   styleUrls: ['./route-create.component.css'],
@@ -40,14 +41,15 @@ export class RouteCreateComponent implements OnInit {
   private routeService = inject(RouteService);
   private vehiculoService = inject(VehiculoService);
   private conductorService = inject(ConductorService);
-  private clienteService = inject(ClienteService);
+  private pedidoService = inject(PedidoService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
 
   isLoading = false;
+  isLoadingPedidos = false;
   vehiculos: Vehiculo[] = [];
   conductores: Conductor[] = [];
-  clientes: Cliente[] = [];
+  pedidos: Pedido[] = [];
   bodegas = ['Bodega Central', 'Bodega Norte', 'Bodega Sur', 'Bodega Occidente'];
   estados = ['Pendiente', 'En Curso', 'Completada', 'Cancelada'];
   condicionesAlmacenamiento = ['Ambiente', 'Refrigerado', 'Congelado', 'Controlado'];
@@ -74,7 +76,7 @@ export class RouteCreateComponent implements OnInit {
   ngOnInit(): void {
     this.loadVehiculos();
     this.loadConductores();
-    this.loadClientes();
+    this.loadPedidos();
   }
 
   private loadVehiculos(): void {
@@ -99,20 +101,24 @@ export class RouteCreateComponent implements OnInit {
     });
   }
 
-  private loadClientes(): void {
-    this.clienteService.getClientes(1, 100, true).subscribe({
-      next: (clientes: Cliente[]) => {
-        this.clientes = clientes;
+  private loadPedidos(): void {
+    this.isLoadingPedidos = true;
+    this.pedidoService.getPedidosPendientes().subscribe({
+      next: (pedidos: Pedido[]) => {
+        this.pedidos = pedidos;
+        this.isLoadingPedidos = false;
       },
       error: (err: Error) => {
-        console.error('Error al cargar clientes:', err);
+        console.error('Error al cargar pedidos:', err);
+        this.pedidos = [];
+        this.isLoadingPedidos = false;
       },
     });
   }
 
   createParadaForm(): FormGroup {
     return this.fb.group({
-      cliente_id: ['', [Validators.required]],
+      pedido_id: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
       contacto: [''],
       latitud: [0],
@@ -127,6 +133,26 @@ export class RouteCreateComponent implements OnInit {
   removeParada(index: number): void {
     if (this.paradas.length > 1) {
       this.paradas.removeAt(index);
+    }
+  }
+
+  onPedidoSelected(event: any, index: number): void {
+    const pedidoId = event.value;
+    const pedidoSeleccionado = this.pedidos.find((p) => p.id === pedidoId);
+    const paradaForm = this.paradas.at(index) as FormGroup;
+
+    if (pedidoSeleccionado) {
+      // Autocompletar dirección y contacto si están disponibles en el pedido
+      if (pedidoSeleccionado.direccion_entrega && !paradaForm.get('direccion')?.value) {
+        paradaForm.patchValue({
+          direccion: pedidoSeleccionado.direccion_entrega,
+        });
+      }
+      if (pedidoSeleccionado.contacto && !paradaForm.get('contacto')?.value) {
+        paradaForm.patchValue({
+          contacto: pedidoSeleccionado.contacto,
+        });
+      }
     }
   }
 
@@ -158,13 +184,17 @@ export class RouteCreateComponent implements OnInit {
       vehiculo_info: `${vehiculoSeleccionado?.marca} ${vehiculoSeleccionado?.modelo}` || '',
       conductor_nombre: conductorSeleccionado?.nombre_completo || '',
       condiciones_almacenamiento: this.routeForm.value.condiciones_almacenamiento,
-      paradas: this.routeForm.value.paradas.map((parada: any) => ({
-        cliente_id: parada.cliente_id,
-        direccion: parada.direccion,
-        contacto: parada.contacto,
-        latitud: parseFloat(parada.latitud) || 0,
-        longitud: parseFloat(parada.longitud) || 0,
-      })),
+      paradas: this.routeForm.value.paradas.map((parada: any, index: number) => {
+        const pedidoSeleccionado = this.pedidos.find((p) => p.id === parada.pedido_id);
+        return {
+          pedido_id: parada.pedido_id,
+          direccion: parada.direccion || pedidoSeleccionado?.direccion_entrega || '',
+          contacto: parada.contacto || pedidoSeleccionado?.contacto || '',
+          latitud: parseFloat(parada.latitud) || 0,
+          longitud: parseFloat(parada.longitud) || 0,
+          orden: index + 1,
+        };
+      }),
     };
 
     this.routeService.createRoute(formData).subscribe({

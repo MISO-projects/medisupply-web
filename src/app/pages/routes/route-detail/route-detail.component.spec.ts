@@ -29,7 +29,7 @@ describe('RouteDetailComponent', () => {
     paradas: [
       {
         id: 1,
-        cliente_id: 'cliente-1',
+        pedido_id: 'pedido-1',
         direccion: 'Calle 123',
         contacto: 'Juan',
         latitud: 4.6097,

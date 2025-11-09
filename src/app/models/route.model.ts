@@ -1,7 +1,16 @@
+export interface PedidoInfo {
+  numero_orden?: string;
+  estado?: string;
+  valor_total?: number;
+  cantidad_items?: number;
+  nombre_cliente?: string;
+}
+
 export interface Parada {
   id?: number;
   ruta_id?: number;
-  cliente_id?: string; // UUID del cliente
+  pedido_id?: string; // UUID del pedido
+  pedido?: PedidoInfo; // Información del pedido anidada
   direccion: string;
   contacto?: string;
   latitud: number;
