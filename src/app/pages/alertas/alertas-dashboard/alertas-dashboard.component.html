@@ -1,6 +1,8 @@
 <div class="dashboard">
   @if (error()) {
-    <div class="error">No se pudo cargar el resumen. <button mat-button (click)="loadData()">Reintentar</button></div>
+    <div class="error">
+      No se pudo cargar el resumen. <button mat-button (click)="loadData()">Reintentar</button>
+    </div>
   }
 
   @if (!stats() && !error()) {
@@ -45,5 +47,3 @@
     (rowClick)="onRowClick($event)"
   ></app-data-table>
 </div>
-
-

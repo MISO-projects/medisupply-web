@@ -48,11 +48,9 @@ export class AlertasService {
   listarEmails(activosSolo?: boolean): Observable<EmailDestinatario[]> {
     const params = activosSolo ? { params: { activos_solo: true } } : {};
     return this.http.get<EmailDestinatario[]>(`${this.apiUrl}emails`, params);
-    }
+  }
 
   eliminarEmail(emailId: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}emails/${emailId}`);
   }
 }
-
-

@@ -77,8 +77,3 @@ export interface EmailDestinatario {
   created_at: string;
   updated_at?: string | null;
 }
-
-
-
-
-

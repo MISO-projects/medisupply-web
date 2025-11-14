@@ -3,7 +3,11 @@
     <h2>Emails de notificación</h2>
     <div class="controls">
       <label class="checkbox">
-        <input type="checkbox" [ngModel]="activosSolo()" (ngModelChange)="activosSolo.set($event); loadEmails()" />
+        <input
+          type="checkbox"
+          [ngModel]="activosSolo()"
+          (ngModelChange)="activosSolo.set($event); loadEmails()"
+        />
         Ver solo activos
       </label>
       <button mat-button (click)="loadEmails()">
@@ -16,7 +20,12 @@
   <div class="form">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput [ngModel]="form().email" (ngModelChange)="form().email = $event" placeholder="usuario@empresa.com" />
+      <input
+        matInput
+        [ngModel]="form().email"
+        (ngModelChange)="form().email = $event"
+        placeholder="usuario@empresa.com"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
@@ -26,7 +35,12 @@
       <mat-label>Cargo</mat-label>
       <input matInput [ngModel]="form().cargo" (ngModelChange)="form().cargo = $event" />
     </mat-form-field>
-    <mat-select placeholder="Severidades mínimas" multiple [ngModel]="form().severidades_minimas" (ngModelChange)="form().severidades_minimas = $event">
+    <mat-select
+      placeholder="Severidades mínimas"
+      multiple
+      [ngModel]="form().severidades_minimas"
+      (ngModelChange)="form().severidades_minimas = $event"
+    >
       <mat-option *ngFor="let s of severidadOpts" [value]="s">{{ s }}</mat-option>
     </mat-select>
     <button mat-raised-button color="primary" (click)="addEmail()">Agregar</button>
@@ -61,5 +75,3 @@
     </table>
   </div>
 </div>
-
-

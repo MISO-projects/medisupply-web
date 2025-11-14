@@ -10,7 +10,11 @@
       </mat-option>
     </mat-select>
 
-    <mat-select placeholder="Estado" [(ngModel)]="filters().estado" (selectionChange)="loadAlertas()">
+    <mat-select
+      placeholder="Estado"
+      [(ngModel)]="filters().estado"
+      (selectionChange)="loadAlertas()"
+    >
       <mat-option *ngFor="let e of estadoOpts" [value]="e === 'TODOS' ? '' : e">
         {{ e }}
       </mat-option>
@@ -38,8 +42,3 @@
     (rowClick)="verDetalle($event)"
   ></app-data-table>
 </div>
-
-
-
-
-

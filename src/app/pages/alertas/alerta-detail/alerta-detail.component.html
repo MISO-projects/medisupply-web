@@ -17,7 +17,7 @@
       <div><strong>Operación:</strong> {{ e.operation }}</div>
       <div><strong>Usuario:</strong> {{ e.usuario_id }}</div>
       <div><strong>IP Origen:</strong> {{ e.ip_origen }}</div>
-      <div><strong>Timestamp:</strong> {{ e.timestamp | date:'short' }}</div>
+      <div><strong>Timestamp:</strong> {{ e.timestamp | date: 'short' }}</div>
       <div><strong>Producto ID:</strong> {{ e.producto_id }}</div>
     </div>
     <div *ngIf="e.datos">
@@ -29,11 +29,7 @@
   <section *ngIf="a.estado === 'PENDIENTE'; else infoRevision">
     <h3>Revisar alerta</h3>
     <div class="form-grid">
-      <mat-select
-        placeholder="Nuevo estado"
-        [(ngModel)]="form().estado"
-        required
-      >
+      <mat-select placeholder="Nuevo estado" [(ngModel)]="form().estado" required>
         <mat-option value="REVISADO">REVISADO</mat-option>
         <mat-option value="RESUELTO">RESUELTO</mat-option>
         <mat-option value="FALSA_ALARMA">FALSA_ALARMA</mat-option>
@@ -58,14 +54,9 @@
       <h3>Información de revisión</h3>
       <div class="grid">
         <div><strong>Revisado por:</strong> {{ a.revisado_por }}</div>
-        <div><strong>Fecha de revisión:</strong> {{ a.updated_at | date:'short' }}</div>
+        <div><strong>Fecha de revisión:</strong> {{ a.updated_at | date: 'short' }}</div>
         <div class="notes-read"><strong>Notas:</strong> {{ a.notas_revision }}</div>
       </div>
     </section>
   </ng-template>
 </div>
-
-
-
-
-
