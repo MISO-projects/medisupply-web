@@ -22,6 +22,29 @@ export const routes: Routes = [
       import('./layouts/main-layout.component').then((m) => m.MainLayoutComponent),
     canActivate: [authGuard],
     children: [
+      // Alertas routes
+      {
+        path: 'alerts',
+        loadComponent: () =>
+          import('./pages/alertas/alertas-dashboard/alertas-dashboard.component').then(
+            (m) => m.AlertasDashboardComponent,
+          ),
+      },
+      {
+        path: 'alerts/emails',
+        loadComponent: () =>
+          import('./pages/alertas/alerta-emails/alerta-emails.component').then(
+            (m) => m.AlertaEmailsComponent,
+          ),
+      },
+      {
+        path: 'alerts/:id',
+        loadComponent: () =>
+          import('./pages/alertas/alerta-detail/alerta-detail.component').then(
+            (m) => m.AlertaDetailComponent,
+          ),
+      },
+
       // Products routes
       {
         path: 'products',

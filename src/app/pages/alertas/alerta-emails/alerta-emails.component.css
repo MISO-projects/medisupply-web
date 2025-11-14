@@ -1,0 +1,33 @@
+.emails-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.controls { display: flex; align-items: center; gap: 12px; }
+.checkbox { display: flex; align-items: center; gap: 6px; }
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 320px auto;
+  gap: 12px;
+  align-items: center;
+}
+.emails-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+.emails-table th, .emails-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  text-align: left;
+}
+
+
+
+
+
