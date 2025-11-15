@@ -160,6 +160,15 @@ export const routes: Routes = [
             (m) => m.VehiculoCreateComponent,
           ),
       },
+
+      // Reports routes
+      {
+        path: 'reports',
+        loadComponent: () =>
+          import('./pages/reports/sales-report.component').then(
+            (m) => m.SalesReportComponent,
+          ),
+      },
     ],
   },
 ];

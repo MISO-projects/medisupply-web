@@ -1,0 +1,73 @@
+<div class="sales-report-container">
+  <div class="header">
+    <h1 class="title">Reporte de vendedores</h1>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-container">
+    <form [formGroup]="filterForm" class="filters-form">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Fecha de inicio</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerInicio"
+          formControlName="fecha_inicio"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="pickerInicio"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Fecha de fin</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFin"
+          formControlName="fecha_fin"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="pickerFin"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Zona</mat-label>
+        <mat-select formControlName="zona">
+          <mat-option value="">Todas</mat-option>
+          @for (zona of zonas; track zona) {
+            <mat-option [value]="zona">{{ zona }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        (click)="onSearch()"
+        class="search-button"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  </div>
+
+  <!-- Estado de carga -->
+  @if (isLoading) {
+    <div class="loading">Cargando reporte...</div>
+  }
+
+  <!-- Mensaje de error -->
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  <!-- Tabla de reportes -->
+  @if (!isLoading && !error) {
+    <app-data-table [data]="vendedores" [columns]="columns" />
+  }
+</div>
