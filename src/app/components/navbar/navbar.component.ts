@@ -50,6 +50,7 @@ export class NavbarComponent {
       items: [
         { label: 'Reportes', route: '/reports', icon: 'analytics' },
         { label: 'Alertas', route: '/alerts', icon: 'notifications' },
+        { label: 'Emails de alertas', route: '/alerts/emails', icon: 'alternate_email' },
       ],
     },
   ]);

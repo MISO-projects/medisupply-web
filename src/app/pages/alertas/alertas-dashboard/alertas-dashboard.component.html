@@ -1,0 +1,49 @@
+<div class="dashboard">
+  @if (error()) {
+    <div class="error">
+      No se pudo cargar el resumen. <button mat-button (click)="loadData()">Reintentar</button>
+    </div>
+  }
+
+  @if (!stats() && !error()) {
+    <div>Cargando resumen...</div>
+  }
+
+  <div class="stats-grid" *ngIf="stats() as s">
+    <div class="stat-card info">
+      <div class="stat-info">
+        <div class="stat-label">Últimas 24h</div>
+        <div class="stat-value">{{ s.alertas_ultimas_24h }}</div>
+      </div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-info">
+        <div class="stat-label">Pendientes</div>
+        <div class="stat-value">{{ s.alertas_pendientes }}</div>
+      </div>
+    </div>
+    <div class="stat-card success">
+      <div class="stat-info">
+        <div class="stat-label">Resueltas</div>
+        <div class="stat-value">{{ s.por_estado.REVISADO || 0 }}</div>
+      </div>
+    </div>
+    <div class="stat-card danger">
+      <div class="stat-info">
+        <div class="stat-label">Total Alertas</div>
+        <div class="stat-value">{{ s.total_alertas }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Alertas recientes</h2>
+    <!-- botón 'Ver todas' removido -->
+  </div>
+
+  <app-data-table
+    [data]="recientes()"
+    [columns]="columns"
+    (rowClick)="onRowClick($event)"
+  ></app-data-table>
+</div>

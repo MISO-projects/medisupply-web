@@ -1,0 +1,62 @@
+<div *ngIf="alerta() as a" class="detalle">
+  <div class="header">
+    <span class="badge severidad">{{ a.severidad }}</span>
+    <h2 class="title">{{ a.tipo }}</h2>
+    <span class="badge estado">{{ a.estado }}</span>
+  </div>
+
+  <section>
+    <h3>Descripción</h3>
+    <p>{{ a.mensaje }}</p>
+    <p>{{ a.descripcion_detallada }}</p>
+  </section>
+
+  <section *ngIf="a.evento_relacionado as e">
+    <h3>Detalles del evento</h3>
+    <div class="grid">
+      <div><strong>Operación:</strong> {{ e.operation }}</div>
+      <div><strong>Usuario:</strong> {{ e.usuario_id }}</div>
+      <div><strong>IP Origen:</strong> {{ e.ip_origen }}</div>
+      <div><strong>Timestamp:</strong> {{ e.timestamp | date: 'short' }}</div>
+      <div><strong>Producto ID:</strong> {{ e.producto_id }}</div>
+    </div>
+    <div *ngIf="e.datos">
+      <h4>Datos de la operación</h4>
+      <pre>{{ e.datos | json }}</pre>
+    </div>
+  </section>
+
+  <section *ngIf="a.estado === 'PENDIENTE'; else infoRevision">
+    <h3>Revisar alerta</h3>
+    <div class="form-grid">
+      <mat-select placeholder="Nuevo estado" [(ngModel)]="form().estado" required>
+        <mat-option value="REVISADO">REVISADO</mat-option>
+        <mat-option value="RESUELTO">RESUELTO</mat-option>
+        <mat-option value="FALSA_ALARMA">FALSA_ALARMA</mat-option>
+      </mat-select>
+
+      <mat-form-field appearance="outline" class="notes">
+        <mat-label>Notas de revisión</mat-label>
+        <textarea
+          matInput
+          rows="4"
+          [ngModel]="form().notas_revision"
+          (ngModelChange)="form().notas_revision = $event"
+          placeholder="Describe las acciones tomadas o la razón del cambio de estado..."
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" (click)="guardarRevision()">Guardar</button>
+  </section>
+
+  <ng-template #infoRevision>
+    <section>
+      <h3>Información de revisión</h3>
+      <div class="grid">
+        <div><strong>Revisado por:</strong> {{ a.revisado_por }}</div>
+        <div><strong>Fecha de revisión:</strong> {{ a.updated_at | date: 'short' }}</div>
+        <div class="notes-read"><strong>Notas:</strong> {{ a.notas_revision }}</div>
+      </div>
+    </section>
+  </ng-template>
+</div>
