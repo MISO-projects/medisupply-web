@@ -32,6 +32,12 @@
           [for]="pickerFin"
         ></mat-datepicker-toggle>
         <mat-datepicker #pickerFin></mat-datepicker>
+        @if (
+          filterForm.get('fecha_fin')?.hasError('dateRange') &&
+          filterForm.get('fecha_fin')?.touched
+        ) {
+          <mat-error>La fecha de fin debe ser posterior a la fecha de inicio</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="filter-field">
@@ -50,6 +56,7 @@
         type="button"
         (click)="onSearch()"
         class="search-button"
+        [disabled]="filterForm.invalid"
       >
         <mat-icon>search</mat-icon>
       </button>

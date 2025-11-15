@@ -1,5 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,6 +22,33 @@ import {
   SalesReportVendor,
   SalesReportFilters,
 } from '../../models/sales-report.model';
+
+// Validador personalizado para verificar que fecha_fin > fecha_inicio
+function dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+  const fechaInicio = control.value;
+  const fechaFinControl = control.parent?.get('fecha_fin');
+
+  if (!fechaInicio || !fechaFinControl?.value) {
+    return null;
+  }
+
+  const inicio = new Date(fechaInicio);
+  const fin = new Date(fechaFinControl.value);
+
+  if (fin <= inicio) {
+    fechaFinControl.setErrors({ ...fechaFinControl.errors, dateRange: true });
+    return { dateRange: true };
+  } else {
+    // Limpiar el error dateRange si las fechas son válidas
+    if (fechaFinControl.hasError('dateRange')) {
+      const errors = { ...fechaFinControl.errors };
+      delete errors['dateRange'];
+      fechaFinControl.setErrors(Object.keys(errors).length > 0 ? errors : null);
+    }
+  }
+
+  return null;
+}
 
 @Component({
   selector: 'app-sales-report',
@@ -44,7 +77,7 @@ export class SalesReportComponent implements OnInit {
   zonas = ['Perú', 'Colombia', 'Ecuador', 'México'];
 
   filterForm: FormGroup = this.fb.group({
-    fecha_inicio: [null],
+    fecha_inicio: [null, [dateRangeValidator]],
     fecha_fin: [null],
     zona: [''],
   });
@@ -67,6 +100,11 @@ export class SalesReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadReport();
+
+    // Revalidar fecha_inicio cuando cambia fecha_fin
+    this.filterForm.get('fecha_fin')?.valueChanges.subscribe(() => {
+      this.filterForm.get('fecha_inicio')?.updateValueAndValidity({ emitEvent: false });
+    });
   }
 
   onSearch(): void {
