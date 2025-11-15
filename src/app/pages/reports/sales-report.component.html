@@ -9,29 +9,15 @@
       <div class="filters">
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>Fecha de inicio</mat-label>
-          <input
-            matInput
-            [matDatepicker]="pickerInicio"
-            formControlName="fecha_inicio"
-          />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="pickerInicio"
-          ></mat-datepicker-toggle>
+          <input matInput [matDatepicker]="pickerInicio" formControlName="fecha_inicio" />
+          <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
           <mat-datepicker #pickerInicio></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>Fecha de fin</mat-label>
-          <input
-            matInput
-            [matDatepicker]="pickerFin"
-            formControlName="fecha_fin"
-          />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="pickerFin"
-          ></mat-datepicker-toggle>
+          <input matInput [matDatepicker]="pickerFin" formControlName="fecha_fin" />
+          <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
           <mat-datepicker #pickerFin></mat-datepicker>
           @if (
             filterForm.get('fecha_fin')?.hasError('dateRange') &&

@@ -13,15 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {
-  DataTableComponent,
-  TableColumn,
-} from '../../components/data-table/data-table.component';
+import { DataTableComponent, TableColumn } from '../../components/data-table/data-table.component';
 import { SalesReportService } from '../../services/sales-report.service';
-import {
-  SalesReportVendor,
-  SalesReportFilters,
-} from '../../models/sales-report.model';
+import { SalesReportVendor, SalesReportFilters } from '../../models/sales-report.model';
 
 // Validador personalizado para verificar que fecha_fin > fecha_inicio
 function dateRangeValidator(control: AbstractControl): ValidationErrors | null {
@@ -94,7 +88,7 @@ export class SalesReportComponent implements OnInit {
     {
       key: 'ultima_actividad',
       label: 'Última actividad',
-      format: (value) => value ? new Date(value).toLocaleDateString('es-ES') : '-',
+      format: (value) => (value ? new Date(value).toLocaleDateString('es-ES') : '-'),
     },
   ];
 

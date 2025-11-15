@@ -165,9 +165,7 @@ export const routes: Routes = [
       {
         path: 'reports',
         loadComponent: () =>
-          import('./pages/reports/sales-report.component').then(
-            (m) => m.SalesReportComponent,
-          ),
+          import('./pages/reports/sales-report.component').then((m) => m.SalesReportComponent),
       },
     ],
   },

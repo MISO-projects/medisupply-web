@@ -1,10 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  SalesReportResponse,
-  SalesReportFilters,
-} from '../models/sales-report.model';
+import { SalesReportResponse, SalesReportFilters } from '../models/sales-report.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -27,9 +24,6 @@ export class SalesReportService {
       params = params.set('zona_asignada', filters.zona);
     }
 
-    return this.http.get<SalesReportResponse>(
-      `${this.apiUrl}/reportes/vendedores`,
-      { params },
-    );
+    return this.http.get<SalesReportResponse>(`${this.apiUrl}/reportes/vendedores`, { params });
   }
 }
