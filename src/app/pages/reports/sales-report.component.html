@@ -6,56 +6,58 @@
   <!-- Filtros -->
   <div class="filters-container">
     <form [formGroup]="filterForm" class="filters-form">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Fecha de inicio</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerInicio"
-          formControlName="fecha_inicio"
-        />
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="pickerInicio"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #pickerInicio></mat-datepicker>
-      </mat-form-field>
+      <div class="filters">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Fecha de inicio</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerInicio"
+            formControlName="fecha_inicio"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="pickerInicio"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Fecha de fin</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerFin"
-          formControlName="fecha_fin"
-        />
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="pickerFin"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #pickerFin></mat-datepicker>
-        @if (
-          filterForm.get('fecha_fin')?.hasError('dateRange') &&
-          filterForm.get('fecha_fin')?.touched
-        ) {
-          <mat-error>La fecha de fin debe ser posterior a la fecha de inicio</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Zona</mat-label>
-        <mat-select formControlName="zona">
-          <mat-option value="">Todas</mat-option>
-          @for (zona of zonas; track zona) {
-            <mat-option [value]="zona">{{ zona }}</mat-option>
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Fecha de fin</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerFin"
+            formControlName="fecha_fin"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="pickerFin"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerFin></mat-datepicker>
+          @if (
+            filterForm.get('fecha_fin')?.hasError('dateRange') &&
+            filterForm.get('fecha_fin')?.touched
+          ) {
+            <mat-error>La fecha de fin debe ser posterior a la fecha de inicio</mat-error>
           }
-        </mat-select>
-      </mat-form-field>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Zona</mat-label>
+          <mat-select formControlName="zona">
+            <mat-option value="">Todas</mat-option>
+            @for (zona of zonas; track zona) {
+              <mat-option [value]="zona">{{ zona }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <button
         mat-icon-button
         color="primary"
         type="button"
         (click)="onSearch()"
-        class="search-button"
+        class="search-button primary-button"
         [disabled]="filterForm.invalid"
       >
         <mat-icon>search</mat-icon>

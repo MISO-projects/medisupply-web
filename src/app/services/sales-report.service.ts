@@ -24,7 +24,7 @@ export class SalesReportService {
       params = params.set('fecha_fin', filters.fecha_fin);
     }
     if (filters.zona) {
-      params = params.set('zona', filters.zona);
+      params = params.set('zona_asignada', filters.zona);
     }
 
     return this.http.get<SalesReportResponse>(
