@@ -1,0 +1,44 @@
+<div class="alertas-page">
+  <div class="filters">
+    <mat-select
+      placeholder="Severidad"
+      [(ngModel)]="filters().severidad"
+      (selectionChange)="loadAlertas()"
+    >
+      <mat-option *ngFor="let s of severidadOpts" [value]="s === 'TODAS' ? '' : s">
+        {{ s }}
+      </mat-option>
+    </mat-select>
+
+    <mat-select
+      placeholder="Estado"
+      [(ngModel)]="filters().estado"
+      (selectionChange)="loadAlertas()"
+    >
+      <mat-option *ngFor="let e of estadoOpts" [value]="e === 'TODOS' ? '' : e">
+        {{ e }}
+      </mat-option>
+    </mat-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por tipo...</mat-label>
+      <input
+        matInput
+        [ngModel]="filters().tipo"
+        (ngModelChange)="filters().tipo = $event; loadAlertas()"
+      />
+    </mat-form-field>
+
+    <span class="spacer"></span>
+    <button mat-button color="primary" (click)="loadAlertas()">
+      <mat-icon>refresh</mat-icon>
+      Actualizar
+    </button>
+  </div>
+
+  <app-data-table
+    [data]="alertas()"
+    [columns]="columns"
+    (rowClick)="verDetalle($event)"
+  ></app-data-table>
+</div>
