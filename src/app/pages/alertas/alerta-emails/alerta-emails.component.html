@@ -1,0 +1,77 @@
+<div class="emails-page">
+  <div class="header">
+    <h2>Emails de notificación</h2>
+    <div class="controls">
+      <label class="checkbox">
+        <input
+          type="checkbox"
+          [ngModel]="activosSolo()"
+          (ngModelChange)="activosSolo.set($event); loadEmails()"
+        />
+        Ver solo activos
+      </label>
+      <button mat-button (click)="loadEmails()">
+        <mat-icon>refresh</mat-icon>
+        Actualizar
+      </button>
+    </div>
+  </div>
+
+  <div class="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        [ngModel]="form().email"
+        (ngModelChange)="form().email = $event"
+        placeholder="usuario@empresa.com"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput [ngModel]="form().nombre" (ngModelChange)="form().nombre = $event" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cargo</mat-label>
+      <input matInput [ngModel]="form().cargo" (ngModelChange)="form().cargo = $event" />
+    </mat-form-field>
+    <mat-select
+      placeholder="Severidades mínimas"
+      multiple
+      [ngModel]="form().severidades_minimas"
+      (ngModelChange)="form().severidades_minimas = $event"
+    >
+      <mat-option *ngFor="let s of severidadOpts" [value]="s">{{ s }}</mat-option>
+    </mat-select>
+    <button mat-raised-button color="primary" (click)="addEmail()">Agregar</button>
+  </div>
+
+  <div class="list">
+    <table class="emails-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Severidades</th>
+          <th>Activo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of emails()">
+          <td>{{ e.email }}</td>
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.cargo }}</td>
+          <td>{{ e.severidades_minimas.join(', ') }}</td>
+          <td>{{ e.activo ? 'Sí' : 'No' }}</td>
+          <td>
+            <button mat-icon-button color="warn" (click)="deleteEmail(e.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
