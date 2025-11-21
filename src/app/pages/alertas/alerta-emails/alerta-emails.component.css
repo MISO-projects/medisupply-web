@@ -8,8 +8,16 @@
   align-items: center;
   justify-content: space-between;
 }
-.controls { display: flex; align-items: center; gap: 12px; }
-.checkbox { display: flex; align-items: center; gap: 6px; }
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .form {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 320px auto;
@@ -21,14 +29,9 @@
   border-collapse: collapse;
   background: #fff;
 }
-.emails-table th, .emails-table td {
+.emails-table th,
+.emails-table td {
   border: 1px solid #e5e7eb;
   padding: 8px;
   text-align: left;
 }
-
-
-
-
-
-

@@ -21,10 +21,19 @@
   cursor: default;
 }
 
-.stat-card.warning { border-left: 4px solid #ffc107; cursor: pointer; }
-.stat-card.success { border-left: 4px solid #28a745; }
-.stat-card.info { border-left: 4px solid #0d6efd; }
-.stat-card.danger { border-left: 4px solid #dc3545; }
+.stat-card.warning {
+  border-left: 4px solid #ffc107;
+  cursor: pointer;
+}
+.stat-card.success {
+  border-left: 4px solid #28a745;
+}
+.stat-card.info {
+  border-left: 4px solid #0d6efd;
+}
+.stat-card.danger {
+  border-left: 4px solid #dc3545;
+}
 
 .stat-info {
   display: flex;
@@ -46,5 +55,3 @@
   align-items: center;
   justify-content: space-between;
 }
-
-

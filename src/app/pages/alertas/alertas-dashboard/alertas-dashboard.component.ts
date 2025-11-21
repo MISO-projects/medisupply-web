@@ -2,7 +2,10 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
+import {
+  DataTableComponent,
+  TableColumn,
+} from '../../../components/data-table/data-table.component';
 import { AlertasService } from '../../../services/alertas.service';
 import { Alerta, EstadisticasResumen } from '../../../models/alerta.model';
 
@@ -44,7 +47,9 @@ export class AlertasDashboardComponent implements OnInit {
     this.alertasService.getEstadisticas().subscribe({
       next: (stats) => {
         // Normalizar con valores por defecto por si faltan claves sin repetir propiedades
-        const porSeveridad = { ...(stats?.por_severidad ?? {}) } as EstadisticasResumen['por_severidad'];
+        const porSeveridad = {
+          ...(stats?.por_severidad ?? {}),
+        } as EstadisticasResumen['por_severidad'];
         porSeveridad.BAJA = porSeveridad.BAJA ?? 0;
         porSeveridad.MEDIA = porSeveridad.MEDIA ?? 0;
         porSeveridad.ALTA = porSeveridad.ALTA ?? 0;
@@ -104,5 +109,3 @@ export class AlertasDashboardComponent implements OnInit {
     this.router.navigate(['/alerts', row.id]);
   }
 }
-
-

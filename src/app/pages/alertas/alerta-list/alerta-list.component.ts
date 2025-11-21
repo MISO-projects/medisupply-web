@@ -6,7 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
+import {
+  DataTableComponent,
+  TableColumn,
+} from '../../../components/data-table/data-table.component';
 import { AlertasService } from '../../../services/alertas.service';
 import { Alerta, AlertaFilters, EstadoAlerta, Severidad } from '../../../models/alerta.model';
 
@@ -110,5 +113,3 @@ export class AlertaListComponent implements OnInit {
     }
   }
 }
-
-

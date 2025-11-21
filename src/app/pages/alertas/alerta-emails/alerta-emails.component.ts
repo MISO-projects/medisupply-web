@@ -10,7 +10,14 @@ import { EmailData, EmailDestinatario, Severidad } from '../../../models/alerta.
 
 @Component({
   selector: 'app-alerta-emails',
-  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule, MatInputModule, MatSelectModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   templateUrl: './alerta-emails.component.html',
   styleUrls: ['./alerta-emails.component.css'],
 })
@@ -62,7 +69,9 @@ export class AlertaEmailsComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.error.set(err?.status === 409 ? 'Este email ya está registrado' : 'No se pudo registrar el email');
+        this.error.set(
+          err?.status === 409 ? 'Este email ya está registrado' : 'No se pudo registrar el email',
+        );
         this.isLoading.set(false);
       },
     });
@@ -89,9 +98,3 @@ export class AlertaEmailsComponent implements OnInit {
     });
   }
 }
-
-
-
-
-
-
