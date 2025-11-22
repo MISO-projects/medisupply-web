@@ -9,11 +9,7 @@ describe('SalesReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        SalesReportComponent,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-      ],
+      imports: [SalesReportComponent, HttpClientTestingModule, NoopAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SalesReportComponent);
