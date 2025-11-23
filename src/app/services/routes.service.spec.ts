@@ -142,7 +142,6 @@ describe('RouteService', () => {
         {
           id: 1,
           ruta_id: 1,
-          cliente_id: 'cliente-1',
           direccion: 'Calle 123',
           contacto: 'Juan',
           latitud: 4.6097,
